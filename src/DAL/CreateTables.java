@@ -19,7 +19,7 @@ public class CreateTables {
     }
 
     private static void createTable(Connection conn){
-        createTracksTable(conn);
+        createTrucksTable(conn);
         createDriversTable(conn);
         createLicensesTable(conn);
         createDeliveriesTable(conn);
@@ -27,10 +27,9 @@ public class CreateTables {
         createDeliveryDestinationsTable(conn);
         createLicensesForDriversTable(conn);
     }
-    private static void createTracksTable(Connection conn) {
+    private static void createTrucksTable(Connection conn) {
         try (Statement stmt = conn.createStatement();) {
-            //create tracks
-            String sql = "CREATE TABLE Tracks " +
+            String sql = "CREATE TABLE Trucks " +
                     "(ID VARCHAR(9) PRIMARY KEY NOT NULL," +
                     " MODEL           TEXT    NOT NULL, " +
                     " COLOR           TEXT    NOT NULL, " +
@@ -63,8 +62,8 @@ public class CreateTables {
 
             String sql = "CREATE TABLE Licenses " +
                     "(LICENSE_TYPE VARCHAR (9) NOT NULL," +
-                    " TRACK_MODEL  TEXT, FOREIGN KEY(TRACK_MODEL) REFERENCES Tracks(MODEL)" +
-                    "PRIMARY KEY (LICENSE_TYPE, TRACK_MODEL))";
+                    " TRUCK_MODEL  TEXT, FOREIGN KEY(TRUCK_MODEL) REFERENCES Trucks(MODEL)" +
+                    "PRIMARY KEY (LICENSE_TYPE, TRUCK_MODEL))";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,7 +89,7 @@ public class CreateTables {
         try (Statement stmt = conn.createStatement();) {
 
             String sql = "CREATE TABLE Places " +
-                    "(PLACE_ID INTEGER PRIMARY KEY NOT NULL," +
+                    "(PLACE_ID VARCHAR (9) PRIMARY KEY NOT NULL," +
                     "ADDRESS TEXT NOT NULL ," +
                     "PHONE_NUMBER TEXT, " +
                     "CONTACT_NAME TEXT)";
@@ -104,14 +103,13 @@ public class CreateTables {
         try (Statement stmt = conn.createStatement();) {
 
             String sql = "CREATE TABLE Deliveries " +
-                    "(DELIVERY_ID INTEGER PRIMARY KEY NOT NULL," +
-                    "DATE DATETIME NOT NULL, " +
-                    "LEAVING_HOUR TEXT NOT NULL ," +
+                    "(DELIVERY_ID VARCHAR (9) PRIMARY KEY NOT NULL," +
+                    "LEAVING_DATE DATETIME NOT NULL, " +
                     "ORDER_NUMBER VARCHAR (9) NOT NULL, " +
-                    "TRACK_ID VARCHAR (9), " +
+                    "TRUCK_ID VARCHAR (9), " +
                     "DRIVER_ID VARCHAR (9), " +
                     "SOURCE_ID VARCHAR(9) ,"+
-                    "FOREIGN KEY(TRACK_ID) REFERENCES Tracks(ID),"+
+                    "FOREIGN KEY(TRUCK_ID) REFERENCES Trucks(ID),"+
                     "FOREIGN KEY(DRIVER_ID) REFERENCES Drivers(ID),"+
                     "FOREIGN KEY(SOURCE_ID) REFERENCES Places(PLACE_ID))";
             stmt.executeUpdate(sql);
