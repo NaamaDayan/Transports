@@ -75,8 +75,10 @@ public class Main {
         try (Statement stmt = conn.createStatement();) {
 
             String sql = "CREATE TABLE LicensesForDrivers " +
-                    "(DRIVER_ID VARCHAR (9), FOREIGN KEY(DRIVER_ID) REFERENCES Drivers(ID)," +
-                    "LICENSE_TYPE VARCHAR (9),  FOREIGN KEY (LICENSE_TYPE) REFERENCES Licenses(LICENSE_TYPE)," +
+                    "(DRIVER_ID VARCHAR (9)," +
+                    "LICENSE_TYPE VARCHAR (9), "+
+                    "FOREIGN KEY (LICENSE_TYPE) REFERENCES Licenses(LICENSE_TYPE)," +
+                    "FOREIGN KEY(DRIVER_ID) REFERENCES Drivers(ID),"+
                     "PRIMARY KEY (LICENSE_TYPE, DRIVER_ID))";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
@@ -106,9 +108,12 @@ public class Main {
                     "DATE TEXT NOT NULL, " +
                     "LEAVING_HOUR TEXT NOT NULL ," +
                     "ORDER_NUMBER VARCHAR (9) NOT NULL, " +
-                    "TRACK_ID VARCHAR (9), FOREIGN KEY(TRACK_ID) REFERENCES Tracks(ID)," +
-                    "DRIVER_ID VARCHAR (9), FOREIGN KEY(DRIVER_ID) REFERENCES Drivers(ID)," +
-                    "SOURCE_ID VARCHAR(9) ,FOREIGN KEY(SOURCE_ID) REFERENCES Places(PLACE_ID))";
+                    "TRACK_ID VARCHAR (9), " +
+                    "DRIVER_ID VARCHAR (9), " +
+                    "SOURCE_ID VARCHAR(9) ,"+
+                    "FOREIGN KEY(TRACK_ID) REFERENCES Tracks(ID),"+
+                    "FOREIGN KEY(DRIVER_ID) REFERENCES Drivers(ID),"+
+                    "FOREIGN KEY(SOURCE_ID) REFERENCES Places(PLACE_ID))";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -120,9 +125,11 @@ public class Main {
     private static void createDeliveryDestinationsTable(Connection conn) {
         try (Statement stmt = conn.createStatement();) {
             String sql = "CREATE TABLE DeliveryDestinations " +
-                    "(DELIVERY_ID INTEGER, FOREIGN KEY(DELIVERY_ID) REFERENCES Deliveries(DELIVERY_ID)," +
-                    "PLACE_ID INTEGER, FOREIGN KEY(PLACE_ID) REFERENCES Places(PLACE_ID)," +
-                    "PRIMARY  KEY(DELIVERY_ID, PLACE_ID)";
+                    "(DELIVERY_ID INTEGER, " +
+                    "PLACE_ID INTEGER,"+
+                    "FOREIGN KEY(PLACE_ID) REFERENCES Places(PLACE_ID)," +
+                    "FOREIGN KEY(DELIVERY_ID) REFERENCES Deliveries(DELIVERY_ID),"+
+                    "PRIMARY  KEY(DELIVERY_ID, PLACE_ID))";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
