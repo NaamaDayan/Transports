@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class CreateTables {
 
-    public static void main(String args[]) {
+    public static void initDB() {
         File file = new File ("transports.db");
         try {
             Class.forName("org.sqlite.JDBC");
