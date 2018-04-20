@@ -1,26 +1,23 @@
 package DAL;
-import DAL.CreateTables;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.*;
+import java.sql.PreparedStatement;
 
-import java.sql.SQLException;
-import java.sql.Statement;
+public class Deliveries{
 
-public class Tracks {
-
-
-    public static void insertTrack(String id, String model, String color, int netoWeight, int maxWeight){
+    public static void insertDeivery(String id, java.sql.Date date, String orderId, String truckId, String driverId, String sourceId){
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
             Class.forName("org.sqlite.JDBC");
-            String query = "INSERT INTO Tracks VALUES (?, ?, ? ,?,?)  ";
+            String query = "INSERT INTO Deliveries VALUES (?,?,?,?,?,?)  ";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, id);
-            stmt.setString(2, model);
-            stmt.setString(3, color);
-            stmt.setInt(4, netoWeight);
-            stmt.setInt(5, maxWeight);
+            stmt.setDate(2, date);
+            stmt.setString(3, orderId);
+            stmt.setString(4, truckId);
+            stmt.setString(5, driverId);
+            stmt.setString(6, sourceId);
             stmt.executeUpdate();
             conn.close();
         } catch (Exception e) {
@@ -29,11 +26,10 @@ public class Tracks {
         }
     }
 
-
-    public static void removeTrack(String id){
+    public static void removeDelivery(String id){
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
             Class.forName("org.sqlite.JDBC");
-            String query = "DELETE FROM Tracks WHERE ID = (?)";
+            String query = "DELETE FROM Deliveries WHERE ID = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, id);
             stmt.executeUpdate();
@@ -44,13 +40,28 @@ public class Tracks {
         }
     }
 
-    public static void updateModelTrack(String id, String model){
+    public static void updateTruckIdDelivery(String deliveryId, String field){
+        updateStringFieldDelivery(deliveryId, field, "TRUCK_ID");
+    }
+    public static void updateDriverIdDelivery(String deliveryId, String field){
+        updateStringFieldDelivery(deliveryId, field, "DRIVER_ID");
+    }
+    public static void updateOrderNumberDelivery(String deliveryId, String field){
+        updateStringFieldDelivery(deliveryId, field, "ORDER_NUMBER");
+    }
+    public static void updateSourceIdDelivery(String deliveryId, String field){
+        updateStringFieldDelivery(deliveryId, field, "SOURCE_ID");
+    }
+
+
+    private static void updateStringFieldDelivery(String id, String field, String colomn){
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
             Class.forName("org.sqlite.JDBC");
-            String query = "UPDATE Tracks SET MODEL = ? WHERE ID = ?  ";
+            String query = "UPDATE Deliveries SET ? = ? WHERE ID = ?  ";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, model);
-            stmt.setString(1, id);
+            stmt.setString(1, colomn);
+            stmt.setString(2, field);
+            stmt.setString(3, id);
             stmt.executeUpdate();
             conn.close();
         } catch (Exception e) {
@@ -59,13 +70,13 @@ public class Tracks {
         }
     }
 
-    public static void updateColorTrack(String id, String color){
+    private static void updateDateDelivery(String id,  java.sql.Date date){
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
             Class.forName("org.sqlite.JDBC");
-            String query = "UPDATE Tracks SET COLOR = ? WHERE ID = ?  ";
+            String query = "UPDATE Deliveries SET LEAVING_DATE = ? WHERE ID = ?  ";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, color);
-            stmt.setString(1, id);
+            stmt.setDate(1, date);
+            stmt.setString(2, id);
             stmt.executeUpdate();
             conn.close();
         } catch (Exception e) {
@@ -73,7 +84,6 @@ public class Tracks {
             System.exit(0);
         }
     }
-
 
 
 
