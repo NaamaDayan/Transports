@@ -105,6 +105,7 @@ public class CreateTables {
             String sql = "CREATE TABLE Deliveries " +
                     "(DELIVERY_ID VARCHAR (9) PRIMARY KEY NOT NULL," +
                     "LEAVING_DATE DATETIME NOT NULL, " +
+                    "LEAVING_HOUR DATETIME NOT NULL, " +
                     "ORDER_NUMBER VARCHAR (9) NOT NULL, " +
                     "TRUCK_ID VARCHAR (9), " +
                     "DRIVER_ID VARCHAR (9), " +
