@@ -1,18 +1,21 @@
 package DAL;
+import java.io.File;
 import java.sql.*;
 
 public class CreateTables {
 
     public static void main(String args[]) {
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
+        File file = new File ("transports.db");
+        try {
             Class.forName("org.sqlite.JDBC");
-            createTable(conn);
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
+            if (!file.exists())
+                createTable(conn);
             conn.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-
     }
 
     private static void createTable(Connection conn){
