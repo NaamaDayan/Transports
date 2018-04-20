@@ -1,15 +1,12 @@
 package DAL;
-import java.util.Scanner;
 import java.sql.*;
 
-public class Main {
-    static Scanner reader = new Scanner(System.in);
+public class CreateTables {
 
     public static void main(String args[]) {
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
             Class.forName("org.sqlite.JDBC");
             createTable(conn);
-
             conn.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
