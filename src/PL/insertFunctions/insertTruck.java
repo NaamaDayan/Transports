@@ -1,6 +1,6 @@
-package DAL.insertFunctions;
+package PL.insertFunctions;
 
-import DAL.Functor;
+import PL.Functor;
 
 public class insertTruck extends Functor {
     @Override
