@@ -19,7 +19,8 @@ public class InsertTruck extends Functor {
         int netoWeight = reader.nextInt();
         System.out.println("enter truck max weight");
         int maxWeight = reader.nextInt();
-        Truck.insertTruck(truckId, truckModel, truckColor, netoWeight, maxWeight);
+        Truck truck = new Truck(truckId, truckModel, truckColor, netoWeight, maxWeight);
+        truck.insertTruck();
         System.out.println("Success!!!!");
     }
 }

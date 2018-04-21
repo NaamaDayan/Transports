@@ -20,7 +20,8 @@ public class InsertDriver extends Functor{
         String lastName = reader.next();
         System.out.println("enter phone number");
         String phoneNumber = reader.next();
-        Driver.insertDriver(driverId, firstName, lastName, phoneNumber);
+        Driver driver = new Driver(driverId, firstName, lastName, phoneNumber);
+        driver.insertDriver();
         System.out.println("Success!!!!");
     }
 }
