@@ -21,5 +21,6 @@ public class retrieveLicenseForDriver extends Functor{
         System.out.println("licenses for driver "+id+" :");
         for (String license: licensesTypes)
             System.out.println(license);
+        System.out.println("Success!!!!");
     }
 }

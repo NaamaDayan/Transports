@@ -15,6 +15,6 @@ public class retrieveDelivery extends Functor {
         String id = reader.next();
         Delivery delivery = DeliveryFunctions.retrieveDelivery(id);
         System.out.println(delivery.toString());
-
+        System.out.println("Success!!!!");
     }
 }

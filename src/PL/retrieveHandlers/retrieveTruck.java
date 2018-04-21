@@ -1,9 +1,9 @@
 package PL.retrieveHandlers;
 
-
 import BL.Entities.Truck;
 import BL.EntitiyFunctions.TruckFunctions;
 import PL.Functor;
+
 import java.util.Scanner;
 
 public class retrieveTruck extends Functor {
@@ -15,7 +15,6 @@ public class retrieveTruck extends Functor {
         String id = reader.next();
         Truck truck = TruckFunctions.retrieveTruck(id);
         System.out.println(truck.toString());
-
+        System.out.println("Success!!!!");
     }
 }
-

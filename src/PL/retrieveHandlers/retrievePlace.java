@@ -16,5 +16,6 @@ public class retrievePlace extends Functor {
         String id = reader.next();
         Place place = PlaceFunctions.retrievePlace(id);
         System.out.println(place.toString());
+        System.out.println("Success!!!!");
     }
 }

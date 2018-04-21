@@ -1,8 +1,6 @@
 package PL.retrieveHandlers;
 
 import BL.Entities.Driver;
-
-import BL.Entities.Driver;
 import BL.EntitiyFunctions.DriverFunctions;
 import PL.Functor;
 
@@ -17,5 +15,6 @@ public class retrieveDriver extends Functor {
         String id = reader.next();
         Driver driver = DriverFunctions.retrieveDriver(id);
         System.out.println(driver.toString());
+        System.out.println("Success!!!!");
     }
 }

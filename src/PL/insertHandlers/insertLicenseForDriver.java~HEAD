@@ -20,6 +20,5 @@ public class insertLicenseForDriver extends Functor {
         String licenseType = reader.next();
         DriverLicense driverLicense = new DriverLicense(driverId, licenseType);
         DriverLicenseFunctions.insertDriverLicense(driverLicense);
-        System.out.println("Success!!!!");
     }
 }
