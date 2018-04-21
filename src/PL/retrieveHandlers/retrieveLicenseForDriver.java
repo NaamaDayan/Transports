@@ -1,7 +1,5 @@
 package PL.retrieveHandlers;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 import BL.EntitiyFunctions.DriverLicenseFunctions;
 import PL.Functor;
 
@@ -23,18 +21,5 @@ public class retrieveLicenseForDriver extends Functor{
         System.out.println("licenses for driver "+id+" :");
         for (String license: licensesTypes)
             System.out.println(license);
-=======
-=======
->>>>>>> master
-import PL.Functor;
-
-public class retrieveLicenseForDriver extends Functor {
-    @Override
-    public void execute() {
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> master
-        System.out.println("Success!!!!");
     }
 }

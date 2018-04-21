@@ -1,8 +1,4 @@
 package PL.insertHandlers;
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-
 import BL.EntitiyFunctions.LicenseTypeForTruckFunctions;
 import PL.Functor;
 import BL.Entities.LicenseTypeForTruck;
@@ -22,18 +18,6 @@ public class insertLicense extends Functor
         String truckModel = reader.next();
         LicenseTypeForTruck license = new LicenseTypeForTruck(licenseType, truckModel);
         LicenseTypeForTruckFunctions.insertLicense(license);
-=======
-=======
->>>>>>> master
-import PL.Functor;
 
-public class insertLicense extends Functor {
-    @Override
-    public void execute() {
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> master
-        System.out.println("Success!!!!");
     }
 }
