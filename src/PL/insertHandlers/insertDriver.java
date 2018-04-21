@@ -1,4 +1,4 @@
-package PL.insertFunctions;
+package PL.insertHandlers;
 
 
 import BL.Truck;
@@ -7,7 +7,7 @@ import PL.Functor;
 import java.util.Scanner;
 import BL.Driver;
 
-public class InsertDriver extends Functor{
+public class insertDriver extends Functor{
     static Scanner reader = new Scanner(System.in);
 
     @Override

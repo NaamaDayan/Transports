@@ -1,4 +1,4 @@
-package PL.insertFunctions;
+package PL.insertHandlers;
 
 
 import PL.Functor;
@@ -8,7 +8,7 @@ import java.text.ParsePosition;
 import java.util.Scanner;
 import BL.Delivery;
 
-public class InsertDelivery extends Functor{
+public class insertDelivery extends Functor{
 
     static Scanner reader = new Scanner(System.in);
     private static SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");

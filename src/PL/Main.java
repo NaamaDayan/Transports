@@ -1,14 +1,17 @@
 package PL;
 import DAL.CreateTables;
+import PL.mainMenuHandlers.insertChoice;
 
 import java.util.Scanner;
 
 public class Main {
     static Scanner reader = new Scanner(System.in);
 
-    //enums for functions
-    enum insertFunctions {
-        insertTruck
+    //---enum with handlers names
+    enum mainMenuFunctions {
+        insertChoice,
+        updateChoice,
+        retrieveChoice
     }
 
     public static void main(String[] args) {
@@ -21,35 +24,15 @@ public class Main {
         System.out.println("Enter:\n 1 for insert data\n 2 for update data\n 3 for retrieve data\n 4 for exit");
         int choice = reader.nextInt();
         boolean cont = true;
+        Functor choiceFuncs[] = fillChoiceFunctions();
         while (cont) {
-            switch(choice) {
-                case 1: {
-                    Functor insertFuncs[] = fillInsertFunctions();
-                    System.out.println("Enter:\n 1 to insert Truck\n 2 to driver data\n 3 to insert license\n 4 to insert delivery \n 5 to insert destination\n 6 to insert license for driver\n 7 for main menu");
-                    int insertChoice = reader.nextInt();
-                    while (insertChoice < 1 || insertChoice > 7) {
-                        System.out.println("Enter a number in range 1-7 please:");
-                        insertChoice = reader.nextInt();
-                    }
-                    if (insertChoice == 7)
-                        break;
-                    insertFuncs[insertChoice-1].execute();
-                    break;
-                }
-                case 2:
-
-                    break;
-                case 3:
-
-                    break;
-                case 4:
-                    System.out.println("Bye!");
-                    cont = false;
-                    break;
-                default:
-                    System.out.println("illegal command");
-                    break;
+            choice = rangeCheck(1, 4, choice); //after this the choice is legal
+            if (choice == 4) {
+                System.out.println("Bye!");
+                cont = false;
+                break;
             }
+            choiceFuncs[choice - 1].execute();
             if (cont) {
                 System.out.println("Enter:\n 1 for insert data\n 2 for update data\n 3 for retrieve data\n 4 for exit");
                 choice = reader.nextInt();
@@ -57,12 +40,13 @@ public class Main {
         }
     }
 
-    private static Functor[] fillInsertFunctions() {
-        Functor[] funcsArr = new Functor[insertFunctions.values().length]; //number of items in the enum
+    //returns array of main menu Handlers
+    private static Functor[] fillChoiceFunctions() {
+        Functor[] funcsArr = new Functor[mainMenuFunctions.values().length]; //number of items in the enum
         Class funcClass;
         try {
             for (int i = 0; i < funcsArr.length; i++) {
-                funcClass = Class.forName("PL.insertFunctions."+insertFunctions.values()[i].name()); //gets the name of the function
+                funcClass = Class.forName("PL.mainMenuHandlers."+ mainMenuFunctions.values()[i].name()); //gets the name of the function
                 funcsArr[i] = (Functor)funcClass.newInstance(); //creates instance
             }
         }
@@ -75,4 +59,13 @@ public class Main {
         }
         return funcsArr;
     }
+
+    public static int rangeCheck(int lowerBound, int upperBound, int input) {
+        while (input < lowerBound || input > upperBound) {
+            System.out.println("Enter a number in range " + lowerBound + "-" + upperBound +" please:");
+            input = reader.nextInt();
+        }
+        return input;
+    }
+
 }

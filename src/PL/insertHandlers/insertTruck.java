@@ -1,10 +1,10 @@
-package PL.insertFunctions;
+package PL.insertHandlers;
 
 import PL.Functor;
 
 import java.util.Scanner;
 import BL.Truck;
-public class InsertTruck extends Functor {
+public class insertTruck extends Functor {
     static Scanner reader = new Scanner(System.in);
 
     @Override
