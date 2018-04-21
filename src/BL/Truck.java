@@ -19,7 +19,8 @@ public class Truck {
     }
 
     public void insertTruck() {
-    Trucks.insertTruck(id, model,color, netoWeight, maxWeight );
-}
+        Trucks.insertTruck(id, model, color, netoWeight, maxWeight);
+    }
+
 
 }
