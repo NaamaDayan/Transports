@@ -34,7 +34,8 @@ public class InsertDelivery extends Functor{
         System.out.println("enter place id");
         //TODO:: think maybe enter a place *name* and then look for it's identifier in the data base
         String placeId = reader.next();
-        Delivery.insertDelivery(deliveryId, leavingDate, leavingHour, truckId, driverId, orderId, placeId);
+        Delivery delivery = new Delivery(deliveryId, leavingDate, leavingHour, truckId, driverId, orderId, placeId);
+        delivery.insertDelivery();
         System.out.println("Success!!!!");
     }
 
