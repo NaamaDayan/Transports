@@ -8,17 +8,16 @@ public class CreateTables {
         File file = new File ("transports.db");
         try {
             Class.forName("org.sqlite.JDBC");
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
             if (!file.exists())
-                createTable(conn);
-            conn.close();
+                createTable();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
     }
 
-    private static void createTable(Connection conn){
+    private static void createTable() throws SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
         createTrucksTable(conn);
         createDriversTable(conn);
         createLicensesTable(conn);
@@ -26,17 +25,18 @@ public class CreateTables {
         createPlacesTable(conn);
         createDeliveryDestinationsTable(conn);
         createLicensesForDriversTable(conn);
+        conn.close();
     }
+
     private static void createTrucksTable(Connection conn) {
         try (Statement stmt = conn.createStatement();) {
             String sql = "CREATE TABLE Trucks " +
                     "(ID VARCHAR(9) PRIMARY KEY NOT NULL," +
                     " MODEL           TEXT    NOT NULL, " +
                     " COLOR           TEXT    NOT NULL, " +
-                    " NETO_WEIGHT         INT, " +
+                    "NETO_WEIGHT         INT, " +
                     "MAX_WEIGHT         INT)";
             stmt.executeUpdate(sql);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,7 +107,7 @@ public class CreateTables {
                     "LEAVING_DATE DATETIME NOT NULL, " +
                     "LEAVING_HOUR DATETIME NOT NULL, " +
                     "ORDER_NUMBER VARCHAR (9) NOT NULL, " +
-                    "TRUCK_ID VARCHAR (9), " +
+                    "TRUCK_ID VARCAR (9), " +
                     "DRIVER_ID VARCHAR (9), " +
                     "SOURCE_ID VARCHAR(9) ,"+
                     "FOREIGN KEY(TRUCK_ID) REFERENCES Trucks(ID),"+
@@ -124,8 +124,8 @@ public class CreateTables {
     private static void createDeliveryDestinationsTable(Connection conn) {
         try (Statement stmt = conn.createStatement();) {
             String sql = "CREATE TABLE DeliveryDestinations " +
-                    "(DELIVERY_ID INTEGER, " +
-                    "PLACE_ID INTEGER,"+
+                    "(DELIVERY_ID VARCHAR (9), " +
+                    "PLACE_ID VARCHAR (9),"+
                     "FOREIGN KEY(PLACE_ID) REFERENCES Places(PLACE_ID)," +
                     "FOREIGN KEY(DELIVERY_ID) REFERENCES Deliveries(DELIVERY_ID),"+
                     "PRIMARY  KEY(DELIVERY_ID, PLACE_ID))";

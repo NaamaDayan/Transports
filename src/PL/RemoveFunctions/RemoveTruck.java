@@ -1,6 +1,6 @@
 package PL.RemoveFunctions;
 import PL.Functor;
-import BL.Truck;
+
 import java.util.Scanner;
 
 /**

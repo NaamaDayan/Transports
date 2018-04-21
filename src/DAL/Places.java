@@ -1,9 +1,12 @@
 package DAL;
 
 
+import BL.Entities.Place;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Places {
 
@@ -36,6 +39,26 @@ public class Places {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
+    }
+
+    public static Place retrievePlace(String id) {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
+            Class.forName("org.sqlite.JDBC");
+            String query = "SELECT * FROM Places WHERE PLACE_ID= (?)";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, id);
+            ResultSet rs = stmt.executeQuery();
+            String address = rs.getString("ADDRESS");
+            String phoneNumber = rs.getString("PHONE_NUMBER");
+            String contactName = rs.getString("CONTACT_NAME");
+            Place place = new Place(id, address, phoneNumber, contactName);
+            conn.close();
+            return place;
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return null;
     }
 
     public static void updateAdressPlace(String placeId, String address){
