@@ -14,24 +14,6 @@ public class Main {
         retrieveChoice
     }
 
-    enum updateFunctions {
-        updateTruck,
-        updateDriver,
-        updateLicense,
-        updateDelivery,
-        updatePlace,
-    }
-
-    enum retrieveFunctions {
-        retrieveTruck,
-        retrieveDriver,
-        retrieveLicense,
-        retrieveDelivery,
-        retrievePlace,
-        retrieveLicenseForDriver
-    }
-    //---END enums with handlers names
-
     public static void main(String[] args) {
         CreateTables.initDB();
         programFlow();
