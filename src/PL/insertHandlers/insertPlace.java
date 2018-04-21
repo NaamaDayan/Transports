@@ -1,6 +1,7 @@
 package PL.insertHandlers;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 import BL.Entities.Place;
 import BL.EntitiyFunctions.PlaceFunctions;
@@ -24,11 +25,16 @@ public class insertPlace extends Functor {
         Place place = new Place(placeId, address, phoneNumber, contactName);
         PlaceFunctions.insertPlace(place);
 =======
+=======
+>>>>>>> master
 import PL.Functor;
 
 public class insertPlace extends Functor {
     @Override
     public void execute() {
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
         System.out.println("Success!!!!");
     }

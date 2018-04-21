@@ -1,6 +1,7 @@
 package PL.retrieveHandlers;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import BL.Entities.Driver;
 import BL.EntitiyFunctions.DriverFunctions;
 import PL.Functor;
@@ -17,11 +18,16 @@ public class retrieveDriver extends Functor {
         Driver driver = DriverFunctions.retrieveDriver(id);
         System.out.println(driver.toString());
 =======
+=======
+>>>>>>> master
 import PL.Functor;
 
 public class retrieveDriver extends Functor {
     @Override
     public void execute() {
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
         System.out.println("Success!!!!");
     }

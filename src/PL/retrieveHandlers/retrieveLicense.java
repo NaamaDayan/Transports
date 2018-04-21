@@ -1,6 +1,7 @@
 package PL.retrieveHandlers;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import BL.EntitiyFunctions.LicenseTypeForTruckFunctions;
 import PL.Functor;
 
@@ -26,6 +27,8 @@ public class retrieveLicense extends Functor{
 
 
 =======
+=======
+>>>>>>> master
 import PL.Functor;
 
 public class retrieveLicense extends Functor {
@@ -33,5 +36,8 @@ public class retrieveLicense extends Functor {
     public void execute() {
         System.out.println("Success!!!!");
     }
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 }

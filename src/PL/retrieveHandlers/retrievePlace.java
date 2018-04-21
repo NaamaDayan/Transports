@@ -1,6 +1,7 @@
 package PL.retrieveHandlers;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import BL.Entities.Place;
 import BL.EntitiyFunctions.PlaceFunctions;
 import PL.Functor;
@@ -18,11 +19,16 @@ public class retrievePlace extends Functor {
         Place place = PlaceFunctions.retrievePlace(id);
         System.out.println(place.toString());
 =======
+=======
+>>>>>>> master
 import PL.Functor;
 
 public class retrievePlace extends Functor {
     @Override
     public void execute() {
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
         System.out.println("Success!!!!");
     }

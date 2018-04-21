@@ -1,6 +1,7 @@
 package PL.insertHandlers;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import BL.EntitiyFunctions.DriverLicenseFunctions;
 import PL.Functor;
 import BL.Entities.DriverLicense;
@@ -22,11 +23,16 @@ public class insertLicenseForDriver extends Functor {
         DriverLicense driverLicense = new DriverLicense(driverId, licenseType);
         DriverLicenseFunctions.insertDriverLicense(driverLicense);
 =======
+=======
+>>>>>>> master
 import PL.Functor;
 
 public class insertLicenseForDriver extends Functor {
     @Override
     public void execute() {
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
         System.out.println("Success!!!!");
     }

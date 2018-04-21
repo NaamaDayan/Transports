@@ -4,7 +4,10 @@ import PL.Functor;
 import PL.Main;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.text.ParseException;
+=======
+>>>>>>> master
 =======
 >>>>>>> master
 import java.util.Scanner;
@@ -22,7 +25,11 @@ public class updateChoice extends Functor {
 
     @Override
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void execute() throws ParseException {
+=======
+    public void execute() {
+>>>>>>> master
 =======
     public void execute() {
 >>>>>>> master
