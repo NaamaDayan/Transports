@@ -50,10 +50,8 @@ public class LicenseForTruck {
             stmt.setString(1, truckModel);
             ResultSet rs = stmt.executeQuery();
             List<String> licenses = new LinkedList<>();
-            do{
+            while (rs.next())
                 licenses.add(rs.getString("LICENSE_TYPE"));
-            }
-            while (rs.next());
             conn.close();
             return licenses;
         } catch (Exception e) {

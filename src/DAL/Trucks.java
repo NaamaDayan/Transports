@@ -50,7 +50,7 @@ public class Trucks {
             String model = rs.getString("MODEL");
             String color = rs.getString("COLOR");
             int netoWeight = rs.getInt("NETO_WEIGHT");
-            int maxWeight = rs.getInt("MAX");
+            int maxWeight = rs.getInt("MAX_WEIGHT");
             Truck truck = new Truck(id, model, color, netoWeight, maxWeight);
             conn.close();
             return truck;

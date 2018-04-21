@@ -1,12 +1,13 @@
-package PL.insertFunctions;
+package PL.insertHandlers;
 
 
+import BL.EntitiyFunctions.DriverFunctions;
 import PL.Functor;
 
 import java.util.Scanner;
 import BL.Entities.Driver;
 
-public class InsertDriver extends Functor{
+public class insertDriver extends Functor{
     static Scanner reader = new Scanner(System.in);
 
     @Override
@@ -20,7 +21,7 @@ public class InsertDriver extends Functor{
         System.out.println("enter phone number");
         String phoneNumber = reader.next();
         Driver driver = new Driver(driverId, firstName, lastName, phoneNumber);
-        driver.insertDriver();
+        DriverFunctions.insertDriver(driver);
         System.out.println("Success!!!!");
     }
 }

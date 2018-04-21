@@ -1,11 +1,12 @@
-package PL.insertFunctions;
+package PL.insertHandlers;
 
 
+import BL.EntitiyFunctions.LicenseTypeForTruckFunctions;
 import PL.Functor;
 import BL.Entities.LicenseTypeForTruck;
 import java.util.Scanner;
 
-public class InsertLicense extends Functor
+public class insertLicense extends Functor
 {
 
 
@@ -18,7 +19,7 @@ public class InsertLicense extends Functor
         System.out.println("enter truck model");
         String truckModel = reader.next();
         LicenseTypeForTruck license = new LicenseTypeForTruck(licenseType, truckModel);
-        license.insertLicense();
+        LicenseTypeForTruckFunctions.insertLicense(license);
         System.out.println("Success!!!!");
     }
 }

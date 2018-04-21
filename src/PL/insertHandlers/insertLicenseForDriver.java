@@ -1,5 +1,6 @@
-package PL.insertFunctions;
+package PL.insertHandlers;
 
+import BL.EntitiyFunctions.DriverLicenseFunctions;
 import PL.Functor;
 import BL.Entities.DriverLicense;
 import java.util.Scanner;
@@ -7,7 +8,7 @@ import java.util.Scanner;
 /**
  * Created by Naama on 21/04/2018.
  */
-public class InsertDriverLicense extends Functor {
+public class insertLicenseForDriver extends Functor {
 
     static Scanner reader = new Scanner(System.in);
 
@@ -18,7 +19,7 @@ public class InsertDriverLicense extends Functor {
         System.out.println("enter license type");
         String licenseType = reader.next();
         DriverLicense driverLicense = new DriverLicense(driverId, licenseType);
-        driverLicense.insertDriverLicense();
+        DriverLicenseFunctions.insertDriverLicense(driverLicense);
         System.out.println("Success!!!!");
     }
 }

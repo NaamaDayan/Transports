@@ -2,6 +2,7 @@ package PL;
 import DAL.CreateTables;
 import PL.mainMenuHandlers.insertChoice;
 
+import java.text.ParseException;
 import java.util.Scanner;
 
 public class Main {
@@ -14,12 +15,12 @@ public class Main {
         retrieveChoice
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         CreateTables.initDB();
         programFlow();
     }
 
-    private static void programFlow() {
+    private static void programFlow() throws ParseException {
         System.out.println("Welcome!");
         System.out.println("Enter:\n 1 for insert data\n 2 for update data\n 3 for retrieve data\n 4 for exit");
         int choice = reader.nextInt();

@@ -54,10 +54,8 @@ public class DeliveryDestinations {
             stmt.setString(1, deliveryId);
             ResultSet rs = stmt.executeQuery();
             List<String> destinations = new LinkedList();
-            do{
+            while (rs.next())
                 destinations.add(rs.getString("PLACE_ID"));
-            }
-            while (rs.next());
             conn.close();
             return destinations;
         } catch (Exception e) {

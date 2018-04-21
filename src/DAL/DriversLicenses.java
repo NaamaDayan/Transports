@@ -48,10 +48,8 @@ public class DriversLicenses {
             stmt.setString(1, driverId);
             ResultSet rs = stmt.executeQuery();
             List<String> licenses = new LinkedList<>();
-            do{
+            while(rs.next())
                 licenses.add(rs.getString("LICENSE_TYPE"));
-            }
-            while (rs.next());
             conn.close();
             return licenses;
         } catch (Exception e) {

@@ -1,12 +1,13 @@
-package PL.insertFunctions;
+package PL.insertHandlers;
 
 
 import BL.Entities.Place;
+import BL.EntitiyFunctions.PlaceFunctions;
 import PL.Functor;
 
 import java.util.Scanner;
 
-public class InsertPlace extends Functor {
+public class insertPlace extends Functor {
     static Scanner reader = new Scanner(System.in);
 
     @Override
@@ -20,7 +21,7 @@ public class InsertPlace extends Functor {
         System.out.println("enter place contact name");
         String contactName = reader.next();
         Place place = new Place(placeId, address, phoneNumber, contactName);
-        place.insertPlace();
+        PlaceFunctions.insertPlace(place);
         System.out.println("Success!!!!");
     }
 }
