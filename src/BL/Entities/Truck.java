@@ -1,0 +1,51 @@
+package BL.Entities;
+import DAL.Trucks;
+
+
+public class Truck {
+
+    private String id;
+    private String model;
+    private String color;
+    private int netoWeight;
+    private int maxWeight;
+
+    public Truck(String id, String model, String color, int netoWeight, int maxWeight) {
+        this.id = id;
+        this.model = model;
+        this.color = color;
+        this.netoWeight = netoWeight;
+        this.maxWeight = maxWeight;
+    }
+
+    @Override
+    public String toString() {
+        return "Truck{" +
+                "id ='" + id + '\'' +
+                ", model ='" + model + '\'' +
+                ", color ='" + color + '\'' +
+                ", netoWeight =" + netoWeight +
+                ", maxWeight =" + maxWeight +
+                '}';
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public int getNetoWeight() {
+        return netoWeight;
+    }
+
+    public int getMaxWeight() {
+        return maxWeight;
+    }
+}

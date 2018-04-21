@@ -1,9 +1,11 @@
 package DAL;
 
-import java.rmi.UnexpectedException;
+import BL.Entities.Driver;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Drivers {
 
@@ -36,6 +38,26 @@ public class Drivers {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
+    }
+
+    public static Driver retrieveDriver(String id){
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
+            Class.forName("org.sqlite.JDBC");
+            String query = "SELECT * FROM Drivers WHERE ID = (?)";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, id);
+            ResultSet rs = stmt.executeQuery();
+            String firstName = rs.getString("FIRST_NAME");
+            String lastName = rs.getString("LAST_NAME");
+            String phoneNumber = rs.getString("PHONE_NUMBER");
+            Driver driver = new Driver(id, firstName, lastName, phoneNumber);
+            conn.close();
+            return driver;
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return null;
     }
 
     public static void updateDriverFirstName(String id, String field){

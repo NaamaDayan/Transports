@@ -2,6 +2,7 @@ package DAL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.*;
+import BL.Entities.Truck;
 
 public class Trucks {
 
@@ -37,6 +38,27 @@ public class Trucks {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
+    }
+
+    public static Truck retrieveTruck(String id){
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
+            Class.forName("org.sqlite.JDBC");
+            String query = "SELECT * FROM Trucks WHERE ID = (?)";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, id);
+            ResultSet rs = stmt.executeQuery();
+            String model = rs.getString("MODEL");
+            String color = rs.getString("COLOR");
+            int netoWeight = rs.getInt("NETO_WEIGHT");
+            int maxWeight = rs.getInt("MAX");
+            Truck truck = new Truck(id, model, color, netoWeight, maxWeight);
+            conn.close();
+            return truck;
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return null;
     }
 
     public static void updateModelTruck(String id, String model){

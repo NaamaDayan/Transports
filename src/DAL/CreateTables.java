@@ -124,8 +124,8 @@ public class CreateTables {
     private static void createDeliveryDestinationsTable(Connection conn) {
         try (Statement stmt = conn.createStatement();) {
             String sql = "CREATE TABLE DeliveryDestinations " +
-                    "(DELIVERY_ID INTEGER, " +
-                    "PLACE_ID INTEGER,"+
+                    "(DELIVERY_ID VARCHAR (9), " +
+                    "PLACE_ID VARCHAR (9),"+
                     "FOREIGN KEY(PLACE_ID) REFERENCES Places(PLACE_ID)," +
                     "FOREIGN KEY(DELIVERY_ID) REFERENCES Deliveries(DELIVERY_ID),"+
                     "PRIMARY  KEY(DELIVERY_ID, PLACE_ID))";
