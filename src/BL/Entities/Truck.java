@@ -48,4 +48,20 @@ public class Truck {
     public int getMaxWeight() {
         return maxWeight;
     }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setNetoWeight(int netoWeight) {
+        this.netoWeight = netoWeight;
+    }
+
+    public void setMaxWeight(int maxWeight) {
+        this.maxWeight = maxWeight;
+    }
 }

@@ -21,7 +21,6 @@ public class Trucks {
             conn.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
     }
 
@@ -36,7 +35,6 @@ public class Trucks {
             conn.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
     }
 
@@ -47,63 +45,49 @@ public class Trucks {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, id);
             ResultSet rs = stmt.executeQuery();
-            String model = rs.getString("MODEL");
-            String color = rs.getString("COLOR");
-            int netoWeight = rs.getInt("NETO_WEIGHT");
-            int maxWeight = rs.getInt("MAX_WEIGHT");
-            Truck truck = new Truck(id, model, color, netoWeight, maxWeight);
+            Truck truck = createTruck(rs);
             conn.close();
             return truck;
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
         return null;
     }
 
-    public static void updateModelTruck(String id, String model){
-        updateStringFieldTruck(id, model, "MODEL");
-    }
-    public static void updateColorTruck(String id, String color){
-        updateStringFieldTruck(id, color, "COLOR");
-    }
-    public static void updateNetoWeightTruck(String id, int netoWeight){
-        updateIntFieldTruck(id, netoWeight, "NETO_WEIGHT");
-    }
-    public static void updateMaxWeightTruck(String id, int maxWeight){
-        updateIntFieldTruck(id, maxWeight, "MAX_WEIGHT");
-    }
-
-
-    private static void updateStringFieldTruck(String id, String field, String colomn){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
-            String query = "UPDATE Trucks SET ? = ? WHERE ID = ?  ";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, colomn);
-            stmt.setString(2, field);
-            stmt.setString(3, id);
-            stmt.executeUpdate();
-            conn.close();
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
+    public static void updateTruck(Truck t) throws SQLException, ClassNotFoundException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
+        Class.forName("org.sqlite.JDBC");
+        String query = "UPDATE Truck SET MODEL = ?, COLOR = ?, NETO_WEIGHT = ?, MAX_WEIGHT = ? WHERE ID = ?  ";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, t.getModel());
+        stmt.setString(2, t.getColor());
+        stmt.setInt(3, t.getNetoWeight());
+        stmt.setInt(4, t.getMaxWeight());
+        stmt.setString(5, t.getId());
+        stmt.executeUpdate();
+        conn.close();
     }
 
-    private static void updateIntFieldTruck(String id, int field, String colomn){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
-            String query = "UPDATE Trucks SET ? = ? WHERE ID = ?  ";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, colomn);
-            stmt.setInt(2, field);
-            stmt.setString(3, id);
-            stmt.executeUpdate();
-            conn.close();
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
+    public static Truck isTruckExist(String id) throws SQLException, ClassNotFoundException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
+        Class.forName("org.sqlite.JDBC");
+        String query = "SELECT * FROM Trucks WHERE ID = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, id);
+        ResultSet rs = stmt.executeQuery();
+        Truck t = createTruck(rs);
+        conn.close();
+        return t;
+    }
+
+    public static Truck createTruck(ResultSet rs) throws SQLException {
+        if (!rs.isBeforeFirst()) //not exists
+            return null;
+        String id = rs.getString("ID");
+        String model = rs.getString("MODEL");
+        String color = rs.getString("COLOR");
+        int netoWeight = rs.getInt("NETO_WEIGHT");
+        int maxWeight = rs.getInt("MAX_WEIGHT");
+        return new Truck(id, model, color, netoWeight, maxWeight);
     }
 }

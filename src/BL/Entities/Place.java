@@ -41,6 +41,15 @@ public class Place {
         return contactName;
     }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
 }

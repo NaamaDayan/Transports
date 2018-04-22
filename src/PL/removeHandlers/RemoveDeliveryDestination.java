@@ -2,7 +2,6 @@ package PL.removeHandlers;
 import BL.EntitiyFunctions.DeliveryDestinationFunctions;
 import PL.Functor;
 
-import java.sql.SQLException;
 import java.util.Scanner;
 
 /**

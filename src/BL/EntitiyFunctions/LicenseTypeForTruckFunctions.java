@@ -4,6 +4,7 @@ import BL.Entities.LicenseTypeForTruck;
 import DAL.DriversLicenses;
 import DAL.LicenseForTruck;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -21,5 +22,13 @@ public class LicenseTypeForTruckFunctions {
 
     public static void removeLicense(String id){
         LicenseForTruck.removeLicense(id);
+    }
+
+    public static void updateLicense(LicenseTypeForTruck d) throws SQLException, ClassNotFoundException {
+        LicenseForTruck.updateLicense(d);
+    }
+
+    public static LicenseTypeForTruck isLicenseExist(String id) throws SQLException, ClassNotFoundException {
+        return LicenseForTruck.isLicenseExist(id);
     }
 }
