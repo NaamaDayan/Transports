@@ -10,12 +10,12 @@ public class retrieveChoice extends Functor {
     static Scanner reader = new Scanner(System.in);
 
     enum retrieveFunctions {
-        retrieveTruck,
-        retrieveDriver,
-        retrieveLicense,
-        retrieveDelivery,
-        retrievePlace,
-        retrieveLicenseForDriver
+        RetrieveTruck,
+        RetrieveDriver,
+        RetrieveLicense,
+        RetrieveDelivery,
+        RetrievePlace,
+        RetrieveLicenseForDriver
     }
 
     @Override

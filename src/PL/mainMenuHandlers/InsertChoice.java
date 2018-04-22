@@ -10,12 +10,12 @@ public class insertChoice extends Functor {
     static Scanner reader = new Scanner(System.in);
 
     enum insertFunctions {
-        insertTruck,
-        insertDriver,
-        insertLicense,
-        insertDelivery,
-        insertPlace,
-        insertLicenseForDriver
+        InsertTruck,
+        InsertDriver,
+        InsertLicense,
+        InsertDelivery,
+        InsertPlace,
+        InsertLicenseForDriver
     }
 
     @Override

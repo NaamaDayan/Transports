@@ -10,11 +10,11 @@ public class updateChoice extends Functor {
     static Scanner reader = new Scanner(System.in);
 
     enum updateFunctions {
-        updateTruck,
-        updateDriver,
-        updateLicense,
-        updateDelivery,
-        updatePlace,
+        UpdateTruck,
+        UpdateDriver,
+        UpdateLicense,
+        UpdateDelivery,
+        UpdatePlace,
     }
 
     @Override

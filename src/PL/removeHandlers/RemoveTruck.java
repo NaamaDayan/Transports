@@ -1,4 +1,4 @@
-package PL.RemoveFunctions;
+package PL.RemoveHandler;
 import PL.Functor;
 
 import java.util.Scanner;
