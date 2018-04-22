@@ -3,6 +3,7 @@ package BL.EntitiyFunctions;
 import BL.Entities.*;
 import DAL.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -32,5 +33,9 @@ public class DeliveryFunctions {
 
     public static boolean isDriverSuitableForTruck(Driver driver, Truck truck){
         return Deliveries.DoesDriverHaveLicense(driver.getId(), truck.getModel());
+    }
+
+    public static void updateDelivery(Delivery d) throws SQLException, ClassNotFoundException {
+        Deliveries.updateDelivery(d);
     }
 }

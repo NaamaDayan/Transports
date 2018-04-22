@@ -6,10 +6,7 @@ import BL.Entities.Driver;
 import BL.Entities.Place;
 import BL.Entities.Truck;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -51,6 +48,22 @@ public class Deliveries{
         }
     }
 
+    public static void updateDelivery(Delivery d) throws SQLException, ClassNotFoundException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
+        Class.forName("org.sqlite.JDBC");
+        String query = "UPDATE Delivery SET LEAVING_DATE = ?, LEAVING_TIME = ?, ORDER_NUMBER = ?, TRUCK_ID = ? DRIVER_ID = ?, SOURCE_ID = ? WHERE ID = ?  ";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setDate(1, d.getDate());
+        stmt.setTime(2, d.getHour());
+        stmt.setString(3, d.getOrderId());
+        stmt.setString(4, d.getTruck().getId());
+        stmt.setString(5, d.getDriver().getId());
+        stmt.setString(6, d.getSource().getId());
+        stmt.setString(7, d.getId());
+        stmt.executeUpdate();
+        conn.close();
+    }
+
     public static Delivery retrieveDelivery(String id){
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
             Class.forName("org.sqlite.JDBC");
@@ -81,58 +94,6 @@ public class Deliveries{
         }
         return null;
     }
-
-    public static void updateTruckIdDelivery(String deliveryId, String field){
-        updateStringFieldDelivery(deliveryId, field, "TRUCK_ID");
-    }
-    public static void updateDriverIdDelivery(String deliveryId, String field){
-        updateStringFieldDelivery(deliveryId, field, "DRIVER_ID");
-    }
-    public static void updateOrderNumberDelivery(String deliveryId, String field){
-        updateStringFieldDelivery(deliveryId, field, "ORDER_NUMBER");
-    }
-    public static void updateSourceIdDelivery(String deliveryId, String field){
-        updateStringFieldDelivery(deliveryId, field, "SOURCE_ID");
-    }
-    public static void updateLeavingDateDelivery(String deliveryId, java.sql.Date date){
-        updateDateDelivery(deliveryId, date, "LEAVING_DATE");
-    }
-    public static void updateLeavingHourDelivery(String deliveryId, java.sql.Date hour){
-        updateDateDelivery(deliveryId, hour, "LEAVING_TIME");
-    }
-
-    private static void updateStringFieldDelivery(String id, String field, String colomn){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
-            String query = "UPDATE Deliveries SET ? = ? WHERE ID = ?  ";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, colomn);
-            stmt.setString(2, field);
-            stmt.setString(3, id);
-            stmt.executeUpdate();
-            conn.close();
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
-    }
-
-    private static void updateDateDelivery(String id,  java.sql.Date date, String column){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
-            String query = "UPDATE Deliveries SET ? = ? WHERE ID = ?  ";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, column);
-            stmt.setDate(2, date);
-            stmt.setString(3, id);
-            stmt.executeUpdate();
-            conn.close();
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
-    }
-
 
     public static boolean DoesDriverHaveLicense(String driverId, String truckModel){
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {

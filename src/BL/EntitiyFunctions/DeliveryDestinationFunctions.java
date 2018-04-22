@@ -13,13 +13,12 @@ import java.util.List;
  */
 public class DeliveryDestinationFunctions {
 
-
-
     public static void removeDeliveryDestination(String deliveryId, String destId) throws SQLException, ClassNotFoundException {
         if (DeliveryDestinations.isDestExistInDelivery(deliveryId, destId))
             DeliveryDestinations.removeDeliveryDestination(deliveryId, destId);
         else {
-            //todo: some error
+            System.out.println("error: Delivery Destination doesn't exist");
+            return;
         }
     }
 }
