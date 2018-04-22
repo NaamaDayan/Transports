@@ -58,7 +58,7 @@ public class InsertDelivery extends Functor{
         System.out.println("enter driver id");
         String driverId = reader.next();
         try {
-            if (!DriverFunctions.isExist(truckId)){
+            if (!DriverFunctions.isExist(driverId)){
                 System.out.println("driver does not exist");
                 return;
             }
@@ -66,6 +66,7 @@ public class InsertDelivery extends Functor{
             e.printStackTrace();
         }
         Driver driver = DriverFunctions.retrieveDriver(driverId);
+
         System.out.println("enter order id");
         String orderId = reader.next();
         System.out.println("enter place id");

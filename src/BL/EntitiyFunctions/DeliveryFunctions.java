@@ -1,11 +1,7 @@
 package BL.EntitiyFunctions;
 
-import BL.Entities.Delivery;
-import BL.Entities.Place;
-import DAL.Deliveries;
-import DAL.DeliveryDestinations;
-import DAL.ErrorsHandler;
-import DAL.Trucks;
+import BL.Entities.*;
+import DAL.*;
 
 import java.util.List;
 
@@ -32,5 +28,9 @@ public class DeliveryFunctions {
 
     public static boolean isExist(String id) throws Exception {
         return ErrorsHandler.isDeliveryExist(id);
+    }
+
+    public static boolean isDriverSuitableForTruck(Driver driver, Truck truck){
+        return Deliveries.DoesDriverHaveLicense(driver.getId(), truck.getModel());
     }
 }

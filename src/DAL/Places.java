@@ -41,7 +41,7 @@ public class Places {
     public static Place retrievePlace(String id) {
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
             Class.forName("org.sqlite.JDBC");
-            String query = "SELECT * FROM Places WHERE PLACE_ID= (?)";
+            String query = "SELECT * FROM Places WHERE ID= (?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, id);
             ResultSet rs = stmt.executeQuery();
