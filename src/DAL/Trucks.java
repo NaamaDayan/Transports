@@ -57,7 +57,7 @@ public class Trucks {
     public static void updateTruck(Truck t) throws SQLException, ClassNotFoundException {
         Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
         Class.forName("org.sqlite.JDBC");
-        String query = "UPDATE Truck SET MODEL = ?, COLOR = ?, NETO_WEIGHT = ?, MAX_WEIGHT = ? WHERE ID = ?  ";
+        String query = "UPDATE Trucks SET MODEL = ?, COLOR = ?, NETO_WEIGHT = ?, MAX_WEIGHT = ? WHERE ID = ?  ";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, t.getModel());
         stmt.setString(2, t.getColor());
