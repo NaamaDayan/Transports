@@ -1,13 +1,8 @@
 package PL.insertHandlers;
 
 
-import BL.Entities.Driver;
-import BL.Entities.Place;
-import BL.Entities.Truck;
-import BL.EntitiyFunctions.DeliveryFunctions;
-import BL.EntitiyFunctions.DriverFunctions;
-import BL.EntitiyFunctions.PlaceFunctions;
-import BL.EntitiyFunctions.TruckFunctions;
+import BL.Entities.*;
+import BL.EntitiyFunctions.*;
 import PL.Functor;
 
 import java.text.ParseException;
@@ -15,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
-import BL.Entities.Delivery;
+
 import PL.Utils;
 
 public class InsertDelivery extends Functor{
@@ -76,8 +71,6 @@ public class InsertDelivery extends Functor{
             System.out.println("driver cannot drive this truck!");
             return;
         }
-        System.out.println("enter order id");
-        String orderId = reader.next();
         System.out.println("enter place id");
         String placeId = reader.next();
         try {
@@ -90,35 +83,16 @@ public class InsertDelivery extends Functor{
             return;
         }
         Place place = PlaceFunctions.retrievePlace(placeId);
-        System.out.println("enter destination:");
-        String firstDest = reader.next();
-        boolean isLegalDest = true;
-        List<String> destinations = new LinkedList<>();
-        try {
-            if (!PlaceFunctions.isExist(firstDest)) {
-                System.out.println("error: illegal destination");
-                return;
-            }
-            destinations.add(firstDest);
-            while (Utils.boolQuery("do you want to add destination? y/n")) {
-                String dest = reader.next();
-                if (!PlaceFunctions.isExist(dest)) {
-                    System.out.println("error: illegal destination");
-                    return;
-                } else
-                    destinations.add(dest);
-            }
-        }
-        catch (Exception e) {
-            System.out.println("error: insertion failed");
+        String firstDest = InsertDeliveryDestination.insertDestination(deliveryId); //insert first dest
+        if (firstDest==null)
             return;
+        while (Utils.boolQuery("do you want to add destination? y/n")) {
+            String dest = InsertDeliveryDestination.insertDestination(deliveryId);
         }
-        List<Place> destinationPlaces = new LinkedList<>();
-        for (String dest: destinations){
-            destinationPlaces.add(PlaceFunctions.retrievePlace(dest));
-        }
+        List dests = DeliveryDestinationFunctions.retrieveDeliveryDestination(deliveryId);
+
         //TODO:: think maybe enter a place *name* and then look for it's identifier in the data base
-        Delivery delivery = new Delivery(deliveryId, leavingDate, leavingHour, truck, driver, orderId, place, destinationPlaces);
+        Delivery delivery = new Delivery(deliveryId, leavingDate, leavingHour, truck, driver, place, dests);
         DeliveryFunctions.insertDelivery(delivery);
         System.out.println("Success!!!!");
     }
