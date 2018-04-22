@@ -13,9 +13,9 @@ public class Delivery {
     private String driverId;
     private String orderId;
     private String sourceId;
-    private List<String> destinations;
+    private List<Place> destinations;
 
-    public Delivery(String id, Date date, Time hour, String truckId, String driverId, String orderId, String sourceId, List<String> destinations) {
+    public Delivery(String id, Date date, Time hour, String truckId, String driverId, String orderId, String sourceId, List<Place> destinations) {
         this.id = id;
         this.date = date;
         this.hour = hour;
@@ -29,8 +29,8 @@ public class Delivery {
     @Override
     public String toString() {
         String dests = "{";
-        for (String dest: destinations)
-            dests= dests+ dest+ ", ";
+        for (Place dest: destinations)
+            dests= dests+ dest.toString()+ ", ";
         dests = dests.substring(0, dests.length()-2);
         dests += "}";
         return "Delivery{" +
@@ -73,7 +73,7 @@ public class Delivery {
         return sourceId;
     }
 
-    public List<String> getDestinations() {
+    public List<Place> getDestinations() {
         return destinations;
     }
 }
