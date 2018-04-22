@@ -59,7 +59,7 @@ public class Deliveries{
             stmt.setString(1, id);
             ResultSet rs = stmt.executeQuery();
             java.sql.Date date  = rs.getDate("LEAVING_DATE");
-            java.sql.Time hour = rs.getTime("LEAVING_HOUR");
+            java.sql.Time hour = rs.getTime("LEAVING_TIME");
             String truckId = rs.getString("TRUCK_ID");
             Truck truck = Trucks.retrieveTruck(truckId);
             String orderId = rs.getString("ORDER_NUMBER");
@@ -98,7 +98,7 @@ public class Deliveries{
         updateDateDelivery(deliveryId, date, "LEAVING_DATE");
     }
     public static void updateLeavingHourDelivery(String deliveryId, java.sql.Date hour){
-        updateDateDelivery(deliveryId, hour, "LEAVING_HOUR");
+        updateDateDelivery(deliveryId, hour, "LEAVING_TIME");
     }
 
     private static void updateStringFieldDelivery(String id, String field, String colomn){

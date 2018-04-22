@@ -1,10 +1,124 @@
 package PL.updateHandlers;
 
+import BL.Entities.Delivery;
+import BL.EntitiyFunctions.DeliveryFunctions;
+import BL.EntitiyFunctions.DriverFunctions;
+import BL.EntitiyFunctions.PlaceFunctions;
+import BL.EntitiyFunctions.TruckFunctions;
 import PL.Functor;
+import PL.Utils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Scanner;
+
 
 public class UpdateDelivery extends Functor {
+    static Scanner reader = new Scanner(System.in);
+    private static SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+    private static SimpleDateFormat Hourformat = new SimpleDateFormat("h:mm");
+
     @Override
     public void execute() {
-        System.out.println("Success!!!!");
+        String idToUpdate;
+        System.out.println("enter delivery's ID");
+        idToUpdate = reader.next();
+        Delivery d;
+        try {
+            if (!DeliveryFunctions.isExist(idToUpdate)) {
+                System.out.println("error: ID doesn't exist");
+                return;
+            }
+            else {
+                d = DeliveryFunctions.retrieveDelivery(idToUpdate);
+            }
+        } catch (Exception e) {
+            System.out.println("error: update failed");
+            return;
+        }
+        if (Utils.boolQuery("update leaving date? y/n")) {
+            System.out.println("enter leaving date in format: 'dd.MM.yyyy'");
+            java.sql.Date leavingDate = Utils.readDate(format);
+            d.setDate(leavingDate);
+        }
+        if (Utils.boolQuery("update leaving time? y/n")) {
+            System.out.println("enter leaving time");
+            java.sql.Time leavingTime = null;
+            try {
+                leavingTime = Utils.readHour(Hourformat);
+            } catch (ParseException e) {
+                System.out.println("error: update failed");
+                return;
+            }
+            d.setHour(leavingTime);
+        }
+        if (Utils.boolQuery("update order number? y/n")) {
+            System.out.println("enter order number");
+            String orderNum = reader.next();
+            d.setOrderId(orderNum);
+        }
+        if (Utils.boolQuery("update truck? y/n")) {
+            System.out.println("enter the new truck's id");
+            String truckId = reader.next();
+            try {
+                if (!TruckFunctions.isExist(truckId)){
+                    System.out.println("truck does not exists");
+                    return;
+                }
+            } catch (Exception e) {
+                System.out.println("error: insertion failed");
+                return;
+            }
+            d.setTruck(TruckFunctions.retrieveTruck(truckId));
+        }
+        if (Utils.boolQuery("update driver? y/n")) {
+            System.out.println("enter driver id");
+            String driverId = reader.next();
+            try {
+                if (!DriverFunctions.isExist(driverId)){
+                    System.out.println("driver does not exist");
+                    return;
+                }
+            } catch (Exception e) {
+                System.out.println("error: insertion failed");
+                return;
+            }
+            d.setDriver(DriverFunctions.retrieveDriver(driverId));
+        }
+        if (Utils.boolQuery("update source id? y/n")) {
+            System.out.println("enter source id");
+            String sourceId = reader.next();
+            try {
+                if (!PlaceFunctions.isExist(sourceId)){
+                    System.out.println("source does not exist");
+                    return;
+                }
+            } catch (Exception e) {
+                System.out.println("error: insertion failed");
+                return;
+            }
+            d.setSource(PlaceFunctions.retrievePlace(sourceId));
+        }
+        int i = 0;
+        boolean cont = true;
+        while (cont && Utils.boolQuery("do you want to update destination number: " + (i+1) +"? y/n")){
+            String dest = reader.next();
+            try {
+                if (!PlaceFunctions.isExist(dest)) {
+                    System.out.println("error: illegal destination");
+                    return;
+                } else
+                    d.getDestinations().set(i++, PlaceFunctions.retrievePlace(dest));
+            } catch (Exception e) {
+                System.out.println("error: insertion failed");
+                return;
+            }
+            cont = i <= d.getDestinations().size();
+        }
+        try {
+            DeliveryFunctions.updateDelivery(d);
+        } catch (Exception e) {
+            System.out.println("error: update failed");
+        }
     }
 }

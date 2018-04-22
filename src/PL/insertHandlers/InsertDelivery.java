@@ -10,14 +10,13 @@ import BL.EntitiyFunctions.PlaceFunctions;
 import BL.EntitiyFunctions.TruckFunctions;
 import PL.Functor;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.text.ParsePosition;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import BL.Entities.Delivery;
+import PL.Utils;
 
 public class InsertDelivery extends Functor{
 
@@ -27,7 +26,7 @@ public class InsertDelivery extends Functor{
 
 
     @Override
-    public void execute() throws ParseException {
+    public void execute() {
         java.sql.Date leavingDate;
         java.sql.Time leavingHour;
         System.out.println("enter delivery id");
@@ -41,9 +40,14 @@ public class InsertDelivery extends Functor{
             e.printStackTrace();
         }
         System.out.println("enter date in format: 'dd.MM.yyyy' ");
-        leavingDate = readDate(format);
+        leavingDate = Utils.readDate(format);
         System.out.println("enter hour in format: 'h:mm' ");
-        leavingHour = readHour(Hourformat);
+        try {
+            leavingHour = Utils.readHour(Hourformat);
+        } catch (ParseException e) {
+            System.out.println("error: insertion failed");
+            return;
+        }
         System.out.println("enter truck id");
         String truckId = reader.next();
         try {
@@ -52,18 +56,20 @@ public class InsertDelivery extends Functor{
                 return;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("error: insertion failed");
+            return;
         }
         Truck truck = TruckFunctions.retrieveTruck(truckId);
         System.out.println("enter driver id");
         String driverId = reader.next();
         try {
-            if (!DriverFunctions.isExist(truckId)){
+            if (!DriverFunctions.isExist(driverId)){
                 System.out.println("driver does not exist");
                 return;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("error: insertion failed");
+            return;
         }
         Driver driver = DriverFunctions.retrieveDriver(driverId);
         System.out.println("enter order id");
@@ -76,16 +82,32 @@ public class InsertDelivery extends Functor{
                 return;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("error: insertion failed");
+            return;
         }
         Place place = PlaceFunctions.retrievePlace(placeId);
         System.out.println("enter destination:");
         String firstDest = reader.next();
+        boolean isLegalDest = true;
         List<String> destinations = new LinkedList<>();
-        destinations.add(firstDest);
-        while (boolQuery("do you want to add destination? y/n")){
-            String dest = reader.next();
-            destinations.add(dest);
+        try {
+            if (!PlaceFunctions.isExist(firstDest)) {
+                System.out.println("error: illegal destination");
+                return;
+            }
+            destinations.add(firstDest);
+            while (Utils.boolQuery("do you want to add destination? y/n")) {
+                String dest = reader.next();
+                if (!PlaceFunctions.isExist(dest)) {
+                    System.out.println("error: illegal destination");
+                    return;
+                } else
+                    destinations.add(dest);
+            }
+        }
+        catch (Exception e) {
+            System.out.println("error: insertion failed");
+            return;
         }
         List<Place> destinationPlaces = new LinkedList<>();
         for (String dest: destinations){
@@ -95,52 +117,5 @@ public class InsertDelivery extends Functor{
         Delivery delivery = new Delivery(deliveryId, leavingDate, leavingHour, truck, driver, orderId, place, destinationPlaces);
         DeliveryFunctions.insertDelivery(delivery);
         System.out.println("Success!!!!");
-    }
-
-
-    private static boolean boolQuery(String input){
-        System.out.println(input);
-        String isLegal = reader.next();
-        while (!isLegal.equals("y") && !isLegal.equals("n")){
-            System.out.println("insert y or n only");
-            isLegal = reader.next();
-        }
-        return isLegal.equals("y");
-    }
-
-    private static java.sql.Time readHour(SimpleDateFormat format) throws ParseException {
-        String timeString = reader.next();
-        java.sql.Time sqlTime;
-        long ms = format.parse(timeString).getTime();
-        Time time = new Time(ms);
-        if (time!=null) {
-            sqlTime = new java.sql.Time(time.getTime());
-            while (sqlTime==null){
-                System.out.println("insert legal time - the format is: h:mm");
-                sqlTime = readHour(format);
-            }
-            return sqlTime;
-        }
-        else
-            System.out.println("insert legal date - the format is: h:mm");
-        return readHour(format);
-    }
-
-
-    private static java.sql.Date readDate(SimpleDateFormat format){
-        String dateString = reader.next();
-        java.sql.Date sqlDate;
-        java.util.Date date = format.parse(dateString, new ParsePosition(0));
-        if (date!=null) {
-            sqlDate = new java.sql.Date(date.getTime());
-            while (sqlDate==null){
-                System.out.println("insert legal date - the format is: dd.MM.yyyy");
-                sqlDate = readDate(format);
-            }
-            return sqlDate;
-        }
-        else
-            System.out.println("insert legal date - the format is: dd.MM.yyyy");
-        return readDate(format);
     }
 }
