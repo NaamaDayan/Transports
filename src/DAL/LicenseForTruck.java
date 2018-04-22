@@ -3,6 +3,12 @@ package DAL;
 import BL.Entities.LicenseTypeForTruck;
 
 import java.sql.*;
+import BL.Entities.LicenseTypeForTruck;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,18 +46,17 @@ public class LicenseForTruck {
         }
     }
     //retrieves a list with all the licenses allowed for the given truck
-    public static List<String> retrieveTruckLicenses(String truckModel){
+    public static LicenseTypeForTruck retrieveLicense(String licenseId){
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
             Class.forName("org.sqlite.JDBC");
-            String query = "SELECT * FROM Licenses WHERE TRUCK_MODEL = (?)";
+            String query = "SELECT * FROM Licenses WHERE ID = (?)";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, truckModel);
+            stmt.setString(1, licenseId);
             ResultSet rs = stmt.executeQuery();
-            List<String> licenses = new LinkedList<>();
-            while (rs.next())
-                licenses.add(rs.getString("LICENSE_ID"));
+            String model = rs.getString("TRUCK_MODEL");
+            LicenseTypeForTruck license = new LicenseTypeForTruck(licenseId, model);
             conn.close();
-            return licenses;
+            return license;
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);

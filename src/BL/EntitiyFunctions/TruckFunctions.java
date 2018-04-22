@@ -1,6 +1,7 @@
 package BL.EntitiyFunctions;
 
 import BL.Entities.Truck;
+import DAL.ErrorsHandler;
 import DAL.Trucks;
 
 import java.sql.SQLException;
@@ -25,9 +26,7 @@ public class TruckFunctions
     public static void updateTruck(Truck t) throws SQLException, ClassNotFoundException {
         Trucks.updateTruck(t);
     }
-
-    public static Truck isTruckExist(String id) throws SQLException, ClassNotFoundException {
-        return Trucks.isTruckExist(id);
+    public static boolean isExist(String id) throws Exception {
+        return ErrorsHandler.isTruckExist(id);
     }
-
 }

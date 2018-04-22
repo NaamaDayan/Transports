@@ -1,5 +1,6 @@
 package PL.retrieveHandlers;
 
+import BL.Entities.LicenseTypeForTruck;
 import BL.EntitiyFunctions.LicenseTypeForTruckFunctions;
 import PL.Functor;
 
@@ -14,12 +15,18 @@ public class RetrieveLicense extends Functor{
 
     @Override
     public void execute() {
-        System.out.println("enter truck model");
-        String model = reader.next();
-        List<String> licensesTypes = LicenseTypeForTruckFunctions.retrieveLicenses(model);
-        System.out.println("licenses for truck "+model+" :");
-        for (String license: licensesTypes)
-            System.out.println(license);
+        System.out.println("enter license id");
+        String id = reader.next();
+        try {
+            if (!LicenseTypeForTruckFunctions.isExist(id)){
+                System.out.println("license does not exist");
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        LicenseTypeForTruck license = LicenseTypeForTruckFunctions.retrieveLicenses(id);
+        System.out.println(license);
         System.out.println("Success!!!!");
     }
 

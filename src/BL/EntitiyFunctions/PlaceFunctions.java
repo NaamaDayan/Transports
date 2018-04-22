@@ -2,6 +2,7 @@ package BL.EntitiyFunctions;
 
 import BL.Entities.Driver;
 import BL.Entities.Place;
+import DAL.ErrorsHandler;
 import DAL.Drivers;
 import DAL.Places;
 
@@ -17,6 +18,10 @@ public class PlaceFunctions {
         Places.insertPlace(place.getId(), place.getAddress(), place.getPhoneNumber(), place.getContactName());
     }
 
+    public static boolean isIdExist(String placeId) throws SQLException, ClassNotFoundException {
+        return ErrorsHandler.isPlaceExist(placeId);
+    }
+
     public static Place retrievePlace(String id){
         return Places.retrievePlace(id);
     }
@@ -25,12 +30,11 @@ public class PlaceFunctions {
         Places.removePlace(id);
     }
 
-    public static Place isPlaceExist(String id) throws SQLException, ClassNotFoundException {
-        return Places.isPlaceExist(id);
-    }
-
-    public static void updatePlace(Place p) throws SQLException, ClassNotFoundException {
         Places.updatePlace(p);
+    public static void updatePlace(Place p) throws SQLException, ClassNotFoundException {
+    }
+    public static boolean isExist(String id) throws Exception {
+        return ErrorsHandler.isPlaceExist(id);
     }
 
 }

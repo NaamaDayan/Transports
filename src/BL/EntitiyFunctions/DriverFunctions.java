@@ -2,6 +2,9 @@ package BL.EntitiyFunctions;
 
 import BL.Entities.Driver;
 import DAL.Drivers;
+import DAL.ErrorsHandler;
+import java.sql.SQLException;
+
 import java.sql.SQLException;
 
 /**
@@ -25,8 +28,7 @@ public class DriverFunctions {
         Drivers.updateDriver(d);
     }
 
-    public static Driver isDriverExist(String id) throws SQLException, ClassNotFoundException {
-        return Drivers.isDriverExist(id);
+    public static boolean isExist(String id) throws Exception {
+        return ErrorsHandler.isDriverExist(id);
     }
-
 }
