@@ -2,7 +2,9 @@ package DAL;
 
 
 import BL.Entities.Delivery;
+import BL.Entities.Driver;
 import BL.Entities.Place;
+import BL.Entities.Truck;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -59,15 +61,18 @@ public class Deliveries{
             java.sql.Date date  = rs.getDate("LEAVING_DATE");
             java.sql.Time hour = rs.getTime("LEAVING_HOUR");
             String truckId = rs.getString("TRUCK_ID");
+            Truck truck = Trucks.retrieveTruck(truckId);
             String orderId = rs.getString("ORDER_NUMBER");
             String driverId = rs.getString("DRIVER_ID");
+            Driver driver = Drivers.retrieveDriver(driverId);
             String sourceId = rs.getString("SOURCE_ID");
+            Place source = Places.retrievePlace(sourceId);
             List<String> dests = DeliveryDestinations.retrieveDeliveryDestination(id);
             List<Place> destinations = new LinkedList<>();
             for (String dest: dests){
                 destinations.add(Places.retrievePlace(dest));
             }
-            Delivery delivery = new Delivery(id, date, hour, truckId, driverId, orderId, sourceId, destinations);
+            Delivery delivery = new Delivery(id, date, hour, truck, driver, orderId, source, destinations);
             conn.close();
             return delivery;
         } catch (Exception e) {

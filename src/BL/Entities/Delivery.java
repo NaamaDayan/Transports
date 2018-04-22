@@ -9,20 +9,20 @@ public class Delivery {
     private String id;
     private java.sql.Date date;
     private java.sql.Time hour;
-    private String truckId;
-    private String driverId;
+    private Truck truck;
+    private Driver driver;
     private String orderId;
-    private String sourceId;
+    private Place source;
     private List<Place> destinations;
 
-    public Delivery(String id, Date date, Time hour, String truckId, String driverId, String orderId, String sourceId, List<Place> destinations) {
+    public Delivery(String id, Date date, Time hour, Truck truckId, Driver driverId, String orderId, Place source, List<Place> destinations) {
         this.id = id;
         this.date = date;
         this.hour = hour;
-        this.truckId = truckId;
-        this.driverId = driverId;
+        this.truck= truckId;
+        this.driver= driverId;
         this.orderId = orderId;
-        this.sourceId = sourceId;
+        this.source = source;
         this.destinations = destinations;
     }
 
@@ -37,10 +37,10 @@ public class Delivery {
                 "id='" + id + '\'' +
                 ", date=" + date +
                 ", hour=" + hour +
-                ", truckId='" + truckId + '\'' +
-                ", driverId='" + driverId + '\'' +
+                ", truckId='" + truck.toString()+ '\'' +
+                ", driverId='" + driver.toString() + '\'' +
                 ", orderId='" + orderId + '\'' +
-                ", sourceId='" + sourceId + '\'' +
+                ", sourceId='" + source.toString() + '\'' +
                 ", destinations ='" + dests+ '\''+
                 '}';
     }
@@ -57,20 +57,20 @@ public class Delivery {
         return hour;
     }
 
-    public String getTruckId() {
-        return truckId;
+    public Truck getTruck() {
+        return truck;
     }
 
-    public String getDriverId() {
-        return driverId;
+    public Driver getDriver() {
+        return driver;
     }
 
     public String getOrderId() {
         return orderId;
     }
 
-    public String getSourceId() {
-        return sourceId;
+    public Place getSource() {
+        return source;
     }
 
     public List<Place> getDestinations() {

@@ -13,17 +13,7 @@ import java.util.List;
  */
 public class DeliveryDestinationFunctions {
 
-    public static void insertDelivery(Delivery delivery) {
-        Deliveries.insertDeivery(delivery.getId(), delivery.getDate(), delivery.getHour(),
-                delivery.getOrderId(), delivery.getTruckId(), delivery.getDriverId(), delivery.getSourceId());
-        List<Place> dests = delivery.getDestinations();
-        for (Place place: dests)
-            DeliveryDestinations.insertDeliveryDestination(delivery.getId(), place.getId());
-    }
 
-    public static Delivery retrieveDelivery(String id){
-        return Deliveries.retrieveDelivery(id);
-    }
 
     public static void removeDeliveryDestination(String deliveryId, String destId) throws SQLException, ClassNotFoundException {
         if (DeliveryDestinations.isDestExistInDelivery(deliveryId, destId))

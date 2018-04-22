@@ -1,9 +1,13 @@
 package PL.insertHandlers;
 
 
+import BL.Entities.Driver;
 import BL.Entities.Place;
+import BL.Entities.Truck;
 import BL.EntitiyFunctions.DeliveryFunctions;
+import BL.EntitiyFunctions.DriverFunctions;
 import BL.EntitiyFunctions.PlaceFunctions;
+import BL.EntitiyFunctions.TruckFunctions;
 import PL.Functor;
 
 import java.sql.Time;
@@ -34,13 +38,15 @@ public class InsertDelivery extends Functor{
         leavingHour = readHour(Hourformat);
         System.out.println("enter truck id");
         String truckId = reader.next();
+        Truck truck = TruckFunctions.retrieveTruck(truckId);
         System.out.println("enter driver id");
         String driverId = reader.next();
+        Driver driver = DriverFunctions.retrieveDriver(driverId);
         System.out.println("enter order id");
         String orderId = reader.next();
         System.out.println("enter place id");
         String placeId = reader.next();
-
+        Place place = PlaceFunctions.retrievePlace(placeId);
         System.out.println("enter destination:");
         String firstDest = reader.next();
         List<String> destinations = new LinkedList<>();
@@ -54,7 +60,7 @@ public class InsertDelivery extends Functor{
             destinationPlaces.add(PlaceFunctions.retrievePlace(dest));
         }
         //TODO:: think maybe enter a place *name* and then look for it's identifier in the data base
-        Delivery delivery = new Delivery(deliveryId, leavingDate, leavingHour, truckId, driverId, orderId, placeId, destinationPlaces);
+        Delivery delivery = new Delivery(deliveryId, leavingDate, leavingHour, truck, driver, orderId, place, destinationPlaces);
         DeliveryFunctions.insertDelivery(delivery);
         System.out.println("Success!!!!");
     }
