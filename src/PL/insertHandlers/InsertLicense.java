@@ -6,7 +6,7 @@ import PL.Functor;
 import BL.Entities.LicenseTypeForTruck;
 import java.util.Scanner;
 
-public class insertLicense extends Functor
+public class InsertLicense extends Functor
 {
 
 

@@ -16,4 +16,9 @@ public class TruckFunctions
         return Trucks.retrieveTruck(id);
     }
 
+    public static void removeTruck(String id){
+        Trucks.removeTruck(id);
+    }
+
+
 }

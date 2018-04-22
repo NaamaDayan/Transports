@@ -61,9 +61,9 @@ public class CreateTables {
         try (Statement stmt = conn.createStatement();) {
 
             String sql = "CREATE TABLE Licenses " +
-                    "(LICENSE_TYPE VARCHAR (9) NOT NULL," +
+                    "(LICENSE_ID VARCHAR (9) NOT NULL," +
                     " TRUCK_MODEL  TEXT, FOREIGN KEY(TRUCK_MODEL) REFERENCES Trucks(MODEL)" +
-                    "PRIMARY KEY (LICENSE_TYPE, TRUCK_MODEL))";
+                    "PRIMARY KEY (LICENSE_TYPE))";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -7,7 +7,7 @@ import PL.Functor;
 
 import java.util.Scanner;
 
-public class insertPlace extends Functor {
+public class InsertPlace extends Functor {
     static Scanner reader = new Scanner(System.in);
 
     @Override

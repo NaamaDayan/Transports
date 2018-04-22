@@ -8,7 +8,7 @@ import java.util.Scanner;
 /**
  * Created by Naama on 21/04/2018.
  */
-public class insertLicenseForDriver extends Functor {
+public class InsertLicenseForDriver extends Functor {
 
     static Scanner reader = new Scanner(System.in);
 

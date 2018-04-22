@@ -1,4 +1,5 @@
-package PL.RemoveHandler;
+package PL.removeHandlers;
+import BL.EntitiyFunctions.TruckFunctions;
 import PL.Functor;
 
 import java.util.Scanner;
@@ -12,7 +13,8 @@ public class RemoveTruck extends Functor {
 
     @Override
     public void execute() {
-
-        System.out.println("Success!!!!");
+        System.out.println("enter truck id");
+        String truckId = reader.next();
+        TruckFunctions.removeTruck(truckId);
     }
 }

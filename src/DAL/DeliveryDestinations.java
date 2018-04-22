@@ -1,11 +1,6 @@
 package DAL;
 
 
-import BL.Entities.Delivery;
-import BL.Entities.DeliveryDestination;
-import BL.Entities.Place;
-
-import javax.print.attribute.standard.Destination;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -23,7 +18,6 @@ public class DeliveryDestinations {
             stmt.setString(1, deliveryId);
             stmt.setString(2, destId);
             stmt.executeUpdate();
-            conn.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
@@ -36,13 +30,29 @@ public class DeliveryDestinations {
             String query = "DELETE FROM  DeliveryDestinations WHERE DELIVERY_ID = ? AND PLACE_ID = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, deliveryId);
-            stmt.setString(1, destId);
+            stmt.setString(2, destId);
             stmt.executeUpdate();
-            conn.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
+    }
+
+    public static boolean isDestExistInDelivery(String deliveryId, String destId) {
+        boolean ans = false;
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
+            Class.forName("org.sqlite.JDBC");
+            String query = "SELECT * FROM DeliveryDestinations WHERE DELIVERY_ID = ? AND PLACE_ID = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, deliveryId);
+            stmt.setString(2, destId);
+            ResultSet rs = stmt.executeQuery();
+            ans = rs.isBeforeFirst();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return ans;
     }
 
     //returns a list of all the delivery destinations
@@ -56,7 +66,6 @@ public class DeliveryDestinations {
             List<String> destinations = new LinkedList();
             while (rs.next())
                 destinations.add(rs.getString("PLACE_ID"));
-            conn.close();
             return destinations;
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());

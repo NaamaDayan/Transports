@@ -1,10 +1,11 @@
 package PL.insertHandlers;
 
+import BL.Entities.Truck;
+import BL.EntitiyFunctions.TruckFunctions;
 import PL.Functor;
 
 import java.util.Scanner;
-import BL.Truck;
-public class insertTruck extends Functor {
+public class InsertTruck extends Functor {
     static Scanner reader = new Scanner(System.in);
 
     @Override
@@ -19,7 +20,8 @@ public class insertTruck extends Functor {
         int netoWeight = reader.nextInt();
         System.out.println("enter truck max weight");
         int maxWeight = reader.nextInt();
-        Truck.insertTruck(truckId, truckModel, truckColor, netoWeight, maxWeight);
+        Truck t = new Truck(truckId, truckModel, truckColor, netoWeight, maxWeight);
+        TruckFunctions.insertTruck(t);
         System.out.println("Success!!!!");
     }
 }

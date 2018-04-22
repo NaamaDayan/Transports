@@ -1,5 +1,4 @@
 package BL.Entities;
-import DAL.DriversLicenses;
 
 /**
  * Created by Naama on 21/04/2018.
@@ -7,19 +6,19 @@ import DAL.DriversLicenses;
 public class DriverLicense {
 
     private String driverId;
-    private String licenseType;
+    private String licenseId;
 
-    public DriverLicense(String driverId, String licenseType) {
+    public DriverLicense(String driverId, String licenseId) {
         this.driverId = driverId;
-        this.licenseType = licenseType;
+        this.licenseId = licenseId;
     }
 
     public String getDriverId() {
         return driverId;
     }
 
-    public String getLicenseType() {
-        return licenseType;
+    public String getLicenseId() {
+        return licenseId;
     }
 
 }

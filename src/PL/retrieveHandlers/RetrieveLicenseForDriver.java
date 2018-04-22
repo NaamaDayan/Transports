@@ -9,7 +9,7 @@ import java.util.Scanner;
 /**
  * Created by Naama on 21/04/2018.
  */
-public class retrieveLicenseForDriver extends Functor{
+public class RetrieveLicenseForDriver extends Functor{
 
     static Scanner reader = new Scanner(System.in);
 

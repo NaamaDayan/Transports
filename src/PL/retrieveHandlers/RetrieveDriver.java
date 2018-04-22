@@ -6,7 +6,7 @@ import PL.Functor;
 
 import java.util.Scanner;
 
-public class retrieveDriver extends Functor {
+public class RetrieveDriver extends Functor {
     static Scanner reader = new Scanner(System.in);
 
     @Override

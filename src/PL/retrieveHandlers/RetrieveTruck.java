@@ -6,7 +6,7 @@ import PL.Functor;
 
 import java.util.Scanner;
 
-public class retrieveTruck extends Functor {
+public class RetrieveTruck extends Functor {
     static Scanner reader = new Scanner(System.in);
 
     @Override

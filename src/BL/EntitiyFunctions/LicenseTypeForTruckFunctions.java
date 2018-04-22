@@ -1,6 +1,7 @@
 package BL.EntitiyFunctions;
 
 import BL.Entities.LicenseTypeForTruck;
+import DAL.DriversLicenses;
 import DAL.LicenseForTruck;
 
 import java.util.List;
@@ -18,4 +19,7 @@ public class LicenseTypeForTruckFunctions {
         return LicenseForTruck.retrieveTruckLicenses(truckModel);
     }
 
+    public static void removeLicense(String id){
+        LicenseForTruck.removeLicense(id);
+    }
 }

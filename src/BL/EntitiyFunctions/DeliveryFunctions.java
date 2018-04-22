@@ -1,10 +1,9 @@
 package BL.EntitiyFunctions;
 
 import BL.Entities.Delivery;
-import BL.Entities.DeliveryDestination;
-import BL.Entities.Place;
 import DAL.Deliveries;
 import DAL.DeliveryDestinations;
+import DAL.Trucks;
 
 import java.util.List;
 
@@ -25,4 +24,7 @@ public class DeliveryFunctions {
         return Deliveries.retrieveDelivery(id);
     }
 
+    public static void removeDelivery(String id){
+        Deliveries.removeDelivery(id);
+    }
 }

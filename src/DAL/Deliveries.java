@@ -31,6 +31,8 @@ public class Deliveries{
         }
     }
 
+    //TODO: remove the Destinations from the list of the DeliveryDests, and from the deliveryDest table(by delivery id, dest  id)
+    //TODO: maby just iterate on the list and call each time to removeDeliveryDesination
     public static void removeDelivery(String id){
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
             Class.forName("org.sqlite.JDBC");

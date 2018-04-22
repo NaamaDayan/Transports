@@ -2,7 +2,7 @@ package PL.updateHandlers;
 
 import PL.Functor;
 
-public class updateTruck extends Functor {
+public class UpdateTruck extends Functor {
     @Override
     public void execute() {
         System.out.println("Success!!!!");

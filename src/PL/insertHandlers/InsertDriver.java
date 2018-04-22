@@ -7,7 +7,7 @@ import PL.Functor;
 import java.util.Scanner;
 import BL.Entities.Driver;
 
-public class insertDriver extends Functor{
+public class InsertDriver extends Functor{
     static Scanner reader = new Scanner(System.in);
 
     @Override

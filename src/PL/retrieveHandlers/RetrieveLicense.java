@@ -9,7 +9,7 @@ import java.util.Scanner;
 /**
  * Created by Naama on 21/04/2018.
  */
-public class retrieveLicense extends Functor{
+public class RetrieveLicense extends Functor{
     static Scanner reader = new Scanner(System.in);
 
     @Override

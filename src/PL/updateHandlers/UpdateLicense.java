@@ -2,7 +2,7 @@ package PL.updateHandlers;
 
 import PL.Functor;
 
-public class updateLicense extends Functor {
+public class UpdateLicense extends Functor {
     @Override
     public void execute() {
         System.out.println("Success!!!!");

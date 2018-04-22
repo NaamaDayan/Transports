@@ -27,13 +27,12 @@ public class LicenseForTruck {
         }
     }
 
-    public static void removeLicense(String truckModel ,String licenseId){
+    public static void removeLicense(String id){
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
             Class.forName("org.sqlite.JDBC");
-            String query = "DELETE FROM Licenses WHERE LICENSE_TYPE = ? AND TRUCK_MODEL = ?";
+            String query = "DELETE FROM Licenses WHERE LICENSE_ID = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, licenseId);
-            stmt.setString(2, truckModel);
+            stmt.setString(1, id);
             stmt.executeUpdate();
             conn.close();
         } catch (Exception e) {
@@ -41,7 +40,7 @@ public class LicenseForTruck {
             System.exit(0);
         }
     }
-    //retrieves a list with all the licenses allowd for the given truck
+    //retrieves a list with all the licenses allowed for the given truck
     public static List<String> retrieveTruckLicenses(String truckModel){
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
             Class.forName("org.sqlite.JDBC");
@@ -51,7 +50,7 @@ public class LicenseForTruck {
             ResultSet rs = stmt.executeQuery();
             List<String> licenses = new LinkedList<>();
             while (rs.next())
-                licenses.add(rs.getString("LICENSE_TYPE"));
+                licenses.add(rs.getString("LICENSE_ID"));
             conn.close();
             return licenses;
         } catch (Exception e) {

@@ -6,7 +6,7 @@ import PL.Main;
 import java.text.ParseException;
 import java.util.Scanner;
 
-public class retrieveChoice extends Functor {
+public class RetrieveChoice extends Functor {
     static Scanner reader = new Scanner(System.in);
 
     enum retrieveFunctions {

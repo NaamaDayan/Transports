@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 import BL.Entities.Delivery;
 
-public class insertDelivery extends Functor{
+public class InsertDelivery extends Functor{
 
     static Scanner reader = new Scanner(System.in);
     private static SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");

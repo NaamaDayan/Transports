@@ -16,4 +16,7 @@ public class DriverFunctions {
         return Drivers.retrieveDriver(id);
     }
 
+    public static void removeDriver(String id){
+        Drivers.removeDriver(id);
+    }
 }

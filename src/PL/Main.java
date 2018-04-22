@@ -1,6 +1,5 @@
 package PL;
 import DAL.CreateTables;
-import PL.mainMenuHandlers.insertChoice;
 
 import java.text.ParseException;
 import java.util.Scanner;
@@ -10,9 +9,10 @@ public class Main {
 
     //---enum with handlers names
     enum mainMenuFunctions {
-        insertChoice,
-        updateChoice,
-        retrieveChoice
+        InsertChoice,
+        UpdateChoice,
+        RetrieveChoice,
+        RemoveChoice
     }
 
     public static void main(String[] args) throws ParseException {
@@ -22,20 +22,20 @@ public class Main {
 
     private static void programFlow() throws ParseException {
         System.out.println("Welcome!");
-        System.out.println("Enter:\n 1 for insert data\n 2 for update data\n 3 for retrieve data\n 4 for exit");
+        System.out.println("Enter:\n 1 to insert data\n 2 to update data\n 3 to retrieve data\n 4 to remove data\n 5 to exit");
         int choice = reader.nextInt();
         boolean cont = true;
         Functor choiceFuncs[] = fillChoiceFunctions();
         while (cont) {
-            choice = rangeCheck(1, 4, choice); //after this the choice is legal
-            if (choice == 4) {
+            choice = rangeCheck(1, 5, choice); //after this the choice is legal
+            if (choice == 5) {
                 System.out.println("Bye!");
                 cont = false;
                 break;
             }
             choiceFuncs[choice - 1].execute();
             if (cont) {
-                System.out.println("Enter:\n 1 for insert data\n 2 for update data\n 3 for retrieve data\n 4 for exit");
+                System.out.println("Enter:\n 1 to insert data\n 2 to update data\n 3 to retrieve data\n 4 to remove data\n 5 to exit");
                 choice = reader.nextInt();
             }
         }

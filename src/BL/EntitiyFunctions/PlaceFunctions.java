@@ -17,5 +17,8 @@ public class PlaceFunctions {
         return Places.retrievePlace(id);
     }
 
+    public static void removePlace(String id){
+        Places.removePlace(id);
+    }
 
 }

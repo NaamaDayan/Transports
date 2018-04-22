@@ -6,7 +6,7 @@ import PL.Functor;
 
 import java.util.Scanner;
 
-public class retrievePlace extends Functor {
+public class RetrievePlace extends Functor {
 
     static Scanner reader = new Scanner(System.in);
 
