@@ -1,11 +1,16 @@
 package BL.EntitiyFunctions;
 
 import BL.Entities.Driver;
+import BL.Entities.DriverLicense;
 import DAL.Drivers;
+import DAL.DriversLicenses;
 import DAL.ErrorsHandler;
+import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
+
 import java.sql.SQLException;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by Naama on 21/04/2018.
@@ -21,7 +26,12 @@ public class DriverFunctions {
     }
 
     public static void removeDriver(String id){
+        Driver d = Drivers.retrieveDriver(id);
         Drivers.removeDriver(id);
+        List<String> licenseList = DriversLicenses.retrieveDriverLicenses(id); //list of id's of licenses of driver
+        for (String s: licenseList) {
+            DriversLicenses.removeDriverLicense(id, s);
+        }
     }
 
     public static void updateDriver(Driver d) throws SQLException, ClassNotFoundException {

@@ -1,4 +1,5 @@
 package PL.removeHandlers;
+import BL.Entities.Delivery;
 import BL.EntitiyFunctions.DeliveryDestinationFunctions;
 import PL.Functor;
 
@@ -18,9 +19,14 @@ public class RemoveDeliveryDestination extends Functor {
         System.out.println("enter destination id");
         String destId = reader.next();
         try {
+            if (!DeliveryDestinationFunctions.isExist(deliveryId, destId)) {
+                System.out.println("error: delivery destination does not exist");
+                return;
+            }
             DeliveryDestinationFunctions.removeDeliveryDestination(deliveryId, destId);
-        } catch (Exception e) {
-            System.out.println("remove failed");
+        }catch (Exception e) {
+            System.out.println("error: remove failed");
+            return;
         }
     }
 }

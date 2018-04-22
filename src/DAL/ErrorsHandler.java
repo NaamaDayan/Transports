@@ -25,7 +25,17 @@ public class ErrorsHandler {
         return isEntityExist(id,  "Licenses");
     }
 
-
+    public static boolean isDeliveryDestinationExist(String deliveryId, String destId) throws SQLException, ClassNotFoundException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
+        Class.forName("org.sqlite.JDBC");
+        String query  = "SELECT * FROM DeliveryDestinations WHERE DELIVERY_ID = ? AND PLACE_ID = ? ";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, deliveryId);
+        stmt.setString(2, destId);
+        ResultSet rs = stmt.executeQuery();
+        conn.close();
+        return rs.isBeforeFirst();
+    }
 
     public static boolean isEntityExist(String id,  String tableName) throws SQLException, ClassNotFoundException {
         Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
@@ -38,4 +48,5 @@ public class ErrorsHandler {
         conn.close();
         return rs.isBeforeFirst();
     }
+
 }

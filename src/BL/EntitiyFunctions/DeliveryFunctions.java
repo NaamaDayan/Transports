@@ -24,7 +24,11 @@ public class DeliveryFunctions {
     }
 
     public static void removeDelivery(String id){
+        Delivery d = Deliveries.retrieveDelivery(id);
         Deliveries.removeDelivery(id);
+        for (DeliveryDestination ds: d.getDestinations()) {
+            DeliveryDestinations.removeDeliveryDestination(ds.getDeliveryId(), ds.getDestId());
+        }
     }
 
     public static boolean isExist(String id) throws Exception {

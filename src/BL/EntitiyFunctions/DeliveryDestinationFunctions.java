@@ -16,12 +16,7 @@ import java.util.List;
 public class DeliveryDestinationFunctions {
 
     public static void removeDeliveryDestination(String deliveryId, String destId) throws SQLException, ClassNotFoundException {
-        if (DeliveryDestinations.isDestExistInDelivery(deliveryId, destId))
-            DeliveryDestinations.removeDeliveryDestination(deliveryId, destId);
-        else {
-            System.out.println("error: Delivery Destination doesn't exist");
-            return;
-        }
+        DeliveryDestinations.removeDeliveryDestination(deliveryId, destId);
     }
 
     public static void insertDeliveryDestination(DeliveryDestination d){
@@ -32,7 +27,7 @@ public class DeliveryDestinationFunctions {
         return DeliveryDestinations.retrieveDeliveryDestination(deliveryId);
     }
 
-   /* public static boolean isExist(String id) throws Exception {
-        return ErrorsHandler.isDriverExist(id);
-    }*/
+    public static boolean isExist(String deliveryId, String destId) throws Exception {
+        return ErrorsHandler.isDeliveryDestinationExist(deliveryId, destId);
+    }
 }
