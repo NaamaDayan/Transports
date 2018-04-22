@@ -13,10 +13,10 @@ public class DeliveryFunctions {
 
     public static void insertDelivery(Delivery delivery) {
         Deliveries.insertDeivery(delivery.getId(), delivery.getDate(), delivery.getHour(),
-                delivery.getOrderId(), delivery.getTruck().getId(), delivery.getDriver().getId(), delivery.getSource().getId());
-        List<Place> dests = delivery.getDestinations();
-        for (Place place: dests)
-            DeliveryDestinations.insertDeliveryDestination(delivery.getId(), place.getId());
+               delivery.getTruck().getId(), delivery.getDriver().getId(), delivery.getSource().getId());
+        List<DeliveryDestination> dests = delivery.getDestinations();
+        for (DeliveryDestination place: dests)
+            DeliveryDestinations.insertDeliveryDestination(place.getDeliveryId(), place.getDestId(), place.getOrderNumber());
     }
 
     public static Delivery retrieveDelivery(String id){

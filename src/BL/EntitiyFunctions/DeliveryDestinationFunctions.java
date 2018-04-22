@@ -5,6 +5,7 @@ import BL.Entities.DeliveryDestination;
 import BL.Entities.Place;
 import DAL.Deliveries;
 import DAL.DeliveryDestinations;
+import DAL.ErrorsHandler;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -31,4 +32,7 @@ public class DeliveryDestinationFunctions {
         return DeliveryDestinations.retrieveDeliveryDestination(deliveryId);
     }
 
+   /* public static boolean isExist(String id) throws Exception {
+        return ErrorsHandler.isDriverExist(id);
+    }*/
 }

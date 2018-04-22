@@ -2,25 +2,24 @@ package DAL;
 
 
 import BL.Entities.*;
+import BL.Entities.Driver;
 
 import java.sql.*;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Deliveries{
 
-    public static void insertDeivery(String id, java.sql.Date date,java.sql.Time hour,  String orderId, String truckId, String driverId, String sourceId){
+    public static void insertDeivery(String id, java.sql.Date date,java.sql.Time hour, String truckId, String driverId, String sourceId){
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
             Class.forName("org.sqlite.JDBC");
-            String query = "INSERT INTO Deliveries VALUES (?,?,?,?,?,?,?)  ";
+            String query = "INSERT INTO Deliveries VALUES (?,?,?,?,?,?)  ";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, id);
             stmt.setDate(2, date);
             stmt.setTime(3, hour);
-            stmt.setString(4, orderId);
-            stmt.setString(5, truckId);
-            stmt.setString(6, driverId);
-            stmt.setString(7, sourceId);
+            stmt.setString(4, truckId);
+            stmt.setString(5, driverId);
+            stmt.setString(6, sourceId);
             stmt.executeUpdate();
             conn.close();
         } catch (Exception e) {
@@ -29,8 +28,6 @@ public class Deliveries{
         }
     }
 
-    //TODO: remove the Destinations from the list of the DeliveryDests, and from the deliveryDest table(by delivery id, dest  id)
-    //TODO: maby just iterate on the list and call each time to removeDeliveryDesination
     public static void removeDelivery(String id){
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
             Class.forName("org.sqlite.JDBC");
@@ -48,15 +45,14 @@ public class Deliveries{
     public static void updateDelivery(Delivery d) throws SQLException, ClassNotFoundException {
         Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
         Class.forName("org.sqlite.JDBC");
-        String query = "UPDATE Delivery SET LEAVING_DATE = ?, LEAVING_TIME = ?, ORDER_NUMBER = ?, TRUCK_ID = ? DRIVER_ID = ?, SOURCE_ID = ? WHERE ID = ?  ";
+        String query = "UPDATE Delivery SET LEAVING_DATE = ?, LEAVING_TIME = ?, TRUCK_ID = ? DRIVER_ID = ?, SOURCE_ID = ? WHERE ID = ?  ";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setDate(1, d.getDate());
         stmt.setTime(2, d.getHour());
-        stmt.setString(3, d.getOrderId());
-        stmt.setString(4, d.getTruck().getId());
-        stmt.setString(5, d.getDriver().getId());
-        stmt.setString(6, d.getSource().getId());
-        stmt.setString(7, d.getId());
+        stmt.setString(3, d.getTruck().getId());
+        stmt.setString(4, d.getDriver().getId());
+        stmt.setString(5, d.getSource().getId());
+        stmt.setString(6, d.getId());
         stmt.executeUpdate();
         conn.close();
     }

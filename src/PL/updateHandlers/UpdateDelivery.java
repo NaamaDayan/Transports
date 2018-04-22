@@ -3,12 +3,10 @@ package PL.updateHandlers;
 import BL.Entities.Delivery;
 import BL.Entities.Driver;
 import BL.Entities.Truck;
-import BL.EntitiyFunctions.DeliveryFunctions;
-import BL.EntitiyFunctions.DriverFunctions;
-import BL.EntitiyFunctions.PlaceFunctions;
-import BL.EntitiyFunctions.TruckFunctions;
+import BL.EntitiyFunctions.*;
 import PL.Functor;
 import PL.Utils;
+import PL.insertHandlers.InsertDeliveryDestination;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -54,11 +52,6 @@ public class UpdateDelivery extends Functor {
                 return;
             }
             d.setHour(leavingTime);
-        }
-        if (Utils.boolQuery("update order number? y/n")) {
-            System.out.println("enter order number");
-            String orderNum = reader.next();
-            d.setOrderId(orderNum);
         }
         if (Utils.boolQuery("update truck? y/n")) {
             System.out.println("enter the new truck's id");
@@ -111,18 +104,8 @@ public class UpdateDelivery extends Functor {
         int i = 0;
         boolean cont = true;
         while (cont && Utils.boolQuery("do you want to update destination number: " + (i+1) +"? y/n")){
-            String dest = reader.next();
-            try {
-                if (!PlaceFunctions.isExist(dest)) {
-                    System.out.println("error: illegal destination");
-                    return;
-                } else
-                    d.getDestinations().set(i++, PlaceFunctions.retrievePlace(dest));
-            } catch (Exception e) {
-                System.out.println("error: insertion failed");
-                return;
-            }
-            cont = i <= d.getDestinations().size();
+            String destId = InsertDeliveryDestination.insertDestination(d.getId());
+            cont = ++i <= d.getDestinations().size();
         }
         try {
             DeliveryFunctions.updateDelivery(d);
