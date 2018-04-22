@@ -1,7 +1,7 @@
 package BL.EntitiyFunctions;
 
 import BL.Entities.LicenseTypeForTruck;
-import DAL.DriversLicenses;
+import DAL.ErrorsHandler;
 import DAL.LicenseForTruck;
 
 import java.util.List;
@@ -15,11 +15,15 @@ public class LicenseTypeForTruckFunctions {
         LicenseForTruck.insertLicense(ltft.getTruckModel(), ltft.getLicenseType());
     }
 
-    public static List<String> retrieveLicenses(String truckModel){
-        return LicenseForTruck.retrieveTruckLicenses(truckModel);
+    public static LicenseTypeForTruck retrieveLicenses(String truckModel){
+        return LicenseForTruck.retrieveLicense(truckModel);
     }
 
     public static void removeLicense(String id){
         LicenseForTruck.removeLicense(id);
+    }
+
+    public static boolean isExist(String id) throws Exception {
+        return ErrorsHandler.isLicenseExist(id);
     }
 }

@@ -4,6 +4,7 @@ import BL.Entities.Delivery;
 import BL.Entities.Place;
 import DAL.Deliveries;
 import DAL.DeliveryDestinations;
+import DAL.ErrorsHandler;
 import DAL.Trucks;
 
 import java.util.List;
@@ -27,5 +28,9 @@ public class DeliveryFunctions {
 
     public static void removeDelivery(String id){
         Deliveries.removeDelivery(id);
+    }
+
+    public static boolean isExist(String id) throws Exception {
+        return ErrorsHandler.isDeliveryExist(id);
     }
 }

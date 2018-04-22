@@ -32,20 +32,52 @@ public class InsertDelivery extends Functor{
         java.sql.Time leavingHour;
         System.out.println("enter delivery id");
         String deliveryId = reader.next();
+        try {
+            if (DeliveryFunctions.isExist(deliveryId)){
+                System.out.println("delivery already exists");
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.out.println("enter date in format: 'dd.MM.yyyy' ");
         leavingDate = readDate(format);
         System.out.println("enter hour in format: 'h:mm' ");
         leavingHour = readHour(Hourformat);
         System.out.println("enter truck id");
         String truckId = reader.next();
+        try {
+            if (!TruckFunctions.isExist(truckId)){
+                System.out.println("truck does not exists");
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Truck truck = TruckFunctions.retrieveTruck(truckId);
         System.out.println("enter driver id");
         String driverId = reader.next();
+        try {
+            if (!DriverFunctions.isExist(truckId)){
+                System.out.println("driver does not exist");
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Driver driver = DriverFunctions.retrieveDriver(driverId);
         System.out.println("enter order id");
         String orderId = reader.next();
         System.out.println("enter place id");
         String placeId = reader.next();
+        try {
+            if (!PlaceFunctions.isExist(placeId)){
+                System.out.println("place does not exist");
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Place place = PlaceFunctions.retrievePlace(placeId);
         System.out.println("enter destination:");
         String firstDest = reader.next();

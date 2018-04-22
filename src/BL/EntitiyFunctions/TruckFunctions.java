@@ -1,7 +1,10 @@
 package BL.EntitiyFunctions;
 
 import BL.Entities.Truck;
+import DAL.ErrorsHandler;
 import DAL.Trucks;
+
+import java.sql.SQLException;
 
 /**
  * Created by Naama on 21/04/2018.
@@ -20,5 +23,7 @@ public class TruckFunctions
         Trucks.removeTruck(id);
     }
 
-
+    public static boolean isExist(String id) throws Exception {
+        return ErrorsHandler.isTruckExist(id);
+    }
 }

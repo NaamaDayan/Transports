@@ -3,10 +3,7 @@ package DAL;
 
 import BL.Entities.Place;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 
 public class Places {
 
@@ -60,6 +57,8 @@ public class Places {
         }
         return null;
     }
+
+
 
     public static void updateAdressPlace(String placeId, String address){
         updateStringFieldPlace(placeId, address, "ADDRESS");

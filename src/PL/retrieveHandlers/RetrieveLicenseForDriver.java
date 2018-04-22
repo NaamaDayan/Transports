@@ -1,5 +1,6 @@
 package PL.retrieveHandlers;
 
+import BL.EntitiyFunctions.DriverFunctions;
 import BL.EntitiyFunctions.DriverLicenseFunctions;
 import PL.Functor;
 
@@ -17,6 +18,14 @@ public class RetrieveLicenseForDriver extends Functor{
     public void execute() {
         System.out.println("enter driver id");
         String id = reader.next();
+        try {
+            if (!DriverFunctions.isExist(id)){
+                System.out.println("driver does not exist");
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         List<String> licensesTypes = DriverLicenseFunctions.retrieveLicenses(id);
         System.out.println("licenses for driver "+id+" :");
         for (String license: licensesTypes)

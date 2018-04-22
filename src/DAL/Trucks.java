@@ -61,6 +61,8 @@ public class Trucks {
         return null;
     }
 
+
+
     public static void updateModelTruck(String id, String model){
         updateStringFieldTruck(id, model, "MODEL");
     }

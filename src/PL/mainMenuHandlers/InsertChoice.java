@@ -1,5 +1,6 @@
 package PL.mainMenuHandlers;
 
+import BL.EntitiyFunctions.TruckFunctions;
 import PL.Functor;
 import PL.Main;
 
@@ -47,4 +48,6 @@ public class InsertChoice extends Functor {
         }
         return funcsArr;
     }
+
+
 }

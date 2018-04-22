@@ -61,9 +61,9 @@ public class CreateTables {
         try (Statement stmt = conn.createStatement();) {
 
             String sql = "CREATE TABLE Licenses " +
-                    "(LICENSE_ID VARCHAR (9) NOT NULL," +
+                    "(ID VARCHAR (9) NOT NULL," +
                     " TRUCK_MODEL  TEXT, FOREIGN KEY(TRUCK_MODEL) REFERENCES Trucks(MODEL)" +
-                    "PRIMARY KEY (LICENSE_TYPE))";
+                    "PRIMARY KEY (ID))";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -89,7 +89,7 @@ public class CreateTables {
         try (Statement stmt = conn.createStatement();) {
 
             String sql = "CREATE TABLE Places " +
-                    "(PLACE_ID VARCHAR (9) PRIMARY KEY NOT NULL," +
+                    "(ID VARCHAR (9) PRIMARY KEY NOT NULL," +
                     "ADDRESS TEXT NOT NULL ," +
                     "PHONE_NUMBER TEXT, " +
                     "CONTACT_NAME TEXT)";
@@ -103,7 +103,7 @@ public class CreateTables {
         try (Statement stmt = conn.createStatement();) {
 
             String sql = "CREATE TABLE Deliveries " +
-                    "(DELIVERY_ID VARCHAR (9) PRIMARY KEY NOT NULL," +
+                    "(ID VARCHAR (9) PRIMARY KEY NOT NULL," +
                     "LEAVING_DATE DATETIME NOT NULL, " +
                     "LEAVING_HOUR DATETIME NOT NULL, " +
                     "ORDER_NUMBER VARCHAR (9) NOT NULL, " +
@@ -112,7 +112,7 @@ public class CreateTables {
                     "SOURCE_ID VARCHAR(9) ,"+
                     "FOREIGN KEY(TRUCK_ID) REFERENCES Trucks(ID),"+
                     "FOREIGN KEY(DRIVER_ID) REFERENCES Drivers(ID),"+
-                    "FOREIGN KEY(SOURCE_ID) REFERENCES Places(PLACE_ID))";
+                    "FOREIGN KEY(SOURCE_ID) REFERENCES Places(ID))";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -126,8 +126,8 @@ public class CreateTables {
             String sql = "CREATE TABLE DeliveryDestinations " +
                     "(DELIVERY_ID VARCHAR (9), " +
                     "PLACE_ID VARCHAR (9),"+
-                    "FOREIGN KEY(PLACE_ID) REFERENCES Places(PLACE_ID)," +
-                    "FOREIGN KEY(DELIVERY_ID) REFERENCES Deliveries(DELIVERY_ID),"+
+                    "FOREIGN KEY(PLACE_ID) REFERENCES Places(ID)," +
+                    "FOREIGN KEY(DELIVERY_ID) REFERENCES Deliveries(ID),"+
                     "PRIMARY  KEY(DELIVERY_ID, PLACE_ID))";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {

@@ -19,4 +19,11 @@ public class LicenseTypeForTruck {
         return truckModel;
     }
 
+    @Override
+    public String toString() {
+        return "License {" +
+                "license Type='" + licenseType + '\'' +
+                ", truck Model='" + truckModel + '\'' +
+                '}';
+    }
 }

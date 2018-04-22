@@ -12,6 +12,14 @@ public class InsertTruck extends Functor {
     public void execute() {
         System.out.println("enter truck id");
         String truckId = reader.next();
+        try {
+            if (TruckFunctions.isExist(truckId)){
+                System.out.println("truck already exists");
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.out.println("enter truck model");
         String truckModel = reader.next();
         System.out.println("enter truck color");
@@ -24,4 +32,5 @@ public class InsertTruck extends Functor {
         TruckFunctions.insertTruck(t);
         System.out.println("Success!!!!");
     }
+
 }
