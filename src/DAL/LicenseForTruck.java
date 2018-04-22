@@ -29,7 +29,7 @@ public class LicenseForTruck {
     public static void removeLicense(String id){
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
             Class.forName("org.sqlite.JDBC");
-            String query = "DELETE FROM Licenses WHERE LICENSE_ID = ?";
+            String query = "DELETE FROM Licenses WHERE ID = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, id);
             stmt.executeUpdate();
