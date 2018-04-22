@@ -1,10 +1,7 @@
 package DAL;
 
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,7 +17,6 @@ public class DeliveryDestinations {
             stmt.executeUpdate();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
     }
 
@@ -34,25 +30,20 @@ public class DeliveryDestinations {
             stmt.executeUpdate();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
     }
 
-    public static boolean isDestExistInDelivery(String deliveryId, String destId) {
+    public static boolean isDestExistInDelivery(String deliveryId, String destId) throws SQLException, ClassNotFoundException {
         boolean ans = false;
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
-            String query = "SELECT * FROM DeliveryDestinations WHERE DELIVERY_ID = ? AND PLACE_ID = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, deliveryId);
-            stmt.setString(2, destId);
-            ResultSet rs = stmt.executeQuery();
-            ans = rs.isBeforeFirst();
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
-        return ans;
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
+        Class.forName("org.sqlite.JDBC");
+        String query = "SELECT * FROM DeliveryDestinations WHERE DELIVERY_ID = ? AND PLACE_ID = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, deliveryId);
+        stmt.setString(2, destId);
+        ResultSet rs = stmt.executeQuery();
+        conn.close();
+        return rs.isBeforeFirst();
     }
 
     //returns a list of all the delivery destinations
@@ -69,7 +60,6 @@ public class DeliveryDestinations {
             return destinations;
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
         return null;
     }

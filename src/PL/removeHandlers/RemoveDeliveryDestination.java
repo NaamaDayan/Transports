@@ -2,6 +2,7 @@ package PL.removeHandlers;
 import BL.EntitiyFunctions.DeliveryDestinationFunctions;
 import PL.Functor;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
@@ -17,6 +18,10 @@ public class RemoveDeliveryDestination extends Functor {
         String deliveryId = reader.next();
         System.out.println("enter destination id");
         String destId = reader.next();
-        DeliveryDestinationFunctions.removeDeliveryDetination(deliveryId, destId);
+        try {
+            DeliveryDestinationFunctions.removeDeliveryDestination(deliveryId, destId);
+        } catch (Exception e) {
+            System.out.println("remove failed");
+        }
     }
 }

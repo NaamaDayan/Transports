@@ -3,6 +3,8 @@ package BL.EntitiyFunctions;
 import BL.Entities.Delivery;
 import DAL.Deliveries;
 import DAL.DeliveryDestinations;
+
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -22,7 +24,7 @@ public class DeliveryDestinationFunctions {
         return Deliveries.retrieveDelivery(id);
     }
 
-    public static void removeDeliveryDetination(String deliveryId, String destId) {
+    public static void removeDeliveryDestination(String deliveryId, String destId) throws SQLException, ClassNotFoundException {
         if (DeliveryDestinations.isDestExistInDelivery(deliveryId, destId))
             DeliveryDestinations.removeDeliveryDestination(deliveryId, destId);
         else {
