@@ -3,6 +3,7 @@ package PL.updateHandlers;
 import BL.Entities.LicenseTypeForTruck;
 import BL.EntitiyFunctions.LicenseTypeForTruckFunctions;
 import PL.Functor;
+import PL.Utils;
 
 import java.util.Scanner;
 
@@ -18,16 +19,18 @@ public class UpdateLicense extends Functor {
         idToUpdate = reader.next();
         LicenseTypeForTruck l = null;
         try {
-            l = LicenseTypeForTruckFunctions.isLicenseExist(idToUpdate);
+            if (!LicenseTypeForTruckFunctions.isExist(idToUpdate)) {
+                System.out.println("error: ID doesn't exist");
+                return;
+            }
+            else {
+                l = LicenseTypeForTruckFunctions.retrieveLicenses(idToUpdate);
+            }
         } catch (Exception e) {
             System.out.println("error: update failed");
             return;
         }
-        if (l == null) {
-            System.out.println("error: ID doesn't exist");
-            return;
-        }
-        if (updateUtils.boolQuery("update truck model? y/n")) {
+        if (Utils.boolQuery("update truck model? y/n")) {
             System.out.println("enter truck model");
             newField = reader.next();
             l.setTruckModel(newField);

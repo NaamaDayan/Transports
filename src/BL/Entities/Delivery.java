@@ -76,4 +76,32 @@ public class Delivery {
     public List<Place> getDestinations() {
         return destinations;
     }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setHour(Time hour) {
+        this.hour = hour;
+    }
+
+    public void setTruck(Truck truck) {
+        this.truck = truck;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public void setSource(Place source) {
+        this.source = source;
+    }
+
+    public void setDestinations(List<Place> destinations) {
+        this.destinations = destinations;
+    }
 }

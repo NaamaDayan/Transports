@@ -3,6 +3,7 @@ package PL.updateHandlers;
 import BL.Entities.Truck;
 import BL.EntitiyFunctions.TruckFunctions;
 import PL.Functor;
+import PL.Utils;
 
 import java.util.Scanner;
 
@@ -17,33 +18,35 @@ public class UpdateTruck extends Functor {
         int newNumericField;
         System.out.println("enter Truck's ID");
         idToUpdate = reader.next();
-        Truck t = null;
+        Truck t;
         try {
-            t = TruckFunctions.isTruckExist(idToUpdate);
+            if (!TruckFunctions.isExist(idToUpdate)) {
+                System.out.println("error: ID doesn't exist");
+                return;
+            }
+            else {
+                t = TruckFunctions.retrieveTruck(idToUpdate);
+            }
         } catch (Exception e) {
             System.out.println("error: update failed");
             return;
         }
-        if (t == null) {
-            System.out.println("error: ID doesn't exist");
-            return;
-        }
-        if (updateUtils.boolQuery("update model? y/n")) {
+        if (Utils.boolQuery("update model? y/n")) {
             System.out.println("enter model");
             newStringField = reader.next();
             t.setModel(newStringField);
         }
-        if (updateUtils.boolQuery("update color? y/n")) {
+        if (Utils.boolQuery("update color? y/n")) {
             System.out.println("enter color");
             newStringField = reader.next();
             t.setColor(newStringField);
         }
-        if (updateUtils.boolQuery("update neto weight? y/n")) {
+        if (Utils.boolQuery("update neto weight? y/n")) {
             System.out.println("enter neto weight");
             newNumericField = reader.nextInt();
             t.setNetoWeight(newNumericField);
         }
-        if (updateUtils.boolQuery("update max weight? y/n")) {
+        if (Utils.boolQuery("update max weight? y/n")) {
             System.out.println("enter max weight");
             newNumericField = reader.nextInt();
             t.setMaxWeight(newNumericField);

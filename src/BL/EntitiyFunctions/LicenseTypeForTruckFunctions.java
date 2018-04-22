@@ -23,6 +23,7 @@ public class LicenseTypeForTruckFunctions {
     public static void removeLicense(String id){
         LicenseForTruck.removeLicense(id);
     }
+
     public static void updateLicense(LicenseTypeForTruck d) throws SQLException, ClassNotFoundException {
         LicenseForTruck.updateLicense(d);
     }
