@@ -2,11 +2,13 @@ package DAL;
 
 
 import BL.Entities.Delivery;
+import BL.Entities.Place;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Deliveries{
@@ -61,7 +63,11 @@ public class Deliveries{
             String driverId = rs.getString("DRIVER_ID");
             String sourceId = rs.getString("SOURCE_ID");
             List<String> dests = DeliveryDestinations.retrieveDeliveryDestination(id);
-            Delivery delivery = new Delivery(id, date, hour, truckId, driverId, orderId, sourceId, dests);
+            List<Place> destinations = new LinkedList<>();
+            for (String dest: dests){
+                destinations.add(Places.retrievePlace(dest));
+            }
+            Delivery delivery = new Delivery(id, date, hour, truckId, driverId, orderId, sourceId, destinations);
             conn.close();
             return delivery;
         } catch (Exception e) {

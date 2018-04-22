@@ -1,6 +1,7 @@
 package BL.EntitiyFunctions;
 
 import BL.Entities.Delivery;
+import BL.Entities.Place;
 import DAL.Deliveries;
 import DAL.DeliveryDestinations;
 import DAL.Trucks;
@@ -15,9 +16,9 @@ public class DeliveryFunctions {
     public static void insertDelivery(Delivery delivery) {
         Deliveries.insertDeivery(delivery.getId(), delivery.getDate(), delivery.getHour(),
                 delivery.getOrderId(), delivery.getTruckId(), delivery.getDriverId(), delivery.getSourceId());
-        List<String> dests = delivery.getDestinations();
-        for (String placeId: dests)
-            DeliveryDestinations.insertDeliveryDestination(delivery.getId(), placeId);
+        List<Place> dests = delivery.getDestinations();
+        for (Place place: dests)
+            DeliveryDestinations.insertDeliveryDestination(delivery.getId(), place.getId());
     }
 
     public static Delivery retrieveDelivery(String id){
