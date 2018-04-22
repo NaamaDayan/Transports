@@ -1,6 +1,8 @@
 package PL.updateHandlers;
 
 import BL.Entities.Delivery;
+import BL.Entities.Driver;
+import BL.Entities.Truck;
 import BL.EntitiyFunctions.DeliveryFunctions;
 import BL.EntitiyFunctions.DriverFunctions;
 import BL.EntitiyFunctions.PlaceFunctions;
@@ -24,6 +26,7 @@ public class UpdateDelivery extends Functor {
         System.out.println("enter delivery's ID");
         idToUpdate = reader.next();
         Delivery d;
+        Truck truck = null;
         try {
             if (!DeliveryFunctions.isExist(idToUpdate)) {
                 System.out.println("error: ID doesn't exist");
@@ -69,7 +72,8 @@ public class UpdateDelivery extends Functor {
                 System.out.println("error: insertion failed");
                 return;
             }
-            d.setTruck(TruckFunctions.retrieveTruck(truckId));
+            truck = TruckFunctions.retrieveTruck(truckId);
+            d.setTruck(truck);
         }
         if (Utils.boolQuery("update driver? y/n")) {
             System.out.println("enter driver id");
@@ -83,7 +87,12 @@ public class UpdateDelivery extends Functor {
                 System.out.println("error: insertion failed");
                 return;
             }
-            d.setDriver(DriverFunctions.retrieveDriver(driverId));
+            Driver driver = DriverFunctions.retrieveDriver(driverId);
+            if (!DeliveryFunctions.isDriverSuitableForTruck(driver, truck)){
+                System.out.println("driver cannot drive this truck!");
+                return;
+            }
+            d.setDriver(driver);
         }
         if (Utils.boolQuery("update source id? y/n")) {
             System.out.println("enter source id");

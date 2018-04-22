@@ -72,6 +72,10 @@ public class InsertDelivery extends Functor{
             return;
         }
         Driver driver = DriverFunctions.retrieveDriver(driverId);
+        if (!DeliveryFunctions.isDriverSuitableForTruck(driver, truck)){
+            System.out.println("driver cannot drive this truck!");
+            return;
+        }
         System.out.println("enter order id");
         String orderId = reader.next();
         System.out.println("enter place id");

@@ -134,5 +134,27 @@ public class Deliveries{
     }
 
 
+    public static boolean DoesDriverHaveLicense(String driverId, String truckModel){
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
+            Class.forName("org.sqlite.JDBC");
+            String query = "SELECT * FROM LicensesForDrivers JOIN Licenses " +
+                    "ON LicensesForDrivers.LICENSE_TYPE = Licenses.ID " +
+                    "WHERE DRIVER_ID = (?) AND TRUCK_MODEL = ?  ";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, driverId);
+            stmt.setString(2, truckModel);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                System.out.println(rs.getString("DRIVER_ID"));
+                System.out.println(rs.getString("TRUCK_MODEL"));
+            }
+            return rs.isBeforeFirst();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        return false;
+    }
+
+
 
 }
