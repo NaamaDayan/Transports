@@ -1,9 +1,8 @@
 package DAL;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import BL.Entities.LicenseTypeForTruck;
+
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class LicenseForTruck {
     public static void removeLicense(String id){
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
             Class.forName("org.sqlite.JDBC");
-            String query = "DELETE FROM Licenses WHERE LICENSE_ID = ?";
+            String query = "DELETE FROM Licenses WHERE ID = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, id);
             stmt.executeUpdate();
@@ -58,5 +57,36 @@ public class LicenseForTruck {
             System.exit(0);
         }
         return null;
+    }
+
+    public static void updateLicense(LicenseTypeForTruck l) throws SQLException, ClassNotFoundException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
+        Class.forName("org.sqlite.JDBC");
+        String query = "UPDATE License SET TRUCK_MODEL = ? WHERE LICENSE_ID = ?  ";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, l.getTruckModel());
+        stmt.setString(2, l.getLicenseType());
+        stmt.executeUpdate();
+        conn.close();
+    }
+
+    public static LicenseTypeForTruck isLicenseExist(String id) throws SQLException, ClassNotFoundException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
+        Class.forName("org.sqlite.JDBC");
+        String query = "SELECT * FROM License WHERE ID = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, id);
+        ResultSet rs = stmt.executeQuery();
+        LicenseTypeForTruck l = createLicense(rs);
+        conn.close();
+        return l;
+    }
+
+    public static LicenseTypeForTruck createLicense(ResultSet rs) throws SQLException {
+        if (!rs.isBeforeFirst()) //not exists
+            return null;
+        String id = rs.getString("LICENSE_ID");
+        String model = rs.getString("TRUCK_MODEL");
+        return new LicenseTypeForTruck(id, model);
     }
 }

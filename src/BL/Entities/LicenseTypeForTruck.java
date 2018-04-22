@@ -19,4 +19,7 @@ public class LicenseTypeForTruck {
         return truckModel;
     }
 
+    public void setTruckModel(String truckModel) {
+        this.truckModel = truckModel;
+    }
 }

@@ -54,7 +54,7 @@ public class Deliveries{
     public static Delivery retrieveDelivery(String id){
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
             Class.forName("org.sqlite.JDBC");
-            String query = "SELECT * FROM Deliveries WHERE DELIVERY_ID = (?)";
+            String query = "SELECT * FROM Deliveries WHERE ID = (?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, id);
             ResultSet rs = stmt.executeQuery();

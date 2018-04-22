@@ -2,10 +2,7 @@ package DAL;
 
 import BL.Entities.Driver;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 
 public class Drivers {
 
@@ -22,7 +19,6 @@ public class Drivers {
             conn.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
     }
 
@@ -36,7 +32,6 @@ public class Drivers {
             conn.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
     }
 
@@ -47,43 +42,47 @@ public class Drivers {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, id);
             ResultSet rs = stmt.executeQuery();
-            String firstName = rs.getString("FIRST_NAME");
-            String lastName = rs.getString("LAST_NAME");
-            String phoneNumber = rs.getString("PHONE_NUMBER");
-            Driver driver = new Driver(id, firstName, lastName, phoneNumber);
+            Driver driver = createDriver(rs);
             conn.close();
             return driver;
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
         return null;
     }
 
-    public static void updateDriverFirstName(String id, String field){
-        updateDriverField(id,field, "FIRST_NAME");
-    }
-    public static void updateDriverLastName(String id, String field){
-        updateDriverField(id,field, "LAST_NAME");
-    }
-    public static void updateDriverPhoneNumber(String id, String field){
-        updateDriverField(id,field, "PHONE_NUMBER");
-    }
-
-    //the parameter colomn is for firstName, lastName or phoneNumber only!
-    private static void updateDriverField(String id, String field, String colomn){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
+    public static void updateDriver(Driver d) throws SQLException, ClassNotFoundException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
             Class.forName("org.sqlite.JDBC");
-            String query = "UPDATE Driver SET ? = ? WHERE ID = ?  ";
+            String query = "UPDATE Driver SET FIRST_NAME = ?, LAST_NAME = ?, PHONE_NUMBER = ? WHERE ID = ?  ";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, colomn);
-            stmt.setString(2, field);
-            stmt.setString(3, id);
+            stmt.setString(1, d.getFirstName());
+            stmt.setString(2, d.getLastName());
+            stmt.setString(3, d.getPhoneNumber());
+            stmt.setString(3, d.getId());
             stmt.executeUpdate();
             conn.close();
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
+    }
+
+    public static Driver isDriverExist(String id) throws SQLException, ClassNotFoundException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
+        Class.forName("org.sqlite.JDBC");
+        String query = "SELECT * FROM Drivers WHERE ID = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, id);
+        ResultSet rs = stmt.executeQuery();
+        Driver driver = createDriver(rs);
+        conn.close();
+        return driver;
+    }
+
+    public static Driver createDriver(ResultSet rs) throws SQLException {
+        if (!rs.isBeforeFirst()) //not exists)
+            return null;
+        String id = rs.getString("ID");
+        String firstName = rs.getString("FIRST_NAME");
+        String lastName = rs.getString("LAST_NAME");
+        String phoneNumber = rs.getString("PHONE_NUMBER");
+        return new Driver(id, firstName, lastName, phoneNumber);
     }
 }

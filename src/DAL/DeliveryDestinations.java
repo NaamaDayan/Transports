@@ -34,7 +34,6 @@ public class DeliveryDestinations {
     }
 
     public static boolean isDestExistInDelivery(String deliveryId, String destId) throws SQLException, ClassNotFoundException {
-        boolean ans = false;
         Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
         Class.forName("org.sqlite.JDBC");
         String query = "SELECT * FROM DeliveryDestinations WHERE DELIVERY_ID = ? AND PLACE_ID = ?";
