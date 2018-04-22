@@ -106,7 +106,6 @@ public class CreateTables {
                     "(ID VARCHAR (9) PRIMARY KEY NOT NULL," +
                     "LEAVING_DATE DATETIME NOT NULL, " +
                     "LEAVING_TIME DATETIME NOT NULL, " +
-                    "ORDER_NUMBER VARCHAR (9) NOT NULL, " +
                     "TRUCK_ID VARCAR (9), " +
                     "DRIVER_ID VARCHAR (9), " +
                     "SOURCE_ID VARCHAR(9) ,"+
@@ -126,6 +125,7 @@ public class CreateTables {
             String sql = "CREATE TABLE DeliveryDestinations " +
                     "(DELIVERY_ID VARCHAR (9), " +
                     "PLACE_ID VARCHAR (9),"+
+                    "ORDER_NUMBER VARCHAR (9),"+
                     "FOREIGN KEY(PLACE_ID) REFERENCES Places(ID)," +
                     "FOREIGN KEY(DELIVERY_ID) REFERENCES Deliveries(ID),"+
                     "PRIMARY  KEY(DELIVERY_ID, PLACE_ID))";

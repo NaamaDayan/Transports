@@ -11,17 +11,15 @@ public class Delivery {
     private java.sql.Time hour;
     private Truck truck;
     private Driver driver;
-    private String orderId;
     private Place source;
-    private List<Place> destinations;
+    private List<DeliveryDestination> destinations;
 
-    public Delivery(String id, Date date, Time hour, Truck truckId, Driver driverId, String orderId, Place source, List<Place> destinations) {
+    public Delivery(String id, Date date, Time hour, Truck truckId, Driver driverId, Place source, List<DeliveryDestination> destinations) {
         this.id = id;
         this.date = date;
         this.hour = hour;
         this.truck= truckId;
         this.driver= driverId;
-        this.orderId = orderId;
         this.source = source;
         this.destinations = destinations;
     }
@@ -29,7 +27,7 @@ public class Delivery {
     @Override
     public String toString() {
         String dests = "{";
-        for (Place dest: destinations)
+        for (DeliveryDestination dest: destinations)
             dests= dests+ dest.toString()+ ", ";
         dests = dests.substring(0, dests.length()-2);
         dests += "}";
@@ -39,7 +37,6 @@ public class Delivery {
                 ", hour=" + hour +
                 ", truckId='" + truck.toString()+ '\'' +
                 ", driverId='" + driver.toString() + '\'' +
-                ", orderId='" + orderId + '\'' +
                 ", sourceId='" + source.toString() + '\'' +
                 ", destinations ='" + dests+ '\''+
                 '}';
@@ -65,15 +62,11 @@ public class Delivery {
         return driver;
     }
 
-    public String getOrderId() {
-        return orderId;
-    }
-
     public Place getSource() {
         return source;
     }
 
-    public List<Place> getDestinations() {
+    public List<DeliveryDestination> getDestinations() {
         return destinations;
     }
 
@@ -93,15 +86,11 @@ public class Delivery {
         this.driver = driver;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
     public void setSource(Place source) {
         this.source = source;
     }
 
-    public void setDestinations(List<Place> destinations) {
+    public void setDestinations(List<DeliveryDestination> destinations) {
         this.destinations = destinations;
     }
 }

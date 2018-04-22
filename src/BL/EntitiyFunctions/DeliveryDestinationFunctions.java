@@ -1,6 +1,7 @@
 package BL.EntitiyFunctions;
 
 import BL.Entities.Delivery;
+import BL.Entities.DeliveryDestination;
 import BL.Entities.Place;
 import DAL.Deliveries;
 import DAL.DeliveryDestinations;
@@ -21,4 +22,13 @@ public class DeliveryDestinationFunctions {
             return;
         }
     }
+
+    public static void insertDeliveryDestination(DeliveryDestination d){
+        DeliveryDestinations.insertDeliveryDestination(d.getDeliveryId(), d.getDestId(), d.getOrderNumber());
+    }
+
+    public static List<DeliveryDestination> retrieveDeliveryDestination(String deliveryId){
+        return DeliveryDestinations.retrieveDeliveryDestination(deliveryId);
+    }
+
 }
