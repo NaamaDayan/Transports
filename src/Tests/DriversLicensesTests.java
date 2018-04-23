@@ -1,5 +1,6 @@
 package Tests;
 
+import BL.Entities.LicenseTypeForTruck;
 import DAL.CreateTables;
 import DAL.Drivers;
 import DAL.DriversLicenses;
@@ -34,7 +35,7 @@ public class DriversLicensesTests {
         LicenseForTruck.insertLicense("13", "moishe");
         DriversLicenses.insertDriverLicense("123", "12");
         DriversLicenses.insertDriverLicense("123", "13");
-        List<String> licenses = DriversLicenses.retrieveDriverLicenses("123");
+        List<LicenseTypeForTruck> licenses = DriversLicenses.retrieveDriverLicenses("123");
         Assert.assertTrue(licenses.contains("12"));
         Assert.assertTrue(licenses.contains("13"));
 

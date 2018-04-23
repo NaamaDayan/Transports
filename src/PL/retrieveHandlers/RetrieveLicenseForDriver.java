@@ -1,5 +1,6 @@
 package PL.retrieveHandlers;
 
+import BL.Entities.LicenseTypeForTruck;
 import BL.EntitiyFunctions.DriverFunctions;
 import BL.EntitiyFunctions.DriverLicenseFunctions;
 import PL.Functor;
@@ -26,12 +27,12 @@ public class RetrieveLicenseForDriver extends Functor{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        List<String> licensesTypes = DriverLicenseFunctions.retrieveLicenses(id);
+        List<LicenseTypeForTruck> licensesTypes = DriverLicenseFunctions.retrieveLicenses(id);
         System.out.println("licenses' ids of driver "+id+":");
         if (licensesTypes.size() == 0)
             System.out.println("no licenses");
         else {
-            for (String license : licensesTypes)
+            for (LicenseTypeForTruck license : licensesTypes)
                 System.out.println(license + ", ");
         }
     }

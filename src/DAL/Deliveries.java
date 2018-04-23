@@ -67,7 +67,7 @@ public class Deliveries{
             Driver driver = Drivers.retrieveDriver(driverId);
             String sourceId = rs.getString("SOURCE_ID");
             Place source = Places.retrievePlace(sourceId);
-            List<DeliveryDestination> dests = DeliveryDestinations.retrieveDeliveryDestination(id);
+            List<DeliveryDestination> dests = DeliveryDestinations.retrieveDeliveryDestinations(id);
             Delivery delivery = new Delivery(id, date, hour, truck, driver, source, dests);
             conn.close();
             return delivery;

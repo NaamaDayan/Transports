@@ -1,24 +1,26 @@
 package BL.Entities;
 
+import DAL.LicenseForTruck;
+
 /**
  * Created by Naama on 21/04/2018.
  */
 public class DriverLicense {
 
     private String driverId;
-    private String licenseId;
+    private LicenseTypeForTruck license;
 
-    public DriverLicense(String driverId, String licenseId) {
-        this.driverId = driverId;
-        this.licenseId = licenseId;
+    public DriverLicense(String driver, LicenseTypeForTruck license) {
+        this.driverId = driver;
+        this.license = license;
     }
 
-    public String getDriverId() {
+    public String getDriver() {
         return driverId;
     }
 
-    public String getLicenseId() {
-        return licenseId;
+    public LicenseTypeForTruck getLicense() {
+        return license;
     }
 
 

@@ -9,6 +9,8 @@ import org.junit.runner.RunWith;
 import java.io.File;
 import java.sql.Date;
 import java.sql.Time;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 
 import static org.junit.Assert.*;
 
@@ -27,8 +29,10 @@ public class DeliveryDestinationsTests {
 
     @Test
     public void isDestExistInDelivery() throws Exception {
-        Date date = new Date(2012, 12, 12);
-        Time hour = new Time(23, 12,00);
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat hourformat = new SimpleDateFormat("h:mm");
+        Date date = new java.sql.Date(format.parse("12.12.2012", new ParsePosition(0)).getTime());
+        java.sql.Time hour = new java.sql.Time(new Time(hourformat.parse("14:12").getTime()).getTime());
         Trucks.insertTruck("12", "bla", "red", 123, 350);
         Drivers.insertDriver("12", "roni" ,"shtern", "0502242");
         Places.insertPlace("12", "yerushalmi", "03053", "noy");

@@ -1,7 +1,9 @@
 package DAL;
 
 
+import BL.Entities.Delivery;
 import BL.Entities.DeliveryDestination;
+import BL.Entities.Place;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -49,7 +51,7 @@ public class DeliveryDestinations {
     }
 
     //returns a list of all the delivery destinations
-    public static List<DeliveryDestination> retrieveDeliveryDestination(String deliveryId){
+    public static List<DeliveryDestination> retrieveDeliveryDestinations(String deliveryId){
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
             Class.forName("org.sqlite.JDBC");
             String query = "SELECT * FROM DeliveryDestinations WHERE DELIVERY_ID = (?) ";
@@ -59,8 +61,9 @@ public class DeliveryDestinations {
             List<DeliveryDestination> destinations = new LinkedList();
             while (rs.next()) {
                 String destId = rs.getString("PLACE_ID");
+                Place dest = Places.retrievePlace(destId);
                 String orderNum = rs.getString("ORDER_NUMBER");
-                DeliveryDestination deliveryDestination = new DeliveryDestination(deliveryId, destId, orderNum);
+                DeliveryDestination deliveryDestination = new DeliveryDestination(deliveryId, dest, orderNum);
                 destinations.add(deliveryDestination);
             }
             return destinations;

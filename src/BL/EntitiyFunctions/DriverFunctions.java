@@ -2,6 +2,7 @@ package BL.EntitiyFunctions;
 
 import BL.Entities.Driver;
 import BL.Entities.DriverLicense;
+import BL.Entities.LicenseTypeForTruck;
 import DAL.Drivers;
 import DAL.DriversLicenses;
 import DAL.ErrorsHandler;
@@ -28,9 +29,9 @@ public class DriverFunctions {
     public static void removeDriver(String id) throws SQLException, ClassNotFoundException {
         Driver d = Drivers.retrieveDriver(id);
         Drivers.removeDriver(id);
-        List<String> licenseList = DriversLicenses.retrieveDriverLicenses(id); //list of id's of licenses of driver
-        for (String s: licenseList) {
-            DriversLicenses.removeDriverLicense(id, s);
+        List<LicenseTypeForTruck> licenseList = DriversLicenses.retrieveDriverLicenses(id); //list of id's of licenses of driver
+        for (LicenseTypeForTruck license: licenseList) {
+            DriversLicenses.removeDriverLicense(id, license.getLicenseType());
         }
     }
 

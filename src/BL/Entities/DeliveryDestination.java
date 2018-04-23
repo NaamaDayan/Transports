@@ -6,21 +6,21 @@ package BL.Entities;
 public class DeliveryDestination {
 
     private String deliveryId;
-    private String destId;
+    private Place destination;
     private String orderNumber;
 
-    public DeliveryDestination(String deliveryId, String destId, String orderNumber) {
-        this.deliveryId = deliveryId;
-        this.destId = destId;
+    public DeliveryDestination(String delivery, Place destination, String orderNumber) {
+        this.deliveryId = delivery;
+        this.destination = destination;
         this.orderNumber = orderNumber;
     }
 
-    public String getDeliveryId() {
+    public String getDelivery() {
         return deliveryId;
     }
 
-    public String getDestId() {
-        return destId;
+    public Place getDestination() {
+        return destination;
     }
 
     public String getOrderNumber() {
@@ -30,8 +30,8 @@ public class DeliveryDestination {
     @Override
     public String toString() {
         return "DeliveryDestination{" +
-                "deliveryId ='" + deliveryId + '\'' +
-                ", destId ='" + destId + '\'' +
+                "delivery ='" + deliveryId + '\'' +
+                ", destination ='" + destination + '\'' +
                 ", orderNumber ='" + orderNumber + '\'' +
                 '}';
     }

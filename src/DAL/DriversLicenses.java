@@ -1,5 +1,8 @@
 package DAL;
 
+import BL.Entities.DriverLicense;
+import BL.Entities.LicenseTypeForTruck;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -40,16 +43,19 @@ public class DriversLicenses {
     }
 
     //returns a list of all the licenses of a driver
-    public static List<String> retrieveDriverLicenses(String driverId){
+    public static List<LicenseTypeForTruck> retrieveDriverLicenses(String driverId){
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
             Class.forName("org.sqlite.JDBC");
             String query = "SELECT * FROM LicensesForDrivers WHERE DRIVER_ID = (?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, driverId);
             ResultSet rs = stmt.executeQuery();
-            List<String> licenses = new LinkedList<>();
-            while(rs.next())
-                licenses.add(rs.getString("LICENSE_TYPE"));
+            List<LicenseTypeForTruck> licenses = new LinkedList<>();
+            while(rs.next()) {
+                String licenseType =rs.getString("LICENSE_TYPE");
+                LicenseTypeForTruck license = LicenseForTruck.retrieveLicense(licenseType);
+                licenses.add(license);
+            }
             conn.close();
             return licenses;
         } catch (Exception e) {

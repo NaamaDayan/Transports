@@ -4,7 +4,6 @@ import BL.Entities.*;
 import DAL.*;
 
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  * Created by Naama on 21/04/2018.
@@ -24,7 +23,7 @@ public class DeliveryFunctions {
         Delivery d = Deliveries.retrieveDelivery(id);
         Deliveries.removeDelivery(id);
         for (DeliveryDestination ds: d.getDestinations()) {
-            DeliveryDestinations.removeDeliveryDestination(ds.getDeliveryId(), ds.getDestId());
+            DeliveryDestinations.removeDeliveryDestination(ds.getDelivery(), ds.getDestination().getId());
         }
     }
 

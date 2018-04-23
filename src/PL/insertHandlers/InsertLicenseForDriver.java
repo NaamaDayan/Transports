@@ -1,5 +1,6 @@
 package PL.insertHandlers;
 
+import BL.Entities.LicenseTypeForTruck;
 import BL.EntitiyFunctions.DriverFunctions;
 import BL.EntitiyFunctions.DriverLicenseFunctions;
 import BL.EntitiyFunctions.LicenseTypeForTruckFunctions;
@@ -37,7 +38,8 @@ public class InsertLicenseForDriver extends Functor {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        DriverLicense driverLicense = new DriverLicense(driverId, licenseType);
+        LicenseTypeForTruck license = LicenseTypeForTruckFunctions.retrieveLicenses(licenseType);
+        DriverLicense driverLicense = new DriverLicense(driverId, license);
         DriverLicenseFunctions.insertDriverLicense(driverLicense);
         System.out.println("Success!!!!");
     }
