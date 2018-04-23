@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.File;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -15,19 +16,13 @@ import static org.junit.Assert.*;
  * Created by Naama on 23/04/2018.
  */
 
-public class DeliveryDestinationsTest {
+public class DeliveryDestinationsTests {
     @Before
     public void initDataBase(){
+        File file = new File ("transports.db");
+        if (file.exists())
+            file.delete();
         CreateTables.initDB();
-    }
-
-    @Test
-    public void insertDeliveryDestination() throws Exception {
-
-    }
-
-    @Test
-    public void removeDeliveryDestination() throws Exception {
     }
 
     @Test
@@ -43,11 +38,5 @@ public class DeliveryDestinationsTest {
         Assert.assertFalse(DeliveryDestinations.isDestExistInDelivery("123", "16"));
 
     }
-
-    @Test
-    public void retrieveDeliveryDestination() throws Exception {
-    }
-
-
 
 }

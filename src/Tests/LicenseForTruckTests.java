@@ -8,23 +8,20 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.File;
+
 import static org.junit.Assert.*;
 
 /**
  * Created by Naama on 23/04/2018.
  */
-public class LicenseForTruckTest {
+public class LicenseForTruckTests {
     @Before
     public void initDataBase(){
+        File file = new File ("transports.db");
+        if (file.exists())
+            file.delete();
         CreateTables.initDB();
-    }
-
-    @Test
-    public void insertLicense() throws Exception {
-    }
-
-    @Test
-    public void removeLicense() throws Exception {
     }
 
     @Test
@@ -33,19 +30,4 @@ public class LicenseForTruckTest {
         LicenseTypeForTruck returned = LicenseForTruck.retrieveLicense("123");
         Assert.assertEquals(returned.getTruckModel(), "mona");
     }
-
-    @Test
-    public void updateLicense() throws Exception {
-    }
-
-    @Test
-    public void isLicenseExist() throws Exception {
-    }
-
-    @Test
-    public void createLicense() throws Exception {
-    }
-
-
-
 }

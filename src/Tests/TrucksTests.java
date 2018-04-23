@@ -9,15 +9,20 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.File;
+
 import static org.junit.Assert.*;
 
 /**
  * Created by Naama on 22/04/2018.
  */
-public class TrucksTest {
+public class TrucksTests {
 
     @Before
     public void initDataBase(){
+        File file = new File ("transports.db");
+        if (file.exists())
+            file.delete();
         CreateTables.initDB();
     }
     @Test
@@ -38,10 +43,6 @@ public class TrucksTest {
 
     }
 
-    @Test
-    public void removeTruck() throws Exception {
-
-    }
 
     @Test
     public void retrieveTruck() throws Exception {
@@ -66,19 +67,5 @@ public class TrucksTest {
         Assert.assertEquals(truck.getNetoWeight(), 3200);
         Assert.assertEquals(truck.getMaxWeight(), 4000);
     }
-
-    @Test
-    public void updateColorTruck() throws Exception {
-    }
-
-    @Test
-    public void updateNetoWeightTruck() throws Exception {
-    }
-
-    @Test
-    public void updateMaxWeightTruck() throws Exception {
-    }
-
-
 
 }

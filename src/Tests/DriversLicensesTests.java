@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.File;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -17,19 +18,13 @@ import static org.junit.Assert.*;
 /**
  * Created by Naama on 23/04/2018.
  */
-public class DriversLicensesTest {
+public class DriversLicensesTests {
     @Before
     public void initDataBase(){
+        File file = new File ("transports.db");
+        if (file.exists())
+            file.delete();
         CreateTables.initDB();
-    }
-
-    @Test
-    public void insertDriverLicense() throws Exception {
-
-    }
-
-    @Test
-    public void removeDriverLicense() throws Exception {
     }
 
     @Test

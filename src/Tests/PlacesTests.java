@@ -10,14 +10,19 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.File;
+
 import static org.junit.Assert.*;
 
 /**
  * Created by Naama on 23/04/2018.
  */
-public class PlacesTest {
+public class PlacesTests {
     @Before
     public void initDataBase(){
+        File file = new File ("transports.db");
+        if (file.exists())
+            file.delete();
         CreateTables.initDB();
     }
 
@@ -33,10 +38,6 @@ public class PlacesTest {
         Assert.assertEquals(returned.getAddress(), address);
         Assert.assertEquals(returned.getPhoneNumber(), phoneNumber);
         Assert.assertEquals(returned.getContactName(), contactName);
-    }
-
-    @Test
-    public void removePlace() throws Exception {
     }
 
     @Test
@@ -60,16 +61,5 @@ public class PlacesTest {
         Assert.assertEquals(place.getPhoneNumber(), "242472472");
         Assert.assertEquals(place.getContactName(), "john");
     }
-
-    @Test
-    public void isPlaceExist() throws Exception {
-
-    }
-
-    @Test
-    public void createPlace() throws Exception {
-    }
-
-
 
 }

@@ -11,25 +11,21 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.File;
+
 import static org.junit.Assert.*;
 
 /**
  * Created by Naama on 23/04/2018.
  */
 
-public class DriversTest {
+public class DriversTests {
     @Before
     public void initDataBase(){
+        File file = new File ("transports.db");
+        if (file.exists())
+            file.delete();
         CreateTables.initDB();
-    }
-
-    @Test
-    public void insertDriver() throws Exception {
-    }
-
-    @Test
-    public void removeDriver() throws Exception {
-
     }
 
     @Test
@@ -61,15 +57,5 @@ public class DriversTest {
         Assert.assertEquals(driver.getLastName(), "yesh");
         Assert.assertEquals(driver.getPhoneNumber(), "346346");
     }
-
-    @Test
-    public void isDriverExist() throws Exception {
-    }
-
-    @Test
-    public void createDriver() throws Exception {
-    }
-
-
 
 }
