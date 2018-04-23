@@ -71,7 +71,7 @@ public class InsertDelivery extends Functor{
             System.out.println("driver cannot drive this truck!");
             return;
         }
-        System.out.println("enter place id");
+        System.out.println("enter source id");
         String placeId = reader.next();
         try {
             if (!PlaceFunctions.isExist(placeId)){

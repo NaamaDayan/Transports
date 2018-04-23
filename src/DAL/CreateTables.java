@@ -76,7 +76,7 @@ public class CreateTables {
             String sql = "CREATE TABLE LicensesForDrivers " +
                     "(DRIVER_ID VARCHAR (9)," +
                     "LICENSE_TYPE VARCHAR (9), "+
-                    "FOREIGN KEY (LICENSE_TYPE) REFERENCES Licenses(LICENSE_TYPE)," +
+                    "FOREIGN KEY (LICENSE_TYPE) REFERENCES Licenses(ID)," +
                     "FOREIGN KEY(DRIVER_ID) REFERENCES Drivers(ID),"+
                     "PRIMARY KEY (LICENSE_TYPE, DRIVER_ID))";
             stmt.executeUpdate(sql);
@@ -126,9 +126,9 @@ public class CreateTables {
                     "(DELIVERY_ID VARCHAR (9), " +
                     "PLACE_ID VARCHAR (9),"+
                     "ORDER_NUMBER VARCHAR (9),"+
+                    "PRIMARY KEY(DELIVERY_ID, PLACE_ID)," +
                     "FOREIGN KEY(PLACE_ID) REFERENCES Places(ID)," +
-                    "FOREIGN KEY(DELIVERY_ID) REFERENCES Deliveries(ID),"+
-                    "PRIMARY  KEY(DELIVERY_ID, PLACE_ID))";
+                    "FOREIGN KEY(DELIVERY_ID) REFERENCES Deliveries(ID))";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -37,6 +37,18 @@ public class ErrorsHandler {
         return rs.isBeforeFirst();
     }
 
+    public static boolean isDriverLicenseExist(String driverId, String licenseId) throws SQLException, ClassNotFoundException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
+        Class.forName("org.sqlite.JDBC");
+        String query  = "SELECT * FROM LicensesForDrivers WHERE DRIVER_ID = ? AND LICENSE_TYPE = ? ";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, driverId);
+        stmt.setString(2, licenseId);
+        ResultSet rs = stmt.executeQuery();
+        conn.close();
+        return rs.isBeforeFirst();
+    }
+
     public static boolean isEntityExist(String id,  String tableName) throws SQLException, ClassNotFoundException {
         Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
         Class.forName("org.sqlite.JDBC");

@@ -30,7 +30,7 @@ public class UpdatePlace extends Functor {
             return;
         }
         if (Utils.boolQuery("update address? y/n")) {
-            System.out.println("enter address");
+            System.out.println("enter address (one word)");
             newField = reader.next();
             p.setAddress(newField);
         }

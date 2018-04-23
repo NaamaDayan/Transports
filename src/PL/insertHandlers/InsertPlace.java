@@ -22,7 +22,7 @@ public class InsertPlace extends Functor {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("enter place address");
+        System.out.println("enter place address (one word)");
         String address = reader.next();
         System.out.println("enter place phone number");
         String phoneNumber = reader.next();

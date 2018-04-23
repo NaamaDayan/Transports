@@ -2,6 +2,7 @@ package BL.EntitiyFunctions;
 
 import BL.Entities.DriverLicense;
 import DAL.DriversLicenses;
+import DAL.ErrorsHandler;
 
 import java.util.List;
 
@@ -20,5 +21,9 @@ public class DriverLicenseFunctions {
 
     public static void removeLicenseOfDriver(String driverId ,String licenseId){
         DriversLicenses.removeDriverLicense(driverId, licenseId);
+    }
+
+    public static boolean isExist(String driverId, String licenseId) throws Exception {
+        return ErrorsHandler.isDriverLicenseExist(driverId, licenseId);
     }
 }

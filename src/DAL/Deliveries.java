@@ -24,28 +24,23 @@ public class Deliveries{
             conn.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
     }
 
-    public static void removeDelivery(String id){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
-            String query = "DELETE FROM Deliveries WHERE ID = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, id);
-            stmt.executeUpdate();
-            conn.close();
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
+    public static void removeDelivery(String id) throws ClassNotFoundException, SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
+        Class.forName("org.sqlite.JDBC");
+        String query = "DELETE FROM Deliveries WHERE ID = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, id);
+        stmt.executeUpdate();
+        conn.close();
     }
 
     public static void updateDelivery(Delivery d) throws SQLException, ClassNotFoundException {
         Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
         Class.forName("org.sqlite.JDBC");
-        String query = "UPDATE Delivery SET LEAVING_DATE = ?, LEAVING_TIME = ?, TRUCK_ID = ? DRIVER_ID = ?, SOURCE_ID = ? WHERE ID = ?  ";
+        String query = "UPDATE Deliveries SET LEAVING_DATE = ?, LEAVING_TIME = ?, TRUCK_ID = ? DRIVER_ID = ?, SOURCE_ID = ? WHERE ID = ?  ";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setDate(1, d.getDate());
         stmt.setTime(2, d.getHour());
@@ -78,7 +73,6 @@ public class Deliveries{
             return delivery;
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
         return null;
     }
@@ -93,10 +87,6 @@ public class Deliveries{
             stmt.setString(1, driverId);
             stmt.setString(2, truckModel);
             ResultSet rs = stmt.executeQuery();
-            while (rs.next()){
-                System.out.println(rs.getString("DRIVER_ID"));
-                System.out.println(rs.getString("TRUCK_MODEL"));
-            }
             return rs.isBeforeFirst();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());

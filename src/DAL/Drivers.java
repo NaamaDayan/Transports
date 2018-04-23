@@ -22,17 +22,14 @@ public class Drivers {
         }
     }
 
-    public static void removeDriver(String id){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
-            String query = "DELETE FROM Drivers WHERE ID = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, id);
-            stmt.executeUpdate();
-            conn.close();
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-        }
+    public static void removeDriver(String id) throws ClassNotFoundException, SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
+        Class.forName("org.sqlite.JDBC");
+        String query = "DELETE FROM Drivers WHERE ID = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, id);
+        stmt.executeUpdate();
+        conn.close();
     }
 
     public static Driver retrieveDriver(String id){

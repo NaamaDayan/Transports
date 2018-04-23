@@ -25,7 +25,7 @@ public class DriverFunctions {
         return Drivers.retrieveDriver(id);
     }
 
-    public static void removeDriver(String id){
+    public static void removeDriver(String id) throws SQLException, ClassNotFoundException {
         Driver d = Drivers.retrieveDriver(id);
         Drivers.removeDriver(id);
         List<String> licenseList = DriversLicenses.retrieveDriverLicenses(id); //list of id's of licenses of driver

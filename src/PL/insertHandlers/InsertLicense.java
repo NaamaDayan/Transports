@@ -15,7 +15,7 @@ public class InsertLicense extends Functor
 
     @Override
     public void execute() {
-        System.out.println("enter license type");
+        System.out.println("enter license id");
         String licenseType = reader.next();
         try {
             if (LicenseTypeForTruckFunctions.isExist(licenseType)){

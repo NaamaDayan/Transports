@@ -1,5 +1,7 @@
 package PL.removeHandlers;
+import BL.Entities.LicenseTypeForTruck;
 import BL.EntitiyFunctions.LicenseTypeForTruckFunctions;
+import DAL.LicenseForTruck;
 import PL.Functor;
 
 import java.util.Scanner;
@@ -15,6 +17,16 @@ public class RemoveLicense extends Functor {
     public void execute() {
        System.out.println("enter license id");
         String id = reader.next();
+        try {
+            if (!LicenseTypeForTruckFunctions.isExist(id)) {
+                System.out.println("error: License doesn't exist");
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println("error: remove failed");
+            return;
+        }
+
         LicenseTypeForTruckFunctions.removeLicense(id);
     }
 }
