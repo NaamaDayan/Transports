@@ -14,16 +14,13 @@ public class DeliveryFunctions {
     public static void insertDelivery(Delivery delivery) {
         Deliveries.insertDeivery(delivery.getId(), delivery.getDate(), delivery.getHour(),
                delivery.getTruck().getId(), delivery.getDriver().getId(), delivery.getSource().getId());
-        List<DeliveryDestination> dests = delivery.getDestinations();
-        for (DeliveryDestination place: dests)
-            DeliveryDestinations.insertDeliveryDestination(place.getDeliveryId(), place.getDestId(), place.getOrderNumber());
     }
 
     public static Delivery retrieveDelivery(String id){
         return Deliveries.retrieveDelivery(id);
     }
 
-    public static void removeDelivery(String id){
+    public static void removeDelivery(String id) throws SQLException, ClassNotFoundException {
         Delivery d = Deliveries.retrieveDelivery(id);
         Deliveries.removeDelivery(id);
         for (DeliveryDestination ds: d.getDestinations()) {

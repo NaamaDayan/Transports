@@ -26,4 +26,13 @@ public class DeliveryDestination {
     public String getOrderNumber() {
         return orderNumber;
     }
+
+    @Override
+    public String toString() {
+        return "DeliveryDestination{" +
+                "deliveryId ='" + deliveryId + '\'' +
+                ", destId ='" + destId + '\'' +
+                ", orderNumber ='" + orderNumber + '\'' +
+                '}';
+    }
 }

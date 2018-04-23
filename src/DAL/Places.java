@@ -21,7 +21,6 @@ public class Places {
             conn.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
     }
 
@@ -35,7 +34,6 @@ public class Places {
             conn.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
     }
 
@@ -51,7 +49,6 @@ public class Places {
             return place;
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
         return null;
     }
@@ -59,7 +56,7 @@ public class Places {
     public static void updatePlace(Place p) throws SQLException, ClassNotFoundException {
         Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
         Class.forName("org.sqlite.JDBC");
-        String query = "UPDATE Place SET ADDRESS = ?, PHONE_NUMBER = ?, CONTACT_NAME = ? WHERE PLACE_ID = ?  ";
+        String query = "UPDATE Places SET ADDRESS = ?, PHONE_NUMBER = ?, CONTACT_NAME = ? WHERE PLACE_ID = ?  ";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, p.getAddress());
         stmt.setString(2, p.getPhoneNumber());

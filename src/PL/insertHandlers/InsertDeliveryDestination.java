@@ -43,7 +43,7 @@ public class InsertDeliveryDestination extends Functor{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("insert order number:");
+        System.out.println("insert order number for this destination:");
         String order = reader.next();
         DeliveryDestination d = new DeliveryDestination(deliveryId, dest, order);
         DeliveryDestinationFunctions.insertDeliveryDestination(d);

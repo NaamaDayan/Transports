@@ -27,9 +27,12 @@ public class RetrieveLicenseForDriver extends Functor{
             e.printStackTrace();
         }
         List<String> licensesTypes = DriverLicenseFunctions.retrieveLicenses(id);
-        System.out.println("licenses for driver "+id+" :");
-        for (String license: licensesTypes)
-            System.out.println(license);
-        System.out.println("Success!!!!");
+        System.out.println("licenses' ids of driver "+id+":");
+        if (licensesTypes.size() == 0)
+            System.out.println("no licenses");
+        else {
+            for (String license : licensesTypes)
+                System.out.println(license + ", ");
+        }
     }
 }

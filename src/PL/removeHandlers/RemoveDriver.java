@@ -15,6 +15,15 @@ public class RemoveDriver extends Functor {
     public void execute() {
         System.out.println("enter driver id");
         String id = reader.next();
+        try {
+            if (!DriverFunctions.isExist(id)) {
+                System.out.println("error: driver doesn't exist");
+                return;
+            }
         DriverFunctions.removeDriver(id);
+        } catch (Exception e) {
+            System.out.println("error: remove failed");
+            return;
+        }
     }
 }

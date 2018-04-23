@@ -67,7 +67,7 @@ public class LicenseForTruck {
     public static void updateLicense(LicenseTypeForTruck l) throws SQLException, ClassNotFoundException {
         Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
         Class.forName("org.sqlite.JDBC");
-        String query = "UPDATE License SET TRUCK_MODEL = ? WHERE LICENSE_ID = ?  ";
+        String query = "UPDATE Licenses SET TRUCK_MODEL = ? WHERE LICENSE_ID = ?  ";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, l.getTruckModel());
         stmt.setString(2, l.getLicenseType());
