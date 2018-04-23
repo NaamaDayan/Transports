@@ -45,7 +45,8 @@ public class TrucksTest {
 
     @Test
     public void retrieveTruck() throws Exception {
-
+        Truck truck = Trucks.retrieveTruck("242728247247247247"); //does not exist
+        Assert.assertTrue(truck==null);
     }
 
     @Test
