@@ -9,8 +9,7 @@ import java.sql.*;
 public class Places {
 
     public static void insertPlace(String placeId, String address, String phoneNumber, String contactName){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "INSERT INTO Places VALUES (?, ?, ?, ?)  ";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, placeId);
@@ -25,8 +24,7 @@ public class Places {
     }
 
     public static void removePlace(String id){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "DELETE FROM Places WHERE ID = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, id);
@@ -38,8 +36,7 @@ public class Places {
     }
 
     public static Place retrievePlace(String id) {
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "SELECT * FROM Places WHERE ID= (?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, id);
@@ -54,8 +51,7 @@ public class Places {
     }
 
     public static void updatePlace(Place p) throws SQLException, ClassNotFoundException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
-        Class.forName("org.sqlite.JDBC");
+        Connection conn = Utils.openConnection();
         String query = "UPDATE Places SET ADDRESS = ?, PHONE_NUMBER = ?, CONTACT_NAME = ? WHERE ID = ?  ";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, p.getAddress());
@@ -67,8 +63,7 @@ public class Places {
     }
 
     public static Place isPlaceExist(String id) throws SQLException, ClassNotFoundException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
-        Class.forName("org.sqlite.JDBC");
+        Connection conn = Utils.openConnection();
         String query = "SELECT * FROM Place WHERE ID = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, id);

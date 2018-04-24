@@ -1,6 +1,7 @@
 package BL.EntitiyFunctions;
 
 import BL.Entities.LicenseTypeForTruck;
+import DAL.DriversLicenses;
 import DAL.ErrorsHandler;
 import DAL.LicenseForTruck;
 
@@ -21,7 +22,12 @@ public class LicenseTypeForTruckFunctions {
     }
 
     public static void removeLicense(String id){
+      //  LicenseTypeForTruck l = LicenseForTruck.retrieveLicense(id);
         LicenseForTruck.removeLicense(id);
+        /*List<LicenseTypeForTruck> licenseList = DriversLicenses.retrieveDriverLicenses(id); //list of id's of licenses of driver
+        for (LicenseTypeForTruck license: licenseList) {
+            DriversLicenses.removeDriverLicense(id, license.getLicenseType());
+        }*/
     }
 
     public static void updateLicense(LicenseTypeForTruck d) throws SQLException, ClassNotFoundException {

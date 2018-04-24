@@ -12,8 +12,7 @@ import java.util.List;
 public class DeliveryDestinations {
 
     public static void insertDeliveryDestination(String deliveryId, String destId, String orderNumber){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "INSERT INTO DeliveryDestinations VALUES (?, ?, ?)  ";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, deliveryId);
@@ -26,8 +25,7 @@ public class DeliveryDestinations {
     }
 
     public static void removeDeliveryDestination(String deliveryId, String destId){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "DELETE FROM  DeliveryDestinations WHERE DELIVERY_ID = ? AND PLACE_ID = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, deliveryId);
@@ -39,8 +37,7 @@ public class DeliveryDestinations {
     }
 
     public static boolean isDestExistInDelivery(String deliveryId, String destId) throws SQLException, ClassNotFoundException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
-        Class.forName("org.sqlite.JDBC");
+        Connection conn = Utils.openConnection();
         String query = "SELECT * FROM DeliveryDestinations WHERE DELIVERY_ID = ? AND PLACE_ID = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, deliveryId);
@@ -52,8 +49,7 @@ public class DeliveryDestinations {
 
     //returns a list of all the delivery destinations
     public static List<DeliveryDestination> retrieveDeliveryDestinations(String deliveryId){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "SELECT * FROM DeliveryDestinations WHERE DELIVERY_ID = (?) ";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, deliveryId);

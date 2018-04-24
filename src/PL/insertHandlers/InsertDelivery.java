@@ -83,17 +83,16 @@ public class InsertDelivery extends Functor{
             return;
         }
         Place place = PlaceFunctions.retrievePlace(placeId);
+        //insert the delivery
+        Delivery delivery = new Delivery(deliveryId, leavingDate, leavingHour, truck, driver, place, new LinkedList<>());
+        DeliveryFunctions.insertDelivery(delivery);
+
         String firstDest = InsertDeliveryDestination.insertDestination(deliveryId); //insert first dest
-        if (firstDest==null)
+        if (firstDest==null) //not existing place
             return;
         while (Utils.boolQuery("do you want to add destination? y/n")) {
             String dest = InsertDeliveryDestination.insertDestination(deliveryId);
+            if (dest == null) return;
         }
-        List dests = DeliveryDestinationFunctions.retrieveDeliveryDestination(deliveryId);
-
-        //TODO:: think maybe enter a place *name* and then look for it's identifier in the data base
-        Delivery delivery = new Delivery(deliveryId, leavingDate, leavingHour, truck, driver, place, dests);
-        DeliveryFunctions.insertDelivery(delivery);
-        System.out.println("Success!!!!");
     }
 }

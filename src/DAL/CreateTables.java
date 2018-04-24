@@ -62,7 +62,7 @@ public class CreateTables {
 
             String sql = "CREATE TABLE Licenses " +
                     "(ID VARCHAR (9) NOT NULL," +
-                    " TRUCK_MODEL  TEXT, FOREIGN KEY(TRUCK_MODEL) REFERENCES Trucks(MODEL)" +
+                    " TRUCK_MODEL  TEXT, /*, FOREIGN KEY(TRUCK_MODEL) REFERENCES Trucks(MODEL)*/" +
                     "PRIMARY KEY (ID))";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
@@ -76,8 +76,8 @@ public class CreateTables {
             String sql = "CREATE TABLE LicensesForDrivers " +
                     "(DRIVER_ID VARCHAR (9)," +
                     "LICENSE_TYPE VARCHAR (9), "+
-                    "FOREIGN KEY (LICENSE_TYPE) REFERENCES Licenses(ID)," +
-                    "FOREIGN KEY(DRIVER_ID) REFERENCES Drivers(ID),"+
+                    "FOREIGN KEY (LICENSE_TYPE) REFERENCES Licenses(ID) ON DELETE CASCADE," +
+                    "FOREIGN KEY(DRIVER_ID) REFERENCES Drivers(ID) ON DELETE CASCADE,"+
                     "PRIMARY KEY (LICENSE_TYPE, DRIVER_ID))";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
@@ -109,9 +109,9 @@ public class CreateTables {
                     "TRUCK_ID VARCAR (9), " +
                     "DRIVER_ID VARCHAR (9), " +
                     "SOURCE_ID VARCHAR(9) ,"+
-                    "FOREIGN KEY(TRUCK_ID) REFERENCES Trucks(ID),"+
-                    "FOREIGN KEY(DRIVER_ID) REFERENCES Drivers(ID),"+
-                    "FOREIGN KEY(SOURCE_ID) REFERENCES Places(ID))";
+                    "FOREIGN KEY(TRUCK_ID) REFERENCES Trucks(ID) ON DELETE CASCADE,"+
+                    "FOREIGN KEY(DRIVER_ID) REFERENCES Drivers(ID) ON DELETE CASCADE,"+
+                    "FOREIGN KEY(SOURCE_ID) REFERENCES Places(ID) ON DELETE CASCADE)";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -127,8 +127,8 @@ public class CreateTables {
                     "PLACE_ID VARCHAR (9),"+
                     "ORDER_NUMBER VARCHAR (9),"+
                     "PRIMARY KEY(DELIVERY_ID, PLACE_ID)," +
-                    "FOREIGN KEY(PLACE_ID) REFERENCES Places(ID)," +
-                    "FOREIGN KEY(DELIVERY_ID) REFERENCES Deliveries(ID))";
+                    "FOREIGN KEY(PLACE_ID) REFERENCES Places(ID) ON DELETE CASCADE," +
+                    "FOREIGN KEY(DELIVERY_ID) REFERENCES Deliveries(ID) ON DELETE CASCADE)";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();

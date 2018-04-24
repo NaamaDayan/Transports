@@ -26,8 +26,7 @@ public class ErrorsHandler {
     }
 
     public static boolean isDeliveryDestinationExist(String deliveryId, String destId) throws SQLException, ClassNotFoundException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
-        Class.forName("org.sqlite.JDBC");
+        Connection conn = Utils.openConnection();
         String query  = "SELECT * FROM DeliveryDestinations WHERE DELIVERY_ID = ? AND PLACE_ID = ? ";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, deliveryId);
@@ -38,8 +37,7 @@ public class ErrorsHandler {
     }
 
     public static boolean isDriverLicenseExist(String driverId, String licenseId) throws SQLException, ClassNotFoundException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
-        Class.forName("org.sqlite.JDBC");
+        Connection conn = Utils.openConnection();
         String query  = "SELECT * FROM LicensesForDrivers WHERE DRIVER_ID = ? AND LICENSE_TYPE = ? ";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, driverId);
@@ -50,8 +48,7 @@ public class ErrorsHandler {
     }
 
     public static boolean isEntityExist(String id,  String tableName) throws SQLException, ClassNotFoundException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
-        Class.forName("org.sqlite.JDBC");
+        Connection conn = Utils.openConnection();
         String query  = "SELECT * FROM " + tableName +" WHERE ID = ? ";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, id);

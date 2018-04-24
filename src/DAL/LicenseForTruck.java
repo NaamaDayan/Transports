@@ -18,8 +18,7 @@ import java.util.List;
 public class LicenseForTruck {
 
     public static void insertLicense(String truckModel, String licenseId){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "INSERT INTO Licenses VALUES (?, ?)  ";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, licenseId);
@@ -28,13 +27,11 @@ public class LicenseForTruck {
             conn.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
     }
 
     public static void removeLicense(String id){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "DELETE FROM Licenses WHERE ID = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, id);
@@ -42,31 +39,30 @@ public class LicenseForTruck {
             conn.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
     }
     //retrieves a list with all the licenses allowed for the given truck
     public static LicenseTypeForTruck retrieveLicense(String licenseId){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "SELECT * FROM Licenses WHERE ID = (?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, licenseId);
             ResultSet rs = stmt.executeQuery();
-            String model = rs.getString("TRUCK_MODEL");
-            LicenseTypeForTruck license = new LicenseTypeForTruck(licenseId, model);
+            LicenseTypeForTruck license = null;
+            if (rs.isBeforeFirst()) {
+                String model = rs.getString("TRUCK_MODEL");
+                license = new LicenseTypeForTruck(licenseId, model);
+            }
             conn.close();
             return license;
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
         return null;
     }
 
     public static void updateLicense(LicenseTypeForTruck l) throws SQLException, ClassNotFoundException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
-        Class.forName("org.sqlite.JDBC");
+        Connection conn = Utils.openConnection();
         String query = "UPDATE Licenses SET TRUCK_MODEL = ? WHERE ID = ?  ";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, l.getTruckModel());
@@ -76,8 +72,7 @@ public class LicenseForTruck {
     }
 
     public static LicenseTypeForTruck isLicenseExist(String id) throws SQLException, ClassNotFoundException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
-        Class.forName("org.sqlite.JDBC");
+        Connection conn = Utils.openConnection();
         String query = "SELECT * FROM License WHERE ID = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, id);

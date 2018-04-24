@@ -8,8 +8,7 @@ public class Trucks {
 
 
     public static void insertTruck(String id, String model, String color, int netoWeight, int maxWeight){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "INSERT INTO Trucks VALUES (?, ?, ? ,?,?)  ";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, id);
@@ -26,8 +25,7 @@ public class Trucks {
 
 
     public static void removeTruck(String id){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "DELETE FROM Trucks WHERE ID = (?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, id);
@@ -39,8 +37,7 @@ public class Trucks {
     }
 
     public static Truck retrieveTruck(String id){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "SELECT * FROM Trucks WHERE ID = (?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, id);
@@ -55,8 +52,7 @@ public class Trucks {
     }
 
     public static void updateTruck(Truck t) throws SQLException, ClassNotFoundException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
-        Class.forName("org.sqlite.JDBC");
+        Connection conn = Utils.openConnection();
         String query = "UPDATE Trucks SET MODEL = ?, COLOR = ?, NETO_WEIGHT = ?, MAX_WEIGHT = ? WHERE ID = ?  ";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, t.getModel());
@@ -69,8 +65,7 @@ public class Trucks {
     }
 
     public static Truck isTruckExist(String id) throws SQLException, ClassNotFoundException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
-        Class.forName("org.sqlite.JDBC");
+        Connection conn = Utils.openConnection();
         String query = "SELECT * FROM Trucks WHERE ID = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, id);

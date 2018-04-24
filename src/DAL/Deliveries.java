@@ -10,8 +10,7 @@ import java.util.List;
 public class Deliveries{
 
     public static void insertDeivery(String id, java.sql.Date date,java.sql.Time hour, String truckId, String driverId, String sourceId){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "INSERT INTO Deliveries VALUES (?,?,?,?,?,?)  ";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, id);
@@ -28,8 +27,7 @@ public class Deliveries{
     }
 
     public static void removeDelivery(String id) throws ClassNotFoundException, SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
-        Class.forName("org.sqlite.JDBC");
+        Connection conn = Utils.openConnection();
         String query = "DELETE FROM Deliveries WHERE ID = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, id);
@@ -38,8 +36,7 @@ public class Deliveries{
     }
 
     public static void updateDelivery(Delivery d) throws SQLException, ClassNotFoundException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
-        Class.forName("org.sqlite.JDBC");
+        Connection conn = Utils.openConnection();
         String query = "UPDATE Deliveries SET LEAVING_DATE = ?, LEAVING_TIME = ?, TRUCK_ID = ? DRIVER_ID = ?, SOURCE_ID = ? WHERE ID = ?  ";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setDate(1, d.getDate());
@@ -53,8 +50,7 @@ public class Deliveries{
     }
 
     public static Delivery retrieveDelivery(String id){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "SELECT * FROM Deliveries WHERE ID = (?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, id);
@@ -78,8 +74,7 @@ public class Deliveries{
     }
 
     public static boolean DoesDriverHaveLicense(String driverId, String truckModel){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "SELECT * FROM LicensesForDrivers JOIN Licenses " +
                     "ON LicensesForDrivers.LICENSE_TYPE = Licenses.ID " +
                     "WHERE DRIVER_ID = (?) AND TRUCK_MODEL = ?  ";

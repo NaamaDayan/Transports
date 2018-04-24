@@ -13,8 +13,7 @@ import java.util.List;
 public class DriversLicenses {
 
     public static void insertDriverLicense(String driverId, String licenseId){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "INSERT INTO LicensesForDrivers VALUES (?, ?)  ";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, driverId);
@@ -23,13 +22,11 @@ public class DriversLicenses {
             conn.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
     }
 
     public static void removeDriverLicense(String driverId ,String licenseId){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "DELETE FROM LicensesForDrivers WHERE DRIVER_ID = ? AND LICENSE_TYPE = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, driverId);
@@ -38,29 +35,30 @@ public class DriversLicenses {
             conn.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
     }
 
     //returns a list of all the licenses of a driver
     public static List<LicenseTypeForTruck> retrieveDriverLicenses(String driverId){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "SELECT * FROM LicensesForDrivers WHERE DRIVER_ID = (?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, driverId);
             ResultSet rs = stmt.executeQuery();
-            List<LicenseTypeForTruck> licenses = new LinkedList<>();
-            while(rs.next()) {
-                String licenseType =rs.getString("LICENSE_TYPE");
-                LicenseTypeForTruck license = LicenseForTruck.retrieveLicense(licenseType);
-                licenses.add(license);
+            List<LicenseTypeForTruck> licenses = null;
+            if (rs.isBeforeFirst()) {
+                licenses = new LinkedList<>();
+                while (rs.next()) {
+                    String licenseType = rs.getString("LICENSE_TYPE");
+                    LicenseTypeForTruck license = LicenseForTruck.retrieveLicense(licenseType);
+                    if (license != null)
+                        licenses.add(license);
+                }
             }
             conn.close();
             return licenses;
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
         }
         return null;
     }

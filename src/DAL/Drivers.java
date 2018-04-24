@@ -7,8 +7,7 @@ import java.sql.*;
 public class Drivers {
 
     public static void insertDriver(String id, String firstName, String lastName, String phoneNumber){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "INSERT INTO Drivers VALUES (?, ?, ? ,?)  ";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, id);
@@ -22,9 +21,8 @@ public class Drivers {
         }
     }
 
-    public static void removeDriver(String id) throws ClassNotFoundException, SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
-        Class.forName("org.sqlite.JDBC");
+    public static void removeDriver(String id) throws SQLException {
+        Connection conn = Utils.openConnection();
         String query = "DELETE FROM Drivers WHERE ID = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, id);
@@ -33,8 +31,7 @@ public class Drivers {
     }
 
     public static Driver retrieveDriver(String id){
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");) {
-            Class.forName("org.sqlite.JDBC");
+        try (Connection conn = Utils.openConnection()) {
             String query = "SELECT * FROM Drivers WHERE ID = (?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, id);
@@ -49,21 +46,19 @@ public class Drivers {
     }
 
     public static void updateDriver(Driver d) throws SQLException, ClassNotFoundException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
-            Class.forName("org.sqlite.JDBC");
-            String query = "UPDATE Drivers SET FIRST_NAME = ?, LAST_NAME = ?, PHONE_NUMBER = ? WHERE ID = ?  ";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, d.getFirstName());
-            stmt.setString(2, d.getLastName());
-            stmt.setString(3, d.getPhoneNumber());
-            stmt.setString(4, d.getId());
-            stmt.executeUpdate();
-            conn.close();
+        Connection conn = Utils.openConnection();
+        String query = "UPDATE Drivers SET FIRST_NAME = ?, LAST_NAME = ?, PHONE_NUMBER = ? WHERE ID = ?  ";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, d.getFirstName());
+        stmt.setString(2, d.getLastName());
+        stmt.setString(3, d.getPhoneNumber());
+        stmt.setString(4, d.getId());
+        stmt.executeUpdate();
+        conn.close();
     }
 
     public static Driver isDriverExist(String id) throws SQLException, ClassNotFoundException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
-        Class.forName("org.sqlite.JDBC");
+        Connection conn = Utils.openConnection();
         String query = "SELECT * FROM Drivers WHERE ID = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, id);

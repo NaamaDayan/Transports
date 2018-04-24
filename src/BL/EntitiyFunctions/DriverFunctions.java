@@ -27,12 +27,12 @@ public class DriverFunctions {
     }
 
     public static void removeDriver(String id) throws SQLException, ClassNotFoundException {
-        Driver d = Drivers.retrieveDriver(id);
+     //   Driver d = Drivers.retrieveDriver(id);
         Drivers.removeDriver(id);
-        List<LicenseTypeForTruck> licenseList = DriversLicenses.retrieveDriverLicenses(id); //list of id's of licenses of driver
+        /*List<LicenseTypeForTruck> licenseList = DriversLicenses.retrieveDriverLicenses(id); //list of id's of licenses of driver
         for (LicenseTypeForTruck license: licenseList) {
             DriversLicenses.removeDriverLicense(id, license.getLicenseType());
-        }
+        }*/
     }
 
     public static void updateDriver(Driver d) throws SQLException, ClassNotFoundException {

@@ -29,7 +29,7 @@ public class RetrieveLicenseForDriver extends Functor{
         }
         List<LicenseTypeForTruck> licensesTypes = DriverLicenseFunctions.retrieveLicenses(id);
         System.out.println("licenses' ids of driver "+id+":");
-        if (licensesTypes.size() == 0)
+        if (licensesTypes == null)
             System.out.println("no licenses");
         else {
             for (LicenseTypeForTruck license : licensesTypes)
