@@ -3,19 +3,21 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.*;
 import BL.Entities.Truck;
+import BL.Entities.TruckModel;
+import BL.EntitiyFunctions.ModelFunctions;
 
 public class Trucks {
 
 
-    public static void insertTruck(String id, String model, String color, int netoWeight, int maxWeight){
+    public static void insertTruck(Truck t){
         try (Connection conn = Utils.openConnection()) {
             String query = "INSERT INTO Trucks VALUES (?, ?, ? ,?,?)  ";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, id);
-            stmt.setString(2, model);
-            stmt.setString(3, color);
-            stmt.setInt(4, netoWeight);
-            stmt.setInt(5, maxWeight);
+            stmt.setString(1, t.getId());
+            stmt.setString(2, t.getModel().getId());
+            stmt.setString(3, t.getColor());
+            stmt.setInt(4, t.getNetoWeight());
+            stmt.setInt(5, t.getMaxWeight());
             stmt.executeUpdate();
             conn.close();
         } catch (Exception e) {
@@ -51,11 +53,11 @@ public class Trucks {
         return null;
     }
 
-    public static void updateTruck(Truck t) throws SQLException, ClassNotFoundException {
+    public static void updateTruck(Truck t) throws SQLException {
         Connection conn = Utils.openConnection();
         String query = "UPDATE Trucks SET MODEL = ?, COLOR = ?, NETO_WEIGHT = ?, MAX_WEIGHT = ? WHERE ID = ?  ";
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, t.getModel());
+        stmt.setString(1, t.getModel().getId());
         stmt.setString(2, t.getColor());
         stmt.setInt(3, t.getNetoWeight());
         stmt.setInt(4, t.getMaxWeight());
@@ -64,22 +66,13 @@ public class Trucks {
         conn.close();
     }
 
-    public static Truck isTruckExist(String id) throws SQLException, ClassNotFoundException {
-        Connection conn = Utils.openConnection();
-        String query = "SELECT * FROM Trucks WHERE ID = ?";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, id);
-        ResultSet rs = stmt.executeQuery();
-        Truck t = createTruck(rs);
-        conn.close();
-        return t;
-    }
-
     public static Truck createTruck(ResultSet rs) throws SQLException {
         if (!rs.isBeforeFirst()) //not exists
             return null;
         String id = rs.getString("ID");
-        String model = rs.getString("MODEL");
+        String modelId = rs.getString("MODEL");
+        TruckModel model = ModelFunctions.retrieveModel(modelId);//exists because otherwise, the Truck itself
+                                                                // wouldn't be existed
         String color = rs.getString("COLOR");
         int netoWeight = rs.getInt("NETO_WEIGHT");
         int maxWeight = rs.getInt("MAX_WEIGHT");

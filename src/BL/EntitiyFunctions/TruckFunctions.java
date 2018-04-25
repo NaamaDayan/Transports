@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class TruckFunctions
 {
     public static void insertTruck(Truck truck) {
-        Trucks.insertTruck(truck.getId(), truck.getModel(), truck.getColor(), truck.getNetoWeight(), truck.getMaxWeight());
+        Trucks.insertTruck(truck);
     }
 
     public static Truck retrieveTruck(String id){

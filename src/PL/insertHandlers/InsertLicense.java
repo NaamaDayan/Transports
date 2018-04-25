@@ -1,7 +1,9 @@
 package PL.insertHandlers;
 
 
+import BL.Entities.TruckModel;
 import BL.EntitiyFunctions.LicenseTypeForTruckFunctions;
+import BL.EntitiyFunctions.ModelFunctions;
 import PL.Functor;
 import BL.Entities.LicenseTypeForTruck;
 
@@ -9,8 +11,6 @@ import java.util.Scanner;
 
 public class InsertLicense extends Functor
 {
-
-
     static Scanner reader = new Scanner(System.in);
 
     @Override
@@ -22,12 +22,17 @@ public class InsertLicense extends Functor
                 System.out.println("license already exists");
                 return;
             }
+        System.out.println("enter truck model id");
+        String truckModel = reader.next();
+        TruckModel model = ModelFunctions.retrieveModel(truckModel);
+        if (model == null) {
+            System.out.println("model does't exist");
+            return;
+        }
+        LicenseTypeForTruck license = new LicenseTypeForTruck(licenseType, model);
+        LicenseTypeForTruckFunctions.insertLicense(license);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("enter truck model");
-        String truckModel = reader.next();
-        LicenseTypeForTruck license = new LicenseTypeForTruck(licenseType, truckModel);
-        LicenseTypeForTruckFunctions.insertLicense(license);
     }
 }

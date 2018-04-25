@@ -73,14 +73,14 @@ public class Deliveries{
         return null;
     }
 
-    public static boolean DoesDriverHaveLicense(String driverId, String truckModel){
+    public static boolean DoesDriverHaveLicense(String driverId, TruckModel truckModel){
         try (Connection conn = Utils.openConnection()) {
             String query = "SELECT * FROM LicensesForDrivers JOIN Licenses " +
                     "ON LicensesForDrivers.LICENSE_TYPE = Licenses.ID " +
                     "WHERE DRIVER_ID = (?) AND TRUCK_MODEL = ?  ";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, driverId);
-            stmt.setString(2, truckModel);
+            stmt.setString(2, truckModel.getId());
             ResultSet rs = stmt.executeQuery();
             return rs.isBeforeFirst();
         } catch (Exception e) {

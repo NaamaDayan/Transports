@@ -5,12 +5,12 @@ import DAL.Trucks;
 public class Truck {
 
     private String id;
-    private String model;
+    private TruckModel model;
     private String color;
     private int netoWeight;
     private int maxWeight;
 
-    public Truck(String id, String model, String color, int netoWeight, int maxWeight) {
+    public Truck(String id, TruckModel model, String color, int netoWeight, int maxWeight) {
         this.id = id;
         this.model = model;
         this.color = color;
@@ -33,7 +33,7 @@ public class Truck {
         return id;
     }
 
-    public String getModel() {
+    public TruckModel getModel() {
         return model;
     }
 
@@ -49,7 +49,7 @@ public class Truck {
         return maxWeight;
     }
 
-    public void setModel(String model) {
+    public void setModel(TruckModel model) {
         this.model = model;
     }
 

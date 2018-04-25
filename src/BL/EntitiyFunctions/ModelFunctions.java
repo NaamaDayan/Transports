@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class ModelFunctions {
 
     public static void insertModel(TruckModel model) throws SQLException {
-        Models.insertModel(model.getId(), model.getModelName());
+        Models.insertModel(model);
     }
 
     public static TruckModel retrieveModel(String id) throws SQLException {

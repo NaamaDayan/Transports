@@ -1,8 +1,10 @@
 package Tests;
 
 import BL.Entities.LicenseTypeForTruck;
+import BL.Entities.TruckModel;
 import DAL.CreateTables;
 import DAL.LicenseForTruck;
+import DAL.Models;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,8 +25,10 @@ public class LicenseForTruckTests {
 
     @Test
     public void retrieveLicense() throws Exception {
-        LicenseForTruck.insertLicense("mona", "123");
+        TruckModel m1 = new TruckModel("1", "mona");
+        Models.insertModel(m1);
+        LicenseForTruck.insertLicense(m1, "123");
         LicenseTypeForTruck returned = LicenseForTruck.retrieveLicense("123");
-        Assert.assertEquals(returned.getTruckModelId(), "mona");
+        Assert.assertEquals("1", returned.getTruckModel().getId());
     }
 }

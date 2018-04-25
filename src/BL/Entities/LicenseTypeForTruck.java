@@ -3,29 +3,29 @@ package BL.Entities;
 public class LicenseTypeForTruck {
 
     private String licenseType;
-    private String truckModelId;
+    private TruckModel truckModel;
 
-    public LicenseTypeForTruck(String licenseType, String truckModel) {
+    public LicenseTypeForTruck(String licenseType, TruckModel truckModel) {
         this.licenseType = licenseType;
-        this.truckModelId = truckModel;
+        this.truckModel = truckModel;
     }
 
     public String getLicenseType() {
         return licenseType;
     }
 
-    public String getTruckModelId() {
-        return truckModelId;
+    public TruckModel getTruckModel() {
+        return truckModel;
     }
 
     @Override
     public String toString() {
         return "License {" +
                 "license id='" + licenseType + '\'' +
-                ", truck Model='" + truckModelId + '\'' +
+                ", truck Model='" + truckModel + '\'' +
                 '}';
     }
-    public void setTruckModelId(String truckModelId) {
-        this.truckModelId = truckModelId;
+    public void setTruckModel(TruckModel truckModel) {
+        this.truckModel = truckModel;
     }
 }

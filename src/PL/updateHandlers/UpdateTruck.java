@@ -1,6 +1,8 @@
 package PL.updateHandlers;
 
 import BL.Entities.Truck;
+import BL.Entities.TruckModel;
+import BL.EntitiyFunctions.ModelFunctions;
 import BL.EntitiyFunctions.TruckFunctions;
 import PL.Functor;
 import PL.Utils;
@@ -27,31 +29,35 @@ public class UpdateTruck extends Functor {
             else {
                 t = TruckFunctions.retrieveTruck(idToUpdate);
             }
-        } catch (Exception e) {
-            System.out.println("error: update failed");
-            return;
-        }
-        if (Utils.boolQuery("update model? y/n")) {
-            System.out.println("enter model id");
-            newStringField = reader.next();
-            t.setModel(newStringField);
-        }
-        if (Utils.boolQuery("update color? y/n")) {
-            System.out.println("enter color");
-            newStringField = reader.next();
-            t.setColor(newStringField);
-        }
-        if (Utils.boolQuery("update neto weight? y/n")) {
-            System.out.println("enter neto weight");
-            newNumericField = reader.nextInt();
-            t.setNetoWeight(newNumericField);
-        }
-        if (Utils.boolQuery("update max weight? y/n")) {
-            System.out.println("enter max weight");
-            newNumericField = reader.nextInt();
-            t.setMaxWeight(newNumericField);
-        }
-        try {
+            if (Utils.boolQuery("update model? y/n")) {
+                System.out.println("enter truck model id");
+                newStringField = reader.next();
+                TruckModel model = ModelFunctions.retrieveModel(newStringField);
+                if (model == null) {
+                    System.out.println("model does't exist");
+                    return;
+                }
+                t.setModel(model);
+            }
+            if (Utils.boolQuery("update color? y/n")) {
+                System.out.println("enter color");
+                newStringField = reader.next();
+                t.setColor(newStringField);
+            }
+            if (Utils.boolQuery("update max weight? y/n")) {
+                System.out.println("enter max weight");
+                newNumericField = reader.nextInt();
+                t.setMaxWeight(newNumericField);
+            }
+            if (Utils.boolQuery("update neto weight? y/n")) {
+                System.out.println("enter neto weight");
+                newNumericField = reader.nextInt();
+                while (t.getMaxWeight() < newNumericField) {
+                    System.out.println("neto weight must be smaller or equal to max weight: " + t.getMaxWeight());
+                    newNumericField = reader.nextInt();
+                }
+                t.setNetoWeight(newNumericField);
+            }
             TruckFunctions.updateTruck(t);
         } catch (Exception e) {
             System.out.println("error: update failed");

@@ -1,7 +1,9 @@
 package PL.updateHandlers;
 
 import BL.Entities.LicenseTypeForTruck;
+import BL.Entities.TruckModel;
 import BL.EntitiyFunctions.LicenseTypeForTruckFunctions;
+import BL.EntitiyFunctions.ModelFunctions;
 import PL.Functor;
 import PL.Utils;
 
@@ -17,25 +19,23 @@ public class UpdateLicense extends Functor {
         String newField;
         System.out.println("enter License's ID");
         idToUpdate = reader.next();
-        LicenseTypeForTruck l = null;
+        LicenseTypeForTruck l;
         try {
             if (!LicenseTypeForTruckFunctions.isExist(idToUpdate)) {
                 System.out.println("error: ID doesn't exist");
                 return;
             }
-            else {
-                l = LicenseTypeForTruckFunctions.retrieveLicenses(idToUpdate);
+            l = LicenseTypeForTruckFunctions.retrieveLicenses(idToUpdate);
+            if (Utils.boolQuery("update truck model? y/n")) {
+                System.out.println("enter truck model id");
+                newField = reader.next();
+                TruckModel model = ModelFunctions.retrieveModel(newField);
+                if (model == null) {
+                    System.out.println("model does't exist");
+                    return;
+                }
+                l.setTruckModel(model);
             }
-        } catch (Exception e) {
-            System.out.println("error: update failed");
-            return;
-        }
-        if (Utils.boolQuery("update truck model? y/n")) {
-            System.out.println("enter truck model");
-            newField = reader.next();
-            l.setTruckModelId(newField);
-        }
-        try {
             LicenseTypeForTruckFunctions.updateLicense(l);
         } catch (Exception e) {
             System.out.println("error: update failed");

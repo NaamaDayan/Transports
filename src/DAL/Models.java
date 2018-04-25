@@ -1,6 +1,7 @@
 package DAL;
 
 
+import BL.Entities.Truck;
 import BL.Entities.TruckModel;
 
 import java.sql.Connection;
@@ -10,12 +11,12 @@ import java.sql.SQLException;
 
 public class Models {
 
-    public static void insertModel(String modelId, String name) throws SQLException {
+    public static void insertModel(TruckModel m) throws SQLException {
         Connection conn = Utils.openConnection();
         String query = "INSERT INTO Models VALUES (?,?)";
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, modelId);
-        stmt.setString(2, name);
+        stmt.setString(1, m.getId());
+        stmt.setString(2, m.getModelName());
         stmt.executeUpdate();
         conn.close();
     }
@@ -35,6 +36,8 @@ public class Models {
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, id);
         ResultSet rs = stmt.executeQuery();
+        if (!rs.isBeforeFirst())
+            return null;
         TruckModel model = createModel(rs);
         conn.close();
         return model;
