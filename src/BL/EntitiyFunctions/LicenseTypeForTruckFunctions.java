@@ -1,12 +1,10 @@
 package BL.EntitiyFunctions;
 
 import BL.Entities.LicenseTypeForTruck;
-import DAL.DriversLicenses;
 import DAL.ErrorsHandler;
 import DAL.LicenseForTruck;
 
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  * Created by Naama on 21/04/2018.
@@ -14,7 +12,7 @@ import java.util.List;
 public class LicenseTypeForTruckFunctions {
 
     public static void insertLicense(LicenseTypeForTruck ltft){
-        LicenseForTruck.insertLicense(ltft.getTruckModel(), ltft.getLicenseType());
+        LicenseForTruck.insertLicense(ltft.getTruckModelId(), ltft.getLicenseType());
     }
 
     public static LicenseTypeForTruck retrieveLicenses(String truckModel){

@@ -1,8 +1,7 @@
 package DAL;
 
 
-import BL.Entities.Model;
-import BL.Entities.Place;
+import BL.Entities.TruckModel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,18 +29,18 @@ public class Models {
         conn.close();
     }
 
-    public static Model retrieveModel(String id) throws SQLException {
+    public static TruckModel retrieveModel(String id) throws SQLException {
         Connection conn = Utils.openConnection();
         String query = "SELECT * FROM Models WHERE ID= ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, id);
         ResultSet rs = stmt.executeQuery();
-        Model model = createModel(rs);
+        TruckModel model = createModel(rs);
         conn.close();
         return model;
     }
 
-    public static void updateModel(Model m) throws SQLException {
+    public static void updateModel(TruckModel m) throws SQLException {
         Connection conn = Utils.openConnection();
         String query = "UPDATE Models SET MODEL_NAME = ? WHERE ID = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
@@ -51,11 +50,11 @@ public class Models {
         conn.close();
     }
 
-    public static Model createModel(ResultSet rs) throws SQLException {
+    public static TruckModel createModel(ResultSet rs) throws SQLException {
         if (!rs.isBeforeFirst()) //not exists
             return null;
         String id = rs.getString("ID");
         String name = rs.getString("MODEL_NAME");
-        return new Model(id, name);
+        return new TruckModel(id, name);
     }
 }

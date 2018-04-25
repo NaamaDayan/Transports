@@ -6,11 +6,8 @@ import DAL.LicenseForTruck;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.io.File;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by Naama on 23/04/2018.
@@ -28,6 +25,6 @@ public class LicenseForTruckTests {
     public void retrieveLicense() throws Exception {
         LicenseForTruck.insertLicense("mona", "123");
         LicenseTypeForTruck returned = LicenseForTruck.retrieveLicense("123");
-        Assert.assertEquals(returned.getTruckModel(), "mona");
+        Assert.assertEquals(returned.getTruckModelId(), "mona");
     }
 }

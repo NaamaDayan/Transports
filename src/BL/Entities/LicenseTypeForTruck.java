@@ -1,32 +1,31 @@
 package BL.Entities;
-import DAL.LicenseForTruck;
 
 public class LicenseTypeForTruck {
 
     private String licenseType;
-    private String truckModel;
+    private String truckModelId;
 
     public LicenseTypeForTruck(String licenseType, String truckModel) {
         this.licenseType = licenseType;
-        this.truckModel = truckModel;
+        this.truckModelId = truckModel;
     }
 
     public String getLicenseType() {
         return licenseType;
     }
 
-    public String getTruckModel() {
-        return truckModel;
+    public String getTruckModelId() {
+        return truckModelId;
     }
 
     @Override
     public String toString() {
         return "License {" +
                 "license id='" + licenseType + '\'' +
-                ", truck Model='" + truckModel + '\'' +
+                ", truck Model='" + truckModelId + '\'' +
                 '}';
     }
-    public void setTruckModel(String truckModel) {
-        this.truckModel = truckModel;
+    public void setTruckModelId(String truckModelId) {
+        this.truckModelId = truckModelId;
     }
 }

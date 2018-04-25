@@ -3,14 +3,10 @@ package DAL;
 import BL.Entities.LicenseTypeForTruck;
 
 import java.sql.*;
-import BL.Entities.LicenseTypeForTruck;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by Naama on 20/04/2018.
@@ -65,7 +61,7 @@ public class LicenseForTruck {
         Connection conn = Utils.openConnection();
         String query = "UPDATE Licenses SET TRUCK_MODEL = ? WHERE ID = ?  ";
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, l.getTruckModel());
+        stmt.setString(1, l.getTruckModelId());
         stmt.setString(2, l.getLicenseType());
         stmt.executeUpdate();
         conn.close();

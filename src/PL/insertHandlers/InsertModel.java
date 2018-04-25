@@ -1,7 +1,7 @@
 package PL.insertHandlers;
 
 
-import BL.Entities.Model;
+import BL.Entities.TruckModel;
 import BL.EntitiyFunctions.ModelFunctions;
 import PL.Functor;
 
@@ -22,7 +22,7 @@ public class InsertModel extends Functor {
         }
         System.out.println("enter model name");
         String name = reader.next();
-        Model model = new Model(modelId, name);
+        TruckModel model = new TruckModel(modelId, name);
         ModelFunctions.insertModel(model);
     }catch (Exception e) {
         System.out.println("error: insert failed");

@@ -1,10 +1,10 @@
 package BL.Entities;
 
-public class Model {
+public class TruckModel {
     private String id;
     private String modelName;
 
-    public Model(String id, String modelName) {
+    public TruckModel(String id, String modelName) {
         this.id = id;
         this.modelName = modelName;
     }

@@ -1,6 +1,6 @@
 package BL.EntitiyFunctions;
 
-import BL.Entities.Model;
+import BL.Entities.TruckModel;
 import DAL.ErrorsHandler;
 import DAL.Models;
 
@@ -11,11 +11,11 @@ import java.sql.SQLException;
  */
 public class ModelFunctions {
 
-    public static void insertModel(Model model) throws SQLException {
+    public static void insertModel(TruckModel model) throws SQLException {
         Models.insertModel(model.getId(), model.getModelName());
     }
 
-    public static Model retrieveModel(String id) throws SQLException {
+    public static TruckModel retrieveModel(String id) throws SQLException {
         return Models.retrieveModel(id);
     }
 
@@ -23,7 +23,7 @@ public class ModelFunctions {
         Models.removeModel(id);
     }
 
-    public static void updateModel(Model m) throws SQLException, ClassNotFoundException {
+    public static void updateModel(TruckModel m) throws SQLException, ClassNotFoundException {
         Models.updateModel(m);
     }
 

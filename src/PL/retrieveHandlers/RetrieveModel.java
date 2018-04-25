@@ -1,9 +1,7 @@
 package PL.retrieveHandlers;
 
-import BL.Entities.Model;
-import BL.Entities.Place;
+import BL.Entities.TruckModel;
 import BL.EntitiyFunctions.ModelFunctions;
-import BL.EntitiyFunctions.PlaceFunctions;
 import PL.Functor;
 
 import java.util.Scanner;
@@ -21,7 +19,7 @@ public class RetrieveModel extends Functor {
                 System.out.println("id does not exist");
                 return;
             }
-            Model model = ModelFunctions.retrieveModel(id);
+            TruckModel model = ModelFunctions.retrieveModel(id);
             System.out.println(model);
         } catch (Exception e) {
             e.printStackTrace();

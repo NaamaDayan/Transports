@@ -1,8 +1,7 @@
 package PL.updateHandlers;
 
-import BL.Entities.Model;
+import BL.Entities.TruckModel;
 import BL.EntitiyFunctions.ModelFunctions;
-import BL.EntitiyFunctions.PlaceFunctions;
 import PL.Functor;
 import PL.Utils;
 
@@ -17,7 +16,7 @@ public class UpdateModel extends Functor {
         String name;
         System.out.println("enter model ID");
         idToUpdate = reader.next();
-        Model model;
+        TruckModel model;
         try {
             model = ModelFunctions.retrieveModel(idToUpdate);
             if (model == null) {

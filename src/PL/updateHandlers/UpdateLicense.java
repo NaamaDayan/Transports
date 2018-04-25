@@ -33,7 +33,7 @@ public class UpdateLicense extends Functor {
         if (Utils.boolQuery("update truck model? y/n")) {
             System.out.println("enter truck model");
             newField = reader.next();
-            l.setTruckModel(newField);
+            l.setTruckModelId(newField);
         }
         try {
             LicenseTypeForTruckFunctions.updateLicense(l);

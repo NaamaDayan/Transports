@@ -1,7 +1,5 @@
 package PL.removeHandlers;
-import BL.Entities.Model;
 import BL.EntitiyFunctions.ModelFunctions;
-import BL.EntitiyFunctions.PlaceFunctions;
 import PL.Functor;
 
 import java.util.Scanner;
