@@ -1,28 +1,30 @@
 package PL.retrieveHandlers;
 
+import BL.Entities.Model;
 import BL.Entities.Place;
+import BL.EntitiyFunctions.ModelFunctions;
 import BL.EntitiyFunctions.PlaceFunctions;
 import PL.Functor;
 
 import java.util.Scanner;
 
-public class RetrievePlace extends Functor {
+public class RetrieveModel extends Functor {
 
     static Scanner reader = new Scanner(System.in);
 
     @Override
     public void execute() {
-        System.out.println("enter place id");
+        System.out.println("enter model id");
         String id = reader.next();
         try {
-            if (!PlaceFunctions.isExist(id)){
+            if (!ModelFunctions.isExist(id)) {
                 System.out.println("id does not exist");
                 return;
             }
+            Model model = ModelFunctions.retrieveModel(id);
+            System.out.println(model);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Place place = PlaceFunctions.retrievePlace(id);
-        System.out.println(place.toString());
     }
 }

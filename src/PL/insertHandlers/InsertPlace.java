@@ -30,7 +30,6 @@ public class InsertPlace extends Functor {
         String contactName = reader.next();
         Place place = new Place(placeId, address, phoneNumber, contactName);
         PlaceFunctions.insertPlace(place);
-        System.out.println("Success!!!!");
     }
 
 }

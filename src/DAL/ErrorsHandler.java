@@ -11,6 +11,10 @@ public class ErrorsHandler {
         return isEntityExist(id,  "Trucks");
     }
 
+    public static boolean isModelExist(String id) throws SQLException, ClassNotFoundException {
+        return isEntityExist(id, "Models");
+    }
+
     public static boolean isDriverExist(String id) throws SQLException, ClassNotFoundException {
         return isEntityExist(id,  "Drivers");
     }

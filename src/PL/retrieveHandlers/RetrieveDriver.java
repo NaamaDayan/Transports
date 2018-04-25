@@ -23,6 +23,5 @@ public class RetrieveDriver extends Functor {
         }
         Driver driver = DriverFunctions.retrieveDriver(id);
         System.out.println(driver.toString());
-        System.out.println("Success!!!!");
     }
 }

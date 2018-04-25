@@ -18,6 +18,7 @@ public class CreateTables {
 
     private static void createTable() throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:sqlite:transports.db");
+        createModelsTable(conn);
         createTrucksTable(conn);
         createDriversTable(conn);
         createLicensesTable(conn);
@@ -28,14 +29,26 @@ public class CreateTables {
         conn.close();
     }
 
+    private static void createModelsTable(Connection conn) {
+        try (Statement stmt = conn.createStatement();) {
+            String sql = "CREATE TABLE Models " +
+                    "(ID VARCHAR(9) PRIMARY KEY NOT NULL," +
+                    "MODEL_NAME     TEXT    NOT NULL)";
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void createTrucksTable(Connection conn) {
         try (Statement stmt = conn.createStatement();) {
             String sql = "CREATE TABLE Trucks " +
                     "(ID VARCHAR(9) PRIMARY KEY NOT NULL," +
-                    " MODEL           TEXT    NOT NULL, " +
+                    "MODEL           VARCHAR(9)    NOT NULL, " +
                     " COLOR           TEXT    NOT NULL, " +
                     "NETO_WEIGHT         INT, " +
-                    "MAX_WEIGHT         INT)";
+                    "MAX_WEIGHT         INT, " +
+                    "FOREIGN KEY (MODEL) REFERENCES Models(ID) ON DELETE CASCADE)";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -62,8 +75,9 @@ public class CreateTables {
 
             String sql = "CREATE TABLE Licenses " +
                     "(ID VARCHAR (9) NOT NULL," +
-                    " TRUCK_MODEL  TEXT, /*, FOREIGN KEY(TRUCK_MODEL) REFERENCES Trucks(MODEL)*/" +
-                    "PRIMARY KEY (ID))";
+                    " TRUCK_MODEL  VARCHAR (9), " +
+                    "PRIMARY KEY (ID)" +
+                    "FOREIGN KEY (TRUCK_MODEL) REFERENCES Models(ID) ON DELETE CASCADE)";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();

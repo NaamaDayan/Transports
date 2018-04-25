@@ -32,7 +32,7 @@ public class UpdateTruck extends Functor {
             return;
         }
         if (Utils.boolQuery("update model? y/n")) {
-            System.out.println("enter model");
+            System.out.println("enter model id");
             newStringField = reader.next();
             t.setModel(newStringField);
         }

@@ -62,17 +62,6 @@ public class Places {
         conn.close();
     }
 
-    public static Place isPlaceExist(String id) throws SQLException, ClassNotFoundException {
-        Connection conn = Utils.openConnection();
-        String query = "SELECT * FROM Place WHERE ID = ?";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, id);
-        ResultSet rs = stmt.executeQuery();
-        Place place = createPlace(rs);
-        conn.close();
-        return place;
-    }
-
     public static Place createPlace(ResultSet rs) throws SQLException {
         if (!rs.isBeforeFirst()) //not exists
             return null;
