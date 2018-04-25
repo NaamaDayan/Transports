@@ -1,8 +1,11 @@
 package DAL;
 
 import BL.Entities.Driver;
+import BL.Entities.LicenseTypeForTruck;
 
 import java.sql.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Drivers {
 
@@ -75,7 +78,8 @@ public class Drivers {
         String firstName = rs.getString("FIRST_NAME");
         String lastName = rs.getString("LAST_NAME");
         String phoneNumber = rs.getString("PHONE_NUMBER");
-        return new Driver(id, firstName, lastName, phoneNumber);
+        List<LicenseTypeForTruck> licenses = DriversLicenses.retrieveDriverLicenses(id);
+        return new Driver(id, firstName, lastName, phoneNumber, licenses);
     }
 
 

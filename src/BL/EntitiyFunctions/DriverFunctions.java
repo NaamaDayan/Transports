@@ -1,17 +1,10 @@
 package BL.EntitiyFunctions;
 
 import BL.Entities.Driver;
-import BL.Entities.DriverLicense;
-import BL.Entities.LicenseTypeForTruck;
 import DAL.Drivers;
-import DAL.DriversLicenses;
 import DAL.ErrorsHandler;
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
 import java.sql.SQLException;
-
-import java.sql.SQLException;
-import java.util.List;
 
 /**
  * Created by Naama on 21/04/2018.

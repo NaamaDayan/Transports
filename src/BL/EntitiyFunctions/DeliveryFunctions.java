@@ -23,7 +23,7 @@ public class DeliveryFunctions {
         Delivery d = Deliveries.retrieveDelivery(id);
         Deliveries.removeDelivery(id);
         for (DeliveryDestination ds: d.getDestinations()) {
-            DeliveryDestinations.removeDeliveryDestination(ds.getDelivery(), ds.getDestination().getId());
+            DeliveryDestinations.removeDeliveryDestination(id, ds.getDestination().getId());
         }
     }
 
