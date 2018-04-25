@@ -5,11 +5,11 @@ package BL.Entities;
  */
 public class DeliveryDestination {
     private Place destination;
-    private String orderNumber;
+    private Order order;
 
-    public DeliveryDestination(Place destination, String orderNumber) {
+    public DeliveryDestination(Place destination, Order order) {
         this.destination = destination;
-        this.orderNumber = orderNumber;
+        this.order = order;
     }
 
 
@@ -17,15 +17,15 @@ public class DeliveryDestination {
         return destination;
     }
 
-    public String getOrderNumber() {
-        return orderNumber;
+    public Order getOrder() {
+        return order;
     }
 
     @Override
     public String toString() {
-        return "DeliveryDestination{" +
-                ", destination ='" + destination + '\'' +
-                ", orderNumber ='" + orderNumber + '\'' +
+        return "Delivery Destination{" +
+                "destination ='" + destination + '\'' +
+                ", order ='" + order + '\'' +
                 '}';
     }
 }

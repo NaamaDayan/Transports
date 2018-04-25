@@ -3,22 +3,29 @@ package DAL;
 
 import BL.Entities.Delivery;
 import BL.Entities.DeliveryDestination;
+import BL.Entities.Order;
 import BL.Entities.Place;
 
 import java.sql.*;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class DeliveryDestinations {
 
-    public static void insertDeliveryDestination(String deliveryId, String destId, String orderNumber){
+    public static void insertDeliveryDestination(String deliveryId, String destId, Order order){
         try (Connection conn = Utils.openConnection()) {
-            String query = "INSERT INTO DeliveryDestinations VALUES (?, ?, ?)  ";
+            String query = "INSERT INTO DeliveryDestinations VALUES (?, ?, ?, ? ,?)  ";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, deliveryId);
             stmt.setString(2, destId);
-            stmt.setString(3, orderNumber);
-            stmt.executeUpdate();
+            stmt.setString(3, order.getOrderNumber());
+            for(Map.Entry entry : order.getItemquantities().entrySet()){
+                stmt.setString(4, (String)entry.getKey());
+                stmt.setInt(5, (Integer)entry.getValue());
+                stmt.executeUpdate();
+            }
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
@@ -55,12 +62,17 @@ public class DeliveryDestinations {
             stmt.setString(1, deliveryId);
             ResultSet rs = stmt.executeQuery();
             List<DeliveryDestination> destinations = new LinkedList();
+            List<String> places = new LinkedList<>();
             while (rs.next()) {
                 String destId = rs.getString("PLACE_ID");
-                Place dest = Places.retrievePlace(destId);
-                String orderNum = rs.getString("ORDER_NUMBER");
-                DeliveryDestination deliveryDestination = new DeliveryDestination(dest, orderNum);
-                destinations.add(deliveryDestination);
+                if (!places.contains(destId)) {
+                    places.add(destId);
+                    Place dest = Places.retrievePlace(destId);
+                    String orderNum = rs.getString("ORDER_NUMBER");
+                    Order order = Orders.retrieveOrder(deliveryId, destId, orderNum);
+                    DeliveryDestination deliveryDestination = new DeliveryDestination(dest, order);
+                    destinations.add(deliveryDestination);
+                }
             }
             return destinations;
         } catch (Exception e) {

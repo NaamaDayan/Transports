@@ -126,7 +126,9 @@ public class CreateTables {
                     "(DELIVERY_ID VARCHAR (9), " +
                     "PLACE_ID VARCHAR (9),"+
                     "ORDER_NUMBER VARCHAR (9),"+
-                    "PRIMARY KEY(DELIVERY_ID, PLACE_ID)," +
+                    "ITEM_ID TEXT,"+
+                    "QUANTITY INTEGER ,"+
+                    "PRIMARY KEY(DELIVERY_ID, PLACE_ID, ORDER_NUMBER, ITEM_ID)," +
                     "FOREIGN KEY(PLACE_ID) REFERENCES Places(ID) ON DELETE CASCADE," +
                     "FOREIGN KEY(DELIVERY_ID) REFERENCES Deliveries(ID) ON DELETE CASCADE)";
             stmt.executeUpdate(sql);
