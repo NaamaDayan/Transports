@@ -41,8 +41,8 @@ public class InsertLicenseForDriver extends Functor {
             e.printStackTrace();
         }
         LicenseTypeForTruck license = LicenseTypeForTruckFunctions.retrieveLicenses(licenseType);
-        DriverLicenseFunctions.insertDriverLicense(license, driverId);
-        System.out.println("Success!!!!");
+        DriverLicense driverLicense = new DriverLicense(driverId, license);
+        DriverLicenseFunctions.insertDriverLicense(driverLicense);
     }
 
 

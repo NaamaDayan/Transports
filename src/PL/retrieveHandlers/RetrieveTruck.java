@@ -23,6 +23,5 @@ public class RetrieveTruck extends Functor {
         }
         Truck truck = TruckFunctions.retrieveTruck(id);
         System.out.println(truck.toString());
-        System.out.println("Success!!!!");
     }
 }

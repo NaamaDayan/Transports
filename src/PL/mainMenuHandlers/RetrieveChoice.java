@@ -15,16 +15,17 @@ public class RetrieveChoice extends Functor {
         RetrieveLicense,
         RetrieveDelivery,
         RetrievePlace,
-        RetrieveLicenseForDriver
+        RetrieveLicenseForDriver,
+        RetrieveModel
     }
 
     @Override
     public void execute() throws ParseException {
         Functor retrieveFuncs[] = fillRetrieveFunctions();
-        System.out.println("Enter:\n 1 to retrieve Truck\n 2 to retrieve driver\n 3 to retrieve license\n 4 to retrieve delivery \n 5 to retrieve place\n 6 to retrieve license of driver\n 7 for main menu");
+        System.out.println("Enter:\n 1 to retrieve Truck\n 2 to retrieve driver\n 3 to retrieve license\n 4 to retrieve delivery \n 5 to retrieve place\n 6 to retrieve license of driver \n 7 to retrieve truck model\n 8 for main menu");
         int retrieveChoice = reader.nextInt();
-        retrieveChoice = Main.rangeCheck(1, 7, retrieveChoice);
-        if (retrieveChoice == 7)
+        retrieveChoice = Main.rangeCheck(1, 8, retrieveChoice);
+        if (retrieveChoice == 8)
             return;
         retrieveFuncs[retrieveChoice-1].execute();
     }

@@ -27,7 +27,6 @@ public class RetrieveLicense extends Functor{
         }
         LicenseTypeForTruck license = LicenseTypeForTruckFunctions.retrieveLicenses(id);
         System.out.println(license);
-        System.out.println("Success!!!!");
     }
 
 

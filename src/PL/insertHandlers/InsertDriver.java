@@ -31,6 +31,5 @@ public class InsertDriver extends Functor{
         String phoneNumber = reader.next();
         Driver driver = new Driver(driverId, firstName, lastName, phoneNumber, new LinkedList<>());
         DriverFunctions.insertDriver(driver);
-        System.out.println("Success!!!!");
     }
 }

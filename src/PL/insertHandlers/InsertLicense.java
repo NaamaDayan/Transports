@@ -29,6 +29,5 @@ public class InsertLicense extends Functor
         String truckModel = reader.next();
         LicenseTypeForTruck license = new LicenseTypeForTruck(licenseType, truckModel);
         LicenseTypeForTruckFunctions.insertLicense(license);
-        System.out.println("Success!!!!");
     }
 }
