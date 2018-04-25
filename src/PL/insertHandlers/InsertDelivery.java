@@ -36,7 +36,7 @@ public class InsertDelivery extends Functor{
         }
         System.out.println("enter date in format: 'dd.MM.yyyy' ");
         leavingDate = Utils.readDate(format);
-        System.out.println("enter hour in format: 'h:mm' ");
+        System.out.println("enter hour in format: 'hh:mm' ");
         try {
             leavingHour = Utils.readHour(Hourformat);
         } catch (ParseException e) {
@@ -90,7 +90,7 @@ public class InsertDelivery extends Functor{
         String firstDest = InsertDeliveryDestination.insertDestination(deliveryId); //insert first dest
         if (firstDest==null) //not existing place
             return;
-        while (Utils.boolQuery("do you want to add destination? y/n")) {
+        while (Utils.boolQuery("do you want to add another destination? y/n")) {
             String dest = InsertDeliveryDestination.insertDestination(deliveryId);
             if (dest == null) return;
         }

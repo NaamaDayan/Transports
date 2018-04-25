@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class UpdateDelivery extends Functor {
     static Scanner reader = new Scanner(System.in);
     private static SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-    private static SimpleDateFormat Hourformat = new SimpleDateFormat("h:mm");
+    private static SimpleDateFormat Hourformat = new SimpleDateFormat("hh:mm");
 
     @Override
     public void execute() {
