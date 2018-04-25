@@ -1,10 +1,8 @@
 package DAL;
 
-import BL.Entities.DriverLicense;
 import BL.Entities.LicenseTypeForTruck;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.LinkedList;

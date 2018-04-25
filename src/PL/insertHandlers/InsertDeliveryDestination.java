@@ -47,8 +47,8 @@ public class InsertDeliveryDestination extends Functor{
         Place destination = PlaceFunctions.retrievePlace(dest);
         System.out.println("insert order number for this destination:");
         String order = reader.next();
-        DeliveryDestination d = new DeliveryDestination(deliveryId, destination, order);
-        DeliveryDestinationFunctions.insertDeliveryDestination(d);
+        DeliveryDestination d = new DeliveryDestination(destination, order);
+        DeliveryDestinationFunctions.insertDeliveryDestination(d, deliveryId);
         return dest;
     }
 }

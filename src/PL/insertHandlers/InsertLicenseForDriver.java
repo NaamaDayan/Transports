@@ -5,7 +5,6 @@ import BL.EntitiyFunctions.DriverFunctions;
 import BL.EntitiyFunctions.DriverLicenseFunctions;
 import BL.EntitiyFunctions.LicenseTypeForTruckFunctions;
 import PL.Functor;
-import BL.Entities.DriverLicense;
 
 import java.util.Scanner;
 
@@ -31,16 +30,18 @@ public class InsertLicenseForDriver extends Functor {
         System.out.println("enter license id");
         String licenseType = reader.next();
         try {
-            if (!LicenseTypeForTruckFunctions.isExist(licenseType)){
+            if (!LicenseTypeForTruckFunctions.isExist(licenseType)) {
                 System.out.println("license does not exist");
+                return;
+            } else if (DriverLicenseFunctions.isExist(driverId, licenseType)){
+                System.out.println("driver already has this license");
                 return;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         LicenseTypeForTruck license = LicenseTypeForTruckFunctions.retrieveLicenses(licenseType);
-        DriverLicense driverLicense = new DriverLicense(driverId, license);
-        DriverLicenseFunctions.insertDriverLicense(driverLicense);
+        DriverLicenseFunctions.insertDriverLicense(license, driverId);
         System.out.println("Success!!!!");
     }
 

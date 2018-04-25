@@ -59,7 +59,7 @@ public class DeliveryDestinations {
                 String destId = rs.getString("PLACE_ID");
                 Place dest = Places.retrievePlace(destId);
                 String orderNum = rs.getString("ORDER_NUMBER");
-                DeliveryDestination deliveryDestination = new DeliveryDestination(deliveryId, dest, orderNum);
+                DeliveryDestination deliveryDestination = new DeliveryDestination(dest, orderNum);
                 destinations.add(deliveryDestination);
             }
             return destinations;

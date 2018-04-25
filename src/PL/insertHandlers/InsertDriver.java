@@ -4,6 +4,7 @@ package PL.insertHandlers;
 import BL.EntitiyFunctions.DriverFunctions;
 import PL.Functor;
 
+import java.util.LinkedList;
 import java.util.Scanner;
 import BL.Entities.Driver;
 
@@ -28,7 +29,7 @@ public class InsertDriver extends Functor{
         String lastName = reader.next();
         System.out.println("enter phone number");
         String phoneNumber = reader.next();
-        Driver driver = new Driver(driverId, firstName, lastName, phoneNumber);
+        Driver driver = new Driver(driverId, firstName, lastName, phoneNumber, new LinkedList<>());
         DriverFunctions.insertDriver(driver);
         System.out.println("Success!!!!");
     }

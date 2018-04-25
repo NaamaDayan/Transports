@@ -1,6 +1,5 @@
 package BL.EntitiyFunctions;
 
-import BL.Entities.DriverLicense;
 import BL.Entities.LicenseTypeForTruck;
 import DAL.DriversLicenses;
 import DAL.ErrorsHandler;
@@ -12,9 +11,8 @@ import java.util.List;
  */
 public class DriverLicenseFunctions {
 
-    public static void insertDriverLicense(DriverLicense dl){
-
-        DriversLicenses.insertDriverLicense(dl.getDriver(), dl.getLicense().getLicenseType());
+    public static void insertDriverLicense(LicenseTypeForTruck license, String driverId){
+        DriversLicenses.insertDriverLicense(driverId, license.getLicenseType());
     }
     public static List<LicenseTypeForTruck> retrieveLicenses(String driverId){
         return DriversLicenses.retrieveDriverLicenses(driverId);

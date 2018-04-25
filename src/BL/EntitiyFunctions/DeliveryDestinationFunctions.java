@@ -16,8 +16,8 @@ public class DeliveryDestinationFunctions {
         DeliveryDestinations.removeDeliveryDestination(deliveryId, destId);
     }
 
-    public static void insertDeliveryDestination(DeliveryDestination d){
-        DeliveryDestinations.insertDeliveryDestination(d.getDelivery(), d.getDestination().getId(), d.getOrderNumber());
+    public static void insertDeliveryDestination(DeliveryDestination d, String deliveryId){
+        DeliveryDestinations.insertDeliveryDestination(deliveryId, d.getDestination().getId(), d.getOrderNumber());
     }
 
     public static List<DeliveryDestination> retrieveDeliveryDestination(String deliveryId){

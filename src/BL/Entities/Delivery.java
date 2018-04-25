@@ -29,7 +29,8 @@ public class Delivery {
         String dests = "{";
         for (DeliveryDestination dest: destinations)
             dests= dests+ dest.toString()+ ", ";
-        dests = dests.substring(0, dests.length()-2);
+        if (dests.length()>1)
+            dests = dests.substring(0, dests.length()-2);
         dests += "}";
         return "Delivery{" +
                 "id='" + id + '\'' +
