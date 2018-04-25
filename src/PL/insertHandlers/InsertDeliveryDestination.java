@@ -1,14 +1,18 @@
 package PL.insertHandlers;
 
 import BL.Entities.DeliveryDestination;
+import BL.Entities.Order;
 import BL.Entities.Place;
 import BL.EntitiyFunctions.DeliveryDestinationFunctions;
 import BL.EntitiyFunctions.DeliveryFunctions;
 import BL.EntitiyFunctions.PlaceFunctions;
 import PL.Functor;
+import PL.Utils;
 
 import javax.swing.*;
 import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -45,10 +49,30 @@ public class InsertDeliveryDestination extends Functor{
             e.printStackTrace();
         }
         Place destination = PlaceFunctions.retrievePlace(dest);
-        System.out.println("insert order number for this destination:");
-        String order = reader.next();
+        Order order = getOrder();
         DeliveryDestination d = new DeliveryDestination(destination, order);
         DeliveryDestinationFunctions.insertDeliveryDestination(d, deliveryId);
         return dest;
     }
+
+    private static Order getOrder(){
+        System.out.println("insert order number for this destination:");
+        String orderNumber = reader.next();
+        Map<String, Integer> orderItems = new HashMap<>();
+        boolean hasFinished = false;
+        int i=1;
+        while (!hasFinished){
+            System.out.println("insert item number " +i +" name:");
+            String item = reader.next();
+            System.out.println("insert quantity:");
+            int quantity = reader.nextInt();
+            orderItems.put(item, quantity);
+            i++;
+
+            if (!Utils.boolQuery("do you want to add another item? y/n"))
+                hasFinished = true;
+        }
+        return new Order(orderNumber, orderItems);
+    }
+
 }

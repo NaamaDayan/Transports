@@ -1,5 +1,6 @@
 package Tests;
 import BL.Entities.DeliveryDestination;
+import BL.Entities.Order;
 import DAL.*;
 import org.junit.Assert;
 import org.junit.Before;
@@ -37,7 +38,7 @@ public class DeliveryDestinationsTests {
         Drivers.insertDriver("12", "roni" ,"shtern", "0502242");
         Places.insertPlace("12", "yerushalmi", "03053", "noy");
         Deliveries.insertDeivery("123",date, hour, "12", "12", "12");
-        DeliveryDestinations.insertDeliveryDestination("123", "12", "456");
+        DeliveryDestinations.insertDeliveryDestination("123", "12", null);
         Assert.assertTrue(DeliveryDestinations.isDestExistInDelivery("123", "12"));
         Assert.assertFalse(DeliveryDestinations.isDestExistInDelivery("123", "16"));
 
