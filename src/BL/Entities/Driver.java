@@ -10,7 +10,7 @@ public class Driver{
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private List<LicenseTypeForTruck> licenses;
+    private List<LicenseTypeForTruck> licenses = new LinkedList<>();
 
     public Driver(String id, String firstName, String lastName, String phoneNumber, List<LicenseTypeForTruck> licenses) {
         this.id = id;
@@ -22,12 +22,17 @@ public class Driver{
 
     @Override
     public String toString() {
-        String licensesString = "{";
-        for (LicenseTypeForTruck license: licenses)
-            licensesString= licensesString+ license.toString()+ ", ";
-        if (licensesString.length()>1)
-            licensesString = licensesString.substring(0, licensesString.length()-2);
-        licensesString += "}";
+        String licensesString;
+        if (licenses!=null) {
+             licensesString= "{";
+            for (LicenseTypeForTruck license : licenses)
+                licensesString = licensesString + license.toString() + ", ";
+            if (licensesString.length() > 1)
+                licensesString = licensesString.substring(0, licensesString.length() - 2);
+            licensesString += "}";
+        }
+        else
+            licensesString = "{}";
         return "Driver{" +
                 "id ='" + id + '\'' +
                 ", firstName ='" + firstName + '\'' +
