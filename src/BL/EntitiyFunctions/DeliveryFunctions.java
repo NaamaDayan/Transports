@@ -11,8 +11,8 @@ import java.sql.SQLException;
 public class DeliveryFunctions {
 
     public static void insertDelivery(Delivery delivery) {
-        Deliveries.insertDeivery(delivery.getId(), delivery.getDate(), delivery.getHour(),
-               delivery.getTruck().getId(), delivery.getDriver().getId(), delivery.getSource().getId());
+        Deliveries.insertDeivery(delivery.getId(), delivery.getLeavingDate(), delivery.getLeavingTime(),
+               delivery.getTruck().getId(), delivery.getDriver().getId(), delivery.getSourcePlace().getId());
     }
 
     public static Delivery retrieveDelivery(String id){

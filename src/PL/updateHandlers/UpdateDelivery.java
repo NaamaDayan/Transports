@@ -40,7 +40,7 @@ public class UpdateDelivery extends Functor {
         if (Utils.boolQuery("update leaving date? y/n")) {
             System.out.println("enter leaving date in format: 'dd.MM.yyyy'");
             java.sql.Date leavingDate = Utils.readDate(format);
-            d.setDate(leavingDate);
+            d.setLeavingDate(leavingDate);
         }
         if (Utils.boolQuery("update leaving time? y/n")) {
             System.out.println("enter leaving time");
@@ -51,7 +51,7 @@ public class UpdateDelivery extends Functor {
                 System.out.println("error: update failed");
                 return;
             }
-            d.setHour(leavingTime);
+            d.setLeavingTime(leavingTime);
         }
         if (Utils.boolQuery("update truck? y/n")) {
             System.out.println("enter the new truck's id");
@@ -99,7 +99,7 @@ public class UpdateDelivery extends Functor {
                 System.out.println("error: insertion failed");
                 return;
             }
-            d.setSource(PlaceFunctions.retrievePlace(sourceId));
+            d.setSourcePlace(PlaceFunctions.retrievePlace(sourceId));
         }
         int i = 0;
         boolean cont = true;

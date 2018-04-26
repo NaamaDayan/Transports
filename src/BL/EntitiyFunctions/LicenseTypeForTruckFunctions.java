@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class LicenseTypeForTruckFunctions {
 
     public static void insertLicense(LicenseTypeForTruck ltft){
-        LicenseForTruck.insertLicense(ltft.getTruckModel(), ltft.getLicenseType());
+        LicenseForTruck.insertLicense(ltft.getTruckModelId(), ltft.getLicenseType());
     }
 
     public static LicenseTypeForTruck retrieveLicenses(String truckModel){

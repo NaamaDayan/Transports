@@ -1,5 +1,4 @@
 package BL.Entities;
-import DAL.Deliveries;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -7,20 +6,20 @@ import java.util.List;
 
 public class Delivery {
     private String id;
-    private java.sql.Date date;
-    private java.sql.Time hour;
+    private java.sql.Date leavingDate;
+    private java.sql.Time leavingTime;
     private Truck truck;
     private Driver driver;
-    private Place source;
+    private Place sourcePlace;
     private List<DeliveryDestination> destinations;
 
     public Delivery(String id, Date date, Time hour, Truck truckId, Driver driverId, Place source, List<DeliveryDestination> destinations) {
         this.id = id;
-        this.date = date;
-        this.hour = hour;
+        this.leavingDate = date;
+        this.leavingTime = hour;
         this.truck= truckId;
         this.driver= driverId;
-        this.source = source;
+        this.sourcePlace = source;
         this.destinations = destinations;
     }
 
@@ -34,11 +33,11 @@ public class Delivery {
         dests += "}";
         return "Delivery{" +
                 "id='" + id + '\'' +
-                ", date=" + date +
-                ", hour=" + hour +
+                ", leavingDate=" + leavingDate +
+                ", leavingTime=" + leavingTime +
                 ", truckId='" + truck.toString()+ '\'' +
                 ", driverId='" + driver.toString() + '\'' +
-                ", sourceId='" + source.toString() + '\'' +
+                ", sourceId='" + sourcePlace.toString() + '\'' +
                 ", destinations ='" + dests+ '\''+
                 '}';
     }
@@ -47,12 +46,12 @@ public class Delivery {
         return id;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getLeavingDate() {
+        return leavingDate;
     }
 
-    public Time getHour() {
-        return hour;
+    public Time getLeavingTime() {
+        return leavingTime;
     }
 
     public Truck getTruck() {
@@ -63,20 +62,20 @@ public class Delivery {
         return driver;
     }
 
-    public Place getSource() {
-        return source;
+    public Place getSourcePlace() {
+        return sourcePlace;
     }
 
     public List<DeliveryDestination> getDestinations() {
         return destinations;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setLeavingDate(Date leavingDate) {
+        this.leavingDate = leavingDate;
     }
 
-    public void setHour(Time hour) {
-        this.hour = hour;
+    public void setLeavingTime(Time leavingTime) {
+        this.leavingTime = leavingTime;
     }
 
     public void setTruck(Truck truck) {
@@ -87,8 +86,8 @@ public class Delivery {
         this.driver = driver;
     }
 
-    public void setSource(Place source) {
-        this.source = source;
+    public void setSourcePlace(Place sourcePlace) {
+        this.sourcePlace = sourcePlace;
     }
 
     public void setDestinations(List<DeliveryDestination> destinations) {

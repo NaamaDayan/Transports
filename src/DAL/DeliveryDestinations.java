@@ -1,13 +1,11 @@
 package DAL;
 
 
-import BL.Entities.Delivery;
 import BL.Entities.DeliveryDestination;
 import BL.Entities.Order;
 import BL.Entities.Place;
 
 import java.sql.*;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +19,7 @@ public class DeliveryDestinations {
             stmt.setString(1, deliveryId);
             stmt.setString(2, destId);
             stmt.setString(3, order.getOrderNumber());
-            for(Map.Entry entry : order.getItemquantities().entrySet()){
+            for(Map.Entry entry : order.getItem_quantities().entrySet()){
                 stmt.setString(4, (String)entry.getKey());
                 stmt.setInt(5, (Integer)entry.getValue());
                 stmt.executeUpdate();

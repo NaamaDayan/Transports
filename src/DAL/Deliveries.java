@@ -39,11 +39,11 @@ public class Deliveries{
         Connection conn = Utils.openConnection();
         String query = "UPDATE Deliveries SET LEAVING_DATE = ?, LEAVING_TIME = ?, TRUCK_ID = ? DRIVER_ID = ?, SOURCE_ID = ? WHERE ID = ?  ";
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setDate(1, d.getDate());
-        stmt.setTime(2, d.getHour());
+        stmt.setDate(1, d.getLeavingDate());
+        stmt.setTime(2, d.getLeavingTime());
         stmt.setString(3, d.getTruck().getId());
         stmt.setString(4, d.getDriver().getId());
-        stmt.setString(5, d.getSource().getId());
+        stmt.setString(5, d.getSourcePlace().getId());
         stmt.setString(6, d.getId());
         stmt.executeUpdate();
         conn.close();

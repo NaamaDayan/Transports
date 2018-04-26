@@ -65,7 +65,7 @@ public class LicenseForTruck {
         Connection conn = Utils.openConnection();
         String query = "UPDATE Licenses SET TRUCK_MODEL = ? WHERE ID = ?  ";
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, l.getTruckModel().getId());
+        stmt.setString(1, l.getTruckModelId().getId());
         stmt.setString(2, l.getLicenseType());
         stmt.executeUpdate();
         conn.close();

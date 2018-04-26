@@ -34,7 +34,7 @@ public class UpdateLicense extends Functor {
                     System.out.println("model does't exist");
                     return;
                 }
-                l.setTruckModel(model);
+                l.setTruckModelId(model);
             }
             LicenseTypeForTruckFunctions.updateLicense(l);
         } catch (Exception e) {
