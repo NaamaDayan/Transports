@@ -29,6 +29,6 @@ public class LicenseForTruckTests {
         Models.insertModel(m1);
         LicenseForTruck.insertLicense(m1, "123");
         LicenseTypeForTruck returned = LicenseForTruck.retrieveLicense("123");
-        Assert.assertEquals("1", returned.getTruckModelId().getId());
+        Assert.assertEquals("1", returned.getTruckModel().getId());
     }
 }
