@@ -22,12 +22,17 @@ public class Driver{
 
     @Override
     public String toString() {
-        String licensesString = "{";
-        for (LicenseTypeForTruck license: licenses)
-            licensesString= licensesString+ license.toString()+ ", ";
-        if (licensesString.length()>1)
-            licensesString = licensesString.substring(0, licensesString.length()-2);
-        licensesString += "}";
+        String licensesString;
+        if (licenses!=null) {
+            licensesString= "{";
+            for (LicenseTypeForTruck license : licenses)
+                licensesString = licensesString + license.toString() + ", ";
+            if (licensesString.length() > 1)
+                licensesString = licensesString.substring(0, licensesString.length() - 2);
+            licensesString += "}";
+        }
+        else
+            licensesString = "{}";
         return "Driver{" +
                 "id ='" + id + '\'' +
                 ", firstName ='" + firstName + '\'' +
