@@ -78,21 +78,26 @@ public class InsertDelivery extends Functor{
                 System.out.println("place does not exist");
                 return;
             }
-        } catch (Exception e) {
-            System.out.println("error: insertion failed");
-            return;
-        }
         Place place = PlaceFunctions.retrievePlace(placeId);
         //insert the delivery
         Delivery delivery = new Delivery(deliveryId, leavingDate, leavingHour, truck, driver, place, new LinkedList<>());
         DeliveryFunctions.insertDelivery(delivery);
 
         String firstDest = InsertDeliveryDestination.insertDestination(deliveryId); //insert first dest
-        if (firstDest==null) //not existing place
+        if (firstDest==null) { //not existing place
+            DeliveryFunctions.removeDelivery(deliveryId);
             return;
+        }
         while (Utils.boolQuery("do you want to add another destination? y/n")) {
             String dest = InsertDeliveryDestination.insertDestination(deliveryId);
-            if (dest == null) return;
+            if (dest == null){
+                DeliveryFunctions.removeDelivery(deliveryId);
+                return;
+            }
+        }
+        } catch (Exception e) {
+            System.out.println("error: insertion failed");
+            return;
         }
     }
 }
